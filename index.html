@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hassan Murtada — Portfolio</title>
+    <meta name="description" content="Portfolio of Hassan Murtada — Robotics & Embedded Systems" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      // Tailwind dark mode via class
+      const userPref = localStorage.getItem('theme');
+      if (userPref === 'dark' || (!userPref && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
+    <style>
+      html { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
+      .prose a { text-decoration: underline; }
+      .glass { backdrop-filter: blur(10px); background: rgba(255,255,255,0.65); }
+      .glass-dark { backdrop-filter: blur(10px); background: rgba(17,24,39,0.65); }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+    <!-- Top Nav -->
+    <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-700/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <a href="#home" class="font-extrabold tracking-tight text-xl">Hassan<span class="text-indigo-600">.</span></a>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+          <a href="#about" class="hover:text-indigo-600">About</a>
+          <a href="#skills" class="hover:text-indigo-600">Skills</a>
+          <a href="#projects" class="hover:text-indigo-600">Projects</a>
+          <a href="#experience" class="hover:text-indigo-600">Experience</a>
+          <a href="#contact" class="hover:text-indigo-600">Contact</a>
+        </nav>
+        <div class="flex items-center gap-2">
+          <button id="themeBtn" class="rounded-full px-3 py-2 text-xs border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800">Toggle Theme</button>
+          <a href="#contact" class="hidden sm:inline-flex items-center rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2">Hire me</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="home" class="relative">
+      <div class="absolute inset-0 bg-gradient-to-b from-indigo-50 to-transparent dark:from-indigo-900/20 pointer-events-none"></div>
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-14 pb-10">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight">
+              Hassan <span class="text-indigo-600">Murtada</span>
+            </h1>
+            <p class="mt-4 text-lg text-slate-600 dark:text-slate-300">
+              Robotics & Embedded Systems Engineer — ROS 2, LiDAR‑IMU fusion, Computer Vision, Image Processing, some Matlab Control Systems experience and real‑time systems. Currently building mapping/localization and inspection tooling.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="#projects" class="rounded-full bg-indigo-600 text-white px-5 py-2.5 text-sm font-semibold hover:bg-indigo-700">See projects</a>
+              <a href="mailto:hassann.abdallawork@gmail.com" class="rounded-full border border-slate-300 dark:border-slate-700 px-5 py-2.5 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800">Email me</a>
+              <a href="https://github.com/hassannmurtada" target="_blank" class="rounded-full border border-slate-300 dark:border-slate-700 px-5 py-2.5 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800">GitHub</a>
+              <a href="#" class="rounded-full border border-slate-300 dark:border-slate-700 px-5 py-2.5 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800">Download CV</a>
+            </div>
+          </div>
+          <div class="relative">
+            <div class="aspect-square rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-lg">
+              <div class="h-full w-full bg-gradient-to-br from-indigo-500 via-sky-500 to-purple-500"></div>
+            </div>
+            <div class="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 rounded-xl px-4 py-2 text-xs glass dark:glass-dark border border-white/50 dark:border-slate-700/40 shadow">
+              <span class="font-semibold">Act → Step → Target → Update</span> · RL learning template
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-14">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-extrabold">About</h2>
+        <p class="mt-4 text-slate-600 dark:text-slate-300">
+          I’m a UTM Robocon programmer focused on sensor fusion and reliable, field‑ready software. I work with ROS 2, LiDARs (Livox/Ouster), IMUs, encoders, and cameras. I also deploy on NVIDIA Jetson platforms for on‑board vision and accelerated compute.
+        </p>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="py-6">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-extrabold">Skills</h2>
+        <ul class="mt-4 flex flex-wrap gap-2 text-sm">
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">C/C++</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">Python</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">ROS 2 (Humble)</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">LIO‑SAM</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">Livox/Ouster</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">EKF / Sensor Fusion</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">Modbus RTU/TCP</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">STM32 / ESP32</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">PCB Design</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">RL (DQN, PPO basics)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-14 bg-slate-100/60 dark:bg-slate-800/40">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between">
+          <h2 class="text-2xl font-extrabold">Projects</h2>
+          <a href="https://github.com/hassannmurtada?tab=repositories" target="_blank" class="text-sm hover:text-indigo-600">View all →</a>
+        </div>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Card template -->
+          <a href="https://github.com/yourusername/liovox-to-liosam" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
+            <div class="h-40 bg-gradient-to-br from-sky-400 to-indigo-600"></div>
+            <div class="p-4">
+              <h3 class="font-semibold group-hover:text-indigo-600">Livox → LIO‑SAM bridge</h3>
+              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Converts Livox point fields to LIO‑SAM friendly layout (x,y,z,intensity,ring,time) with per‑scan normalized timestamps.</p>
+              <div class="mt-3 text-xs text-slate-500">ROS 2 · C++/Python</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/yourusername/ros1-ros2-bridge-recipe" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
+            <div class="h-40 bg-gradient-to-br from-purple-400 to-fuchsia-600"></div>
+            <div class="p-4">
+              <h3 class="font-semibold group-hover:text-indigo-600">ROS1↔ROS2 Dynamic Bridge</h3>
+              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Battle‑tested env setup for bridging /odom and /imu/data across ROS1 and ROS2 with CycloneDDS/Fast‑DDS tips.</p>
+              <div class="mt-3 text-xs text-slate-500">ROS 1/2 · Bash</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/yourusername/fanuc-pmc-io-tool" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
+            <div class="h-40 bg-gradient-to-br from-emerald-400 to-teal-600"></div>
+            <div class="p-4">
+              <h3 class="font-semibold group-hover:text-indigo-600">FANUC PMC I/O Tester</h3>
+              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Python FOCAS2 tool to read/write PMC ranges, with safety watchdogs, debouncing and log capture to file.</p>
+              <div class="mt-3 text-xs text-slate-500">Python · Qt (PySide2)</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/yourusername/esp32-4layer-devkit" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
+            <div class="h-40 bg-gradient-to-br from-amber-400 to-orange-600"></div>
+            <div class="p-4">
+              <h3 class="font-semibold group-hover:text-indigo-600">ESP32 4‑Layer DevKit PCB</h3>
+              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Compact dev board with robust power tree and headers for sensors/BLDC drivers. Fabricated & bench‑tested.</p>
+              <div class="mt-3 text-xs text-slate-500">Altium/KiCad · Hardware</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/yourusername/robocon-ekf-localization" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
+            <div class="h-40 bg-gradient-to-br from-rose-400 to-red-600"></div>
+            <div class="p-4">
+              <h3 class="font-semibold group-hover:text-indigo-600">Robocon EKF Localization</h3>
+              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Two‑sensor EKF (encoders + laser) with obstruction handling and drift mitigation on a 15×8 m field.</p>
+              <div class="mt-3 text-xs text-slate-500">ROS 2 · C++/Python</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/yourusername/dancing-robot" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
+            <div class="h-40 bg-gradient-to-br from-slate-400 to-slate-700"></div>
+            <div class="p-4">
+              <h3 class="font-semibold group-hover:text-indigo-600">UPSI Gala Dancing Robot</h3>
+              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Motion control and choreography for gala performance; BLDC‑friendly command pipeline with PID tuning UI.</p>
+              <div class="mt-3 text-xs text-slate-500">Embedded · Control</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="py-14">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-extrabold">Experience & Education</h2>
+        <div class="mt-6 grid gap-6 md:grid-cols-2">
+          <div class="rounded-2xl p-5 border border-slate-200 dark:border-slate-700">
+            <h3 class="font-semibold">UTM Robocon — Senior Programmer</h3>
+            <p class="text-sm text-slate-500">2024–2025 · Johor, MY</p>
+            <ul class="mt-3 list-disc list-inside text-sm text-slate-700 dark:text-slate-300 space-y-1">
+              <li>Built localization pipelines and motion control for competition robots.</li>
+              <li>Integrated LiDAR, encoders, and IMU; tuned EKF and control loops.</li>
+              <li>Improved field reliability via soak‑testing and debounced inputs.</li>
+            </ul>
+          </div>
+          <div class="rounded-2xl p-5 border border-slate-200 dark:border-slate-700">
+            <h3 class="font-semibold">B.Eng. Electrical — Universiti Teknologi Malaysia</h3>
+            <p class="text-sm text-slate-500">Expected 2026</p>
+            <ul class="mt-3 list-disc list-inside text-sm text-slate-700 dark:text-slate-300 space-y-1">
+              <li>Focus: embedded systems, controls, robotics.</li>
+              <li>Projects: STM32 calculator (ASM), ESP32 dev kit, PLC lift control.</li>
+              <li>Competitive teams: Robocon, SAUVC.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-14">
+      <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <div class="rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+          <h2 class="text-2xl font-extrabold">Contact</h2>
+          <p class="mt-2 text-slate-600 dark:text-slate-300">Open to internships and collaborations. Best way to reach me is email.</p>
+          <div class="mt-4 grid gap-3 sm:grid-cols-2">
+            <a href="mailto:hassann.abdallawork@gmail.com" class="rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">hassann.abdallawork@gmail.com</a>
+            <a href="https://www.linkedin.com/in/your-link" target="_blank" class="rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">LinkedIn</a>
+            <a href="https://github.com/hassannmurtada" target="_blank" class="rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">GitHub</a>
+            <a href="#" class="rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Resume (PDF)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-sm text-slate-500 flex items-center justify-between">
+        <p>© <span id="year"></span> Hassan Murtada. All rights reserved.</p>
+        <div class="flex items-center gap-3">
+          <a href="#home" class="hover:text-indigo-600">Back to top ↑</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+      document.getElementById('themeBtn').addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    </script>
+  </body>
+</html>
