@@ -24,7 +24,6 @@
     </style>
   </head>
   <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
-    <!-- Top Nav -->
     <header class="sticky top-0 z-50 border-b border-slate-200/60 dark:border-slate-700/60 bg-white/70 dark:bg-slate-900/70 backdrop-blur">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="#home" class="font-extrabold tracking-tight text-xl">Hassan<span class="text-indigo-600">.</span></a>
@@ -42,7 +41,6 @@
       </div>
     </header>
 
-    <!-- Hero -->
     <section id="home" class="relative">
       <div class="absolute inset-0 bg-gradient-to-b from-indigo-50 to-transparent dark:from-indigo-900/20 pointer-events-none"></div>
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-14 pb-10">
@@ -52,7 +50,7 @@
               Hassan <span class="text-indigo-600">Murtada</span>
             </h1>
             <p class="mt-4 text-lg text-slate-600 dark:text-slate-300">
-              Robotics & Embedded Systems Engineer — ROS 2, LiDAR‑IMU fusion, Computer Vision, Image Processing, some Matlab Control Systems experience and real‑time systems. Currently building mapping/localization and inspection tooling.
+              Robotics & Embedded Systems Engineer — ROS 2, LiDAR‑IMU fusion, Computer Vision, Image Processing, some Matlab Control Systems experience and real‑time systems. Currently building mapping/localization and inspection tooling.
             </p>
             <div class="mt-6 flex flex-wrap gap-3">
               <a href="#projects" class="rounded-full bg-indigo-600 text-white px-5 py-2.5 text-sm font-semibold hover:bg-indigo-700">See projects</a>
@@ -73,102 +71,112 @@
       </div>
     </section>
 
-    <!-- About -->
     <section id="about" class="py-14">
       <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-extrabold">About</h2>
         <p class="mt-4 text-slate-600 dark:text-slate-300">
-          I’m a UTM Robocon programmer focused on sensor fusion and reliable, field‑ready software. I work with ROS 2, LiDARs (Livox/Ouster), IMUs, encoders, and cameras. I also deploy on NVIDIA Jetson platforms for on‑board vision and accelerated compute.
+          I’m a UTM Robocon programmer focused on sensor fusion and reliable, field‑ready software. I work with ROS 2, LiDARs (Livox/Ouster), IMUs, encoders, and cameras. I also deploy on NVIDIA Jetson platforms for on‑board vision and accelerated compute.
         </p>
       </div>
     </section>
 
-    <!-- Skills -->
     <section id="skills" class="py-6">
       <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-extrabold">Skills</h2>
         <ul class="mt-4 flex flex-wrap gap-2 text-sm">
-          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">C/C++</li>
-          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">Python</li>
-          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">ROS 2 (Humble)</li>
-          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">LIO‑SAM</li>
-          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">Livox/Ouster</li>
-          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">EKF / Sensor Fusion</li>
-          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">Modbus RTU/TCP</li>
-          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">STM32 / ESP32</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">C/C++ & Python</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">Computer Vision (OpenCV)</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">YOLO & Model Training</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">ROS 2 (Humble) & Sensor Fusion</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">STM32 / ESP32 & Embedded C</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">Motor Control & Nav</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">Cloud GPU Workflows</li>
           <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">PCB Design</li>
-          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">RL (DQN, PPO basics)</li>
+          <li class="px-3 py-1 rounded-full border border-slate-300 dark:border-slate-700">SolidWorks</li>
         </ul>
       </div>
     </section>
 
-    <!-- Projects -->
     <section id="projects" class="py-14 bg-slate-100/60 dark:bg-slate-800/40">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between">
           <h2 class="text-2xl font-extrabold">Projects</h2>
-          <a href="https://github.com/hassannmurtada?tab=repositories" target="_blank" class="text-sm hover:text-indigo-600">View all →</a>
+          <a href="https://github.com/hassannmurtada" target="_blank" class="text-sm hover:text-indigo-600">View all on GitHub →</a>
         </div>
-        <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- Card template -->
-          <a href="https://github.com/yourusername/liovox-to-liosam" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
-            <div class="h-40 bg-gradient-to-br from-sky-400 to-indigo-600"></div>
-            <div class="p-4">
-              <h3 class="font-semibold group-hover:text-indigo-600">Livox → LIO‑SAM bridge</h3>
-              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Converts Livox point fields to LIO‑SAM friendly layout (x,y,z,intensity,ring,time) with per‑scan normalized timestamps.</p>
-              <div class="mt-3 text-xs text-slate-500">ROS 2 · C++/Python</div>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2">
+          
+          <div class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:shadow-lg transition">
+            <img src="https://via.placeholder.com/600x300?text=ABU+Robocon+2024+R2" alt="ABU Robocon 2024 R2 Robot" class="h-48 w-full object-cover border-b border-slate-200 dark:border-slate-700">
+            <div class="p-5">
+              <h3 class="text-lg font-bold group-hover:text-indigo-600 transition-colors">ABU Robocon 2024 R2 Robot</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Led the image processing pipeline, including color masking to isolate red/purple balls. Managed dataset labeling and trained YOLO object detection models using rented cloud GPUs to identify balls and silos, facilitating seamless remote team collaboration.
+              </p>
+              <div class="mt-3">
+                <span class="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">What I Learned:</span>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Advanced OpenCV filtering, full YOLO model lifecycle (labeling to inference), and managing distributed cloud infrastructure for AI training.</p>
+              </div>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs font-medium text-indigo-600 dark:text-indigo-400">
+                <span>#ComputerVision</span> <span>#YOLO</span> <span>#CloudGPUs</span>
+              </div>
             </div>
-          </a>
+          </div>
 
-          <a href="https://github.com/yourusername/ros1-ros2-bridge-recipe" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
-            <div class="h-40 bg-gradient-to-br from-purple-400 to-fuchsia-600"></div>
-            <div class="p-4">
-              <h3 class="font-semibold group-hover:text-indigo-600">ROS1↔ROS2 Dynamic Bridge</h3>
-              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Battle‑tested env setup for bridging /odom and /imu/data across ROS1 and ROS2 with CycloneDDS/Fast‑DDS tips.</p>
-              <div class="mt-3 text-xs text-slate-500">ROS 1/2 · Bash</div>
+          <div class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:shadow-lg transition">
+            <img src="https://via.placeholder.com/600x300?text=ABU+Robocon+2025+Basketball" alt="ABU Robocon 2025 Basketball Robot" class="h-48 w-full object-cover border-b border-slate-200 dark:border-slate-700">
+            <div class="p-5">
+              <h3 class="text-lg font-bold group-hover:text-indigo-600 transition-colors">ABU Robocon 2025 Basketball Robot</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Developed the camera vision system to detect basketball hoops and engineered the software integrating vision data with the robot’s kinematics for autonomous rotating and aiming. Handled core motor control and embedded system tasks.
+              </p>
+              <div class="mt-3">
+                <span class="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">What I Learned:</span>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Translating vision coordinates into precise motor movements, aiming algorithms, and bridging high-level processing with low-level embedded hardware.</p>
+              </div>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs font-medium text-indigo-600 dark:text-indigo-400">
+                <span>#EmbeddedC</span> <span>#MotorControl</span> <span>#VisionToActuation</span>
+              </div>
             </div>
-          </a>
+          </div>
 
-          <a href="https://github.com/yourusername/fanuc-pmc-io-tool" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
-            <div class="h-40 bg-gradient-to-br from-emerald-400 to-teal-600"></div>
-            <div class="p-4">
-              <h3 class="font-semibold group-hover:text-indigo-600">FANUC PMC I/O Tester</h3>
-              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Python FOCAS2 tool to read/write PMC ranges, with safety watchdogs, debouncing and log capture to file.</p>
-              <div class="mt-3 text-xs text-slate-500">Python · Qt (PySide2)</div>
+          <div class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:shadow-lg transition">
+            <img src="https://via.placeholder.com/600x300?text=UTM+Robocon+Minigame+2024" alt="UTM Robocon Minigame 2024" class="h-48 w-full object-cover border-b border-slate-200 dark:border-slate-700">
+            <div class="p-5">
+              <h3 class="text-lg font-bold group-hover:text-indigo-600 transition-colors">UTM Robocon Minigame 2024</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Constructed a foundational robot for a less-restrictive internal competition. Gained hands-on experience by building a complete robotic system from the ground up to prepare for the official ABU Robocon challenges.
+              </p>
+              <div class="mt-3">
+                <span class="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">What I Learned:</span>
+                <p class="text-xs text-slate-500 dark:text-slate-400">End-to-end system integration, including the basics of autonomous navigation, sensor polling, motor communication protocols, and overall architecture.</p>
+              </div>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs font-medium text-indigo-600 dark:text-indigo-400">
+                <span>#Navigation</span> <span>#Sensors</span> <span>#SystemIntegration</span>
+              </div>
             </div>
-          </a>
+          </div>
 
-          <a href="https://github.com/yourusername/esp32-4layer-devkit" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
-            <div class="h-40 bg-gradient-to-br from-amber-400 to-orange-600"></div>
-            <div class="p-4">
-              <h3 class="font-semibold group-hover:text-indigo-600">ESP32 4‑Layer DevKit PCB</h3>
-              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Compact dev board with robust power tree and headers for sensors/BLDC drivers. Fabricated & bench‑tested.</p>
-              <div class="mt-3 text-xs text-slate-500">Altium/KiCad · Hardware</div>
+          <div class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:shadow-lg transition">
+            <img src="https://via.placeholder.com/600x300?text=UTM+Robocon+Apprentice" alt="UTM Robocon Apprentice Tasks" class="h-48 w-full object-cover border-b border-slate-200 dark:border-slate-700">
+            <div class="p-5">
+              <h3 class="text-lg font-bold group-hover:text-indigo-600 transition-colors">UTM Robocon Apprentice Tasks</h3>
+              <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Completed an intensive 6-week cross-disciplinary technical bootcamp (2 weeks per module) spanning Programming, Electronics, and Mechanical Engineering to build a robust foundation in robotics.
+              </p>
+              <div class="mt-3">
+                <span class="block text-xs font-semibold text-slate-800 dark:text-slate-200 mb-1">What I Learned:</span>
+                <p class="text-xs text-slate-500 dark:text-slate-400">PCB design and fabrication, foundational embedded programming, and using SolidWorks for mechanical part design and assembly.</p>
+              </div>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs font-medium text-indigo-600 dark:text-indigo-400">
+                <span>#PCBDesign</span> <span>#SolidWorks</span> <span>#CrossDisciplinary</span>
+              </div>
             </div>
-          </a>
+          </div>
 
-          <a href="https://github.com/yourusername/robocon-ekf-localization" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
-            <div class="h-40 bg-gradient-to-br from-rose-400 to-red-600"></div>
-            <div class="p-4">
-              <h3 class="font-semibold group-hover:text-indigo-600">Robocon EKF Localization</h3>
-              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Two‑sensor EKF (encoders + laser) with obstruction handling and drift mitigation on a 15×8 m field.</p>
-              <div class="mt-3 text-xs text-slate-500">ROS 2 · C++/Python</div>
-            </div>
-          </a>
-
-          <a href="https://github.com/yourusername/dancing-robot" target="_blank" class="group block rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-lg transition">
-            <div class="h-40 bg-gradient-to-br from-slate-400 to-slate-700"></div>
-            <div class="p-4">
-              <h3 class="font-semibold group-hover:text-indigo-600">UPSI Gala Dancing Robot</h3>
-              <p class="mt-1 text-sm text-slate-600 dark:text-slate-300">Motion control and choreography for gala performance; BLDC‑friendly command pipeline with PID tuning UI.</p>
-              <div class="mt-3 text-xs text-slate-500">Embedded · Control</div>
-            </div>
-          </a>
         </div>
       </div>
     </section>
 
-    <!-- Experience -->
     <section id="experience" class="py-14">
       <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-extrabold">Experience & Education</h2>
@@ -195,7 +203,6 @@
       </div>
     </section>
 
-    <!-- Contact -->
     <section id="contact" class="py-14">
       <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div class="rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
@@ -203,7 +210,7 @@
           <p class="mt-2 text-slate-600 dark:text-slate-300">Open to internships and collaborations. Best way to reach me is email.</p>
           <div class="mt-4 grid gap-3 sm:grid-cols-2">
             <a href="mailto:hassann.abdallawork@gmail.com" class="rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">hassann.abdallawork@gmail.com</a>
-            <a href="https://www.linkedin.com/in/your-link" target="_blank" class="rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/hassan-murtada-b68139266/" target="_blank" class="rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">LinkedIn</a>
             <a href="https://github.com/hassannmurtada" target="_blank" class="rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">GitHub</a>
             <a href="#" class="rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Resume (PDF)</a>
           </div>
@@ -211,7 +218,6 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="py-10">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-sm text-slate-500 flex items-center justify-between">
         <p>© <span id="year"></span> Hassan Murtada. All rights reserved.</p>
