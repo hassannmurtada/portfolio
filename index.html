@@ -1,431 +1,900 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hassan Murtada — Robotics · Embedded · Automation</title>
-    <meta name="description" content="Hassan Murtada — I build reliable automated pipelines, from computer vision and ROS 2 down to bare-metal STM32 firmware." />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-      :root{
-        --bg:#0a0e14; --bg-soft:#0d131c; --panel:#0f1721; --line:#1c2733;
-        --txt:#bfc9d4; --txt-dim:#5c6b7a; --head:#e6edf3;
-        --lime:#b3f361; --amber:#ffb454; --cyan:#59c2ff; --red:#f07178;
-      }
-      *{box-sizing:border-box}
-      html,body{margin:0;padding:0}
-      body{background:var(--bg);color:var(--txt);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
-      .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-      a{color:inherit;text-decoration:none}
-      .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
-      .lime{color:var(--lime)} .amber{color:var(--amber)} .cyan{color:var(--cyan)} .dim{color:var(--txt-dim)}
-      .head{color:var(--head)}
-      ::selection{background:var(--lime);color:var(--bg)}
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hassan Murtada</title>
+<meta name="description" content="Robotics software engineer — from sensor driver to vehicle behaviour. ROS 2, Autoware, perception and embedded firmware." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — light is the base; dark redefines tokens only.
+   ============================================================ */
+:root{
+  --paper:#F5F6F7;
+  --surface:#FFFFFF;
+  --surface-2:#EDEFF2;
+  --ink:#0E1419;
+  --ink-2:#58616B;
+  --ink-3:#8A939C;
+  --rule:#D8DDE2;
+  --rule-strong:#B6BFC8;
+  --accent:#05707E;
+  --accent-ink:#FFFFFF;
+  --accent-wash:rgba(5,112,126,.07);
+  --warn:#A8323F;
+  --warn-wash:rgba(168,50,63,.07);
+  --shadow:0 1px 2px rgba(14,20,25,.05), 0 12px 28px -18px rgba(14,20,25,.28);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0C1013;
+    --surface:#12181C;
+    --surface-2:#182026;
+    --ink:#E7ECF0;
+    --ink-2:#95A0AA;
+    --ink-3:#6B767F;
+    --rule:#232D34;
+    --rule-strong:#35424B;
+    --accent:#3BC2D2;
+    --accent-ink:#06181C;
+    --accent-wash:rgba(59,194,210,.10);
+    --warn:#E77A85;
+    --warn-wash:rgba(231,122,133,.10);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 16px 34px -20px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0C1013;
+  --surface:#12181C;
+  --surface-2:#182026;
+  --ink:#E7ECF0;
+  --ink-2:#95A0AA;
+  --ink-3:#6B767F;
+  --rule:#232D34;
+  --rule-strong:#35424B;
+  --accent:#3BC2D2;
+  --accent-ink:#06181C;
+  --accent-wash:rgba(59,194,210,.10);
+  --warn:#E77A85;
+  --warn-wash:rgba(231,122,133,.10);
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 16px 34px -20px rgba(0,0,0,.8);
+}
 
-      /* nav */
-      header{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(10,14,20,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-      .navbar{display:flex;align-items:center;justify-content:space-between;height:56px}
-      .dots{display:flex;gap:7px;margin-right:14px}
-      .dots i{width:11px;height:11px;border-radius:50%;display:inline-block}
-      .nav-links{display:flex;gap:22px}
-      .nav-links a{font-size:13px;color:var(--txt-dim);transition:color .2s}
-      .nav-links a:hover{color:var(--lime)}
-      .nav-links a::before{content:'';}
-      @media(max-width:720px){.nav-links{display:none}}
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;transition-duration:.001ms !important}
+}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:16px;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
 
-      /* buttons */
-      .btn{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:10px 18px;border-radius:6px;border:1px solid var(--line);transition:all .2s;cursor:pointer}
-      .btn-primary{background:var(--lime);color:#0a0e14;border-color:var(--lime)}
-      .btn-primary:hover{background:#c7ff7a;box-shadow:0 0 24px rgba(179,243,97,.25)}
-      .btn-ghost{background:var(--panel);color:var(--head)}
-      .btn-ghost:hover{border-color:var(--lime);color:var(--lime)}
+.display{
+  font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-variation-settings:"wdth" 112,"wght" 700;
+  letter-spacing:-.018em;
+  text-wrap:balance;
+}
+.mono{
+  font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-variant-numeric:tabular-nums;
+}
 
-      /* section heading prompt */
-      .prompt{font-size:13px;color:var(--txt-dim);margin-bottom:8px}
-      .prompt b{color:var(--lime);font-weight:500}
-      .prompt .c{color:var(--amber)}
-      h2.sec{font-size:26px;font-weight:800;color:var(--head);letter-spacing:-.5px;margin:0 0 26px}
+/* ============================================================
+   LAYOUT — measured column with a mono metadata rail
+   ============================================================ */
+.frame{max-width:1180px;margin:0 auto;padding:0 28px}
+.band{padding:76px 0}
+.split{display:grid;grid-template-columns:168px minmax(0,1fr);gap:44px;align-items:start}
+@media (max-width:900px){ .split{grid-template-columns:1fr;gap:20px} }
 
-      section{padding:84px 0;border-top:1px solid var(--line)}
-      section:first-of-type{border-top:none}
+.rail{
+  position:sticky;top:88px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11.5px;line-height:1.7;
+  color:var(--ink-3);
+  text-transform:uppercase;letter-spacing:.09em;
+}
+@media (max-width:900px){ .rail{position:static;top:auto} }
+.rail .k{display:block;color:var(--ink-2);font-weight:500}
+.rail .v{display:block;color:var(--ink-3);text-transform:none;letter-spacing:.02em;margin-bottom:12px}
 
-      /* terminal window */
-      .term{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 24px 60px -20px rgba(0,0,0,.6)}
-      .term-bar{display:flex;align-items:center;gap:8px;padding:11px 14px;background:var(--bg-soft);border-bottom:1px solid var(--line)}
-      .term-bar .t{font-size:12px;color:var(--txt-dim);margin-left:8px}
-      .term-body{padding:22px;font-size:14px}
+.prose{max-width:68ch}
+.prose p{margin:0 0 1.05em}
+.prose p:last-child{margin-bottom:0}
+.lead{font-size:18.5px;line-height:1.58;color:var(--ink)}
+.dim{color:var(--ink-2)}
 
-      .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;transition:border-color .2s, transform .2s}
-      .card:hover{border-color:#2c3a49}
-      .chip{display:inline-block;font-size:11px;font-weight:600;padding:4px 9px;border-radius:5px;border:1px solid var(--line);background:var(--bg-soft);color:var(--txt)}
-      .chip.on{border-color:var(--lime);color:var(--lime);background:rgba(179,243,97,.06)}
+/* ruler-tick section divider — the measurement motif */
+.ticks{
+  height:9px;width:100%;
+  background-image:
+    repeating-linear-gradient(90deg,var(--rule-strong) 0 1px,transparent 1px 60px),
+    repeating-linear-gradient(90deg,var(--rule) 0 1px,transparent 1px 12px);
+  background-position:0 0,0 3px;
+  background-size:100% 9px,100% 6px;
+  background-repeat:repeat-x;
+  opacity:.85;
+}
 
-      .reveal{opacity:0;transform:translateY(16px);transition:all .6s cubic-bezier(.4,0,.2,1)}
-      .reveal.in{opacity:1;transform:none}
+h2.sec{
+  font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-variation-settings:"wdth" 108,"wght" 700;
+  font-size:clamp(24px,3vw,31px);
+  line-height:1.14;letter-spacing:-.02em;
+  margin:0 0 14px;text-wrap:balance;
+}
+h3{
+  font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-variation-settings:"wdth" 104,"wght" 600;
+  font-size:17px;line-height:1.3;margin:0 0 6px;letter-spacing:-.01em;
+}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 10px;font-weight:500;
+}
 
-      .grid{display:grid;gap:18px}
-      .g2{grid-template-columns:repeat(2,1fr)}
-      .g3{grid-template-columns:repeat(3,1fr)}
-      .g5{grid-template-columns:repeat(5,1fr)}
-      @media(max-width:860px){.g2,.g3,.g5{grid-template-columns:1fr}}
+/* ============================================================
+   MASTHEAD
+   ============================================================ */
+.topbar{
+  position:sticky;top:0;z-index:60;
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(12px) saturate(1.4);
+  border-bottom:1px solid var(--rule);
+}
+@supports not (background: color-mix(in srgb,red,blue)){ .topbar{background:var(--paper)} }
+.topbar-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:54px}
+.wordmark{
+  font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;font-variation-settings:"wdth" 112,"wght" 700;
+  font-size:14.5px;letter-spacing:.01em;text-decoration:none;
+}
+.topnav{display:flex;gap:22px}
+.topnav a{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);
+  text-decoration:none;transition:color .18s;padding:4px 0;
+}
+.topnav a:hover{color:var(--accent)}
+@media (max-width:820px){ .topnav{display:none} }
+.themetoggle{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;background:none;border:1px solid var(--rule);
+  color:var(--ink-2);padding:5px 11px;border-radius:2px;cursor:pointer;transition:all .18s;
+}
+.themetoggle:hover{border-color:var(--accent);color:var(--accent)}
 
-      .pipe{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
-      .node{font-size:12px;font-weight:600;padding:8px 11px;border-radius:6px;border:1px solid var(--line);background:var(--bg-soft);white-space:nowrap}
-      .node.mine{border-color:var(--lime);color:var(--lime);background:rgba(179,243,97,.07)}
-      .arrow{color:var(--txt-dim)}
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{padding:74px 0 54px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 236px;gap:56px;align-items:end}
+@media (max-width:980px){ .hero-grid{grid-template-columns:1fr;gap:30px;align-items:start} }
+.nowcard{border-top:2px solid var(--ink);padding-top:14px}
+.nowcard dt{
+  font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:3px;
+}
+.nowcard dd{margin:0 0 15px;font-size:13.5px;line-height:1.5}
+.nowcard dd:last-child{margin-bottom:0}
+.nowcard .live{display:inline-flex;align-items:center;gap:7px;font-weight:600}
+.nowcard .live::before{
+  content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-wash);flex:none;
+}
+.hero h1{
+  font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-variation-settings:"wdth" 116,"wght" 800;
+  font-size:clamp(42px,8.4vw,88px);
+  line-height:.94;letter-spacing:-.038em;
+  margin:0 0 22px;text-wrap:balance;
+}
+.hero .stance{font-size:clamp(19px,2.4vw,25px);line-height:1.38;max-width:24ch;margin:0 0 26px;font-weight:400}
+.hero .stance b{font-weight:600}
+.hero .sub{max-width:56ch;color:var(--ink-2);font-size:16px;margin:0 0 32px}
 
-      .ph{display:flex;align-items:center;justify-content:center;text-align:center;background:repeating-linear-gradient(45deg,#0d131c,#0d131c 10px,#0f1721 10px,#0f1721 20px);color:var(--txt-dim);font-size:12px}
+.readout{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+@media (max-width:760px){ .readout{grid-template-columns:repeat(2,1fr)} }
+.readout div{padding:16px 18px 15px;border-left:1px solid var(--rule)}
+.readout div:first-child{border-left:none;padding-left:0}
+@media (max-width:760px){
+  .readout div:nth-child(3){border-left:none;padding-left:0}
+  .readout div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+}
+.readout .n{
+  font-family:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;font-variation-settings:"wdth" 100,"wght" 700;
+  font-size:26px;line-height:1;letter-spacing:-.02em;display:block;margin-bottom:5px;
+  font-variant-numeric:tabular-nums;
+}
+.readout .l{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-3);line-height:1.4;display:block;
+}
 
-      .blink{animation:bl 1.1s steps(2,start) infinite}
-      @keyframes bl{to{visibility:hidden}}
-      .float{animation:fl 7s ease-in-out infinite}
-      @keyframes fl{50%{transform:translateY(-7px)}}
+/* ============================================================
+   FIGURES + DIAGRAMS
+   ============================================================ */
+.fig{
+  margin:30px 0 0;background:var(--surface);
+  border:1px solid var(--rule);border-radius:3px;overflow:hidden;
+}
+.fig-head{
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:11px 16px;border-bottom:1px solid var(--rule);background:var(--surface-2);
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-2);
+}
+.fig-head .id{color:var(--accent);font-weight:500}
+.fig-body{padding:22px 18px}
+.fig-cap{
+  padding:0 18px 18px;font-size:13px;color:var(--ink-2);
+  max-width:78ch;line-height:1.55;
+}
 
-      ul.clean{list-style:none;padding:0;margin:0}
-      ul.clean li{position:relative;padding-left:20px;margin-bottom:9px;font-size:14px}
-      ul.clean li::before{content:'›';position:absolute;left:0;color:var(--lime);font-weight:700}
-      footer{padding:30px 0;border-top:1px solid var(--line);font-size:12px;color:var(--txt-dim)}
-    </style>
-  </head>
-  <body>
+/* pipeline diagram (HTML/CSS, responsive) */
+.pipeline{display:flex;flex-wrap:wrap;align-items:stretch;gap:7px}
+.stage{
+  flex:1 1 118px;min-width:112px;
+  border:1px solid var(--rule);border-radius:2px;
+  background:var(--paper);padding:10px 11px;
+}
+.stage.mine{border-color:var(--accent);background:var(--accent-wash)}
+.stage .sn{
+  display:block;font-family:"IBM Plex Mono",monospace;font-size:9.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px;
+}
+.stage.mine .sn{color:var(--accent)}
+.stage .st{display:block;font-size:12.5px;font-weight:600;line-height:1.3}
+.stage .sd{display:block;font-size:11.5px;color:var(--ink-2);line-height:1.4;margin-top:3px}
+.pipe-key{
+  display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-3);
+}
+.pipe-key i{display:inline-block;width:9px;height:9px;border:1px solid var(--rule);margin-right:6px;vertical-align:-1px}
+.pipe-key i.on{border-color:var(--accent);background:var(--accent-wash)}
 
-    <header>
-      <div class="wrap navbar">
-        <div style="display:flex;align-items:center">
-          <span class="dots"><i style="background:#f07178"></i><i style="background:#ffb454"></i><i style="background:#b3f361"></i></span>
-          <a href="#home" class="mono" style="font-weight:700;color:var(--head)">hassan<span class="lime">@</span>murtada</a>
+/* SVG diagram theming */
+svg .s-rule{stroke:var(--rule-strong)}
+svg .s-ink{stroke:var(--ink)}
+svg .s-accent{stroke:var(--accent)}
+svg .s-dim{stroke:var(--ink-3)}
+svg .f-ink{fill:var(--ink)}
+svg .f-dim{fill:var(--ink-3)}
+svg .f-accent{fill:var(--accent)}
+svg .f-surface{fill:var(--surface)}
+svg .f-paper{fill:var(--paper)}
+svg text{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.03em}
+svg .lbl{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase}
+
+/* table */
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl caption{
+  text-align:left;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding-bottom:10px;
+}
+.tbl th{
+  text-align:left;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);font-weight:500;
+  padding:0 14px 8px 0;border-bottom:1px solid var(--rule-strong);
+}
+.tbl td{padding:9px 14px 9px 0;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
+.tbl tr:last-child td{border-bottom:none}
+.tbl .flag{color:var(--warn);font-weight:600}
+.scroll-x{overflow-x:auto}
+
+/* callout */
+.note{
+  border-left:2px solid var(--accent);background:var(--accent-wash);
+  padding:15px 18px;margin:26px 0 0;font-size:14px;line-height:1.58;border-radius:0 2px 2px 0;
+}
+.note.warn{border-left-color:var(--warn);background:var(--warn-wash)}
+.note .nt{
+  display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;font-weight:500;
+}
+.note.warn .nt{color:var(--warn)}
+
+/* decision list */
+.decisions{list-style:none;padding:0;margin:26px 0 0;counter-reset:d}
+.decisions li{
+  counter-increment:d;position:relative;padding:0 0 16px 46px;margin-bottom:16px;
+  border-bottom:1px solid var(--rule);
+}
+.decisions li:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.decisions li::before{
+  content:counter(d,decimal-leading-zero);position:absolute;left:0;top:1px;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--accent);letter-spacing:.06em;
+}
+.decisions b{display:block;font-weight:600;font-size:14.5px;margin-bottom:2px}
+.decisions span{display:block;font-size:14px;color:var(--ink-2);line-height:1.55}
+
+/* work index */
+.index{border-top:1px solid var(--rule-strong);margin-top:22px}
+.index-row{
+  display:grid;grid-template-columns:78px minmax(0,1fr) 190px;gap:22px;
+  padding:17px 0;border-bottom:1px solid var(--rule);align-items:baseline;
+}
+@media (max-width:760px){ .index-row{grid-template-columns:1fr;gap:6px} }
+.index-row .yr{
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-3);letter-spacing:.05em;
+}
+.index-row .ti{font-size:14.5px;font-weight:600;line-height:1.35}
+.index-row .de{font-size:13.5px;color:var(--ink-2);margin-top:3px;line-height:1.5}
+.index-row .tg{
+  font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-3);
+  letter-spacing:.05em;line-height:1.6;
+}
+
+/* capability matrix */
+.layers{border-top:1px solid var(--rule-strong)}
+.layer{
+  display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;
+  padding:16px 0;border-bottom:1px solid var(--rule);
+}
+@media (max-width:760px){ .layer{grid-template-columns:1fr;gap:7px} }
+.layer .ln{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);padding-top:2px;
+}
+.layer .lc{font-size:13.5px;line-height:1.65;color:var(--ink-2)}
+.layer .lc b{color:var(--ink);font-weight:600}
+
+/* timeline */
+.tl{border-top:1px solid var(--rule-strong)}
+.tl-row{
+  display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;
+  padding:19px 0;border-bottom:1px solid var(--rule);
+}
+@media (max-width:760px){ .tl-row{grid-template-columns:1fr;gap:6px} }
+.tl-row .when{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-3);letter-spacing:.04em;padding-top:3px}
+.tl-row .role{font-size:15px;font-weight:600}
+.tl-row .org{font-size:13.5px;color:var(--ink-2);margin-top:1px}
+
+/* image figure w/ graceful fallback */
+.plate{position:relative;background:var(--surface-2);min-height:210px;display:grid;place-items:center}
+.plate img{width:100%;height:100%;object-fit:cover;max-height:340px}
+.plate .fallback{
+  padding:34px 20px;text-align:center;font-family:"IBM Plex Mono",monospace;
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+  background-image:repeating-linear-gradient(-45deg,transparent 0 9px,var(--rule) 9px 10px);
+  width:100%;min-height:210px;display:flex;align-items:center;justify-content:center;
+}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:26px}
+@media (max-width:620px){ .contact-grid{grid-template-columns:1fr} }
+.contact-grid a{
+  background:var(--surface);padding:18px 20px;text-decoration:none;transition:background .18s;
+}
+.contact-grid a:hover{background:var(--accent-wash)}
+.contact-grid .cl{
+  display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);margin-bottom:5px;
+}
+.contact-grid .cv{display:block;font-size:14.5px;font-weight:600;word-break:break-word}
+
+footer{border-top:1px solid var(--rule);padding:26px 0 40px;margin-top:10px}
+.foot-in{
+  display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;
+  font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);letter-spacing:.05em;
+}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(12px);transition:opacity .55s ease,transform .55s cubic-bezier(.22,.8,.3,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){ .rv{opacity:1;transform:none} }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="frame topbar-in">
+    <a href="#top" class="wordmark">HASSAN&nbsp;MURTADA</a>
+    <nav class="topnav">
+      <a href="#autoware">Vehicle autonomy</a>
+      <a href="#fusion">Fusion note</a>
+      <a href="#robot">Competition robot</a>
+      <a href="#work">Index</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="themetoggle" id="tt" type="button" aria-label="Switch colour theme">Theme</button>
+  </div>
+</div>
+
+<!-- ══════════════ HERO ══════════════ -->
+<div id="top" class="frame hero">
+  <div class="hero-grid">
+    <div>
+      <h1>Robotics<br>software.</h1>
+      <p class="stance">From <b>sensor driver</b> to <b>vehicle behaviour</b> — and every layer in between.</p>
+      <p class="sub">I'm a final-year Electrical Engineering student at Universiti Teknologi Malaysia. Since 2023 I've been writing the software that sits between sensors and machines: perception pipelines, ROS&nbsp;2 systems, and the embedded firmware underneath them. Right now that means an Autoware Universe autonomy stack on a full-size vehicle in live road testing.</p>
+    </div>
+    <dl class="nowcard">
+      <dt>Currently</dt>
+      <dd><span class="live">Autonomous driving intern</span>HelloWorld Robotics, Malaysia</dd>
+      <dt>Based</dt>
+      <dd>Johor Bahru, Malaysia</dd>
+      <dt>Graduating</dt>
+      <dd>February 2027 — open to graduate roles in robotics software and autonomy</dd>
+    </dl>
+  </div>
+  <div class="readout">
+    <div><span class="n">50 km</span><span class="l">Autonomous driving<br>on a full-size vehicle</span></div>
+    <div><span class="n">3 yrs</span><span class="l">Robotics software<br>since 2023</span></div>
+    <div><span class="n">2&times;</span><span class="l">ABU Robocon<br>international finals</span></div>
+    <div><span class="n">3.70</span><span class="l">CGPA &middot; Dean's List<br>four semesters</span></div>
+  </div>
+</div>
+
+<div class="frame"><div class="ticks"></div></div>
+
+<!-- ══════════════ AUTOWARE ══════════════ -->
+<section class="frame band split rv" id="autoware">
+  <div class="rail">
+    <span class="k">Signal path</span>
+    <span class="v">sensing → perception → planning → actuation</span>
+    <span class="k">Period</span>
+    <span class="v">Jul 2026 — present</span>
+    <span class="k">Stack</span>
+    <span class="v">Autoware Universe, ROS 2, C++/Python</span>
+    <span class="k">Platform</span>
+    <span class="v">Full-size vehicle, on-road</span>
+  </div>
+
+  <div>
+    <p class="eyebrow">Current work</p>
+    <h2 class="sec">Running an autonomy stack on a vehicle that actually drives</h2>
+
+    <div class="prose">
+      <p class="lead">Most autonomy work isn't inventing planners. It's making a stack that works in a paper behave itself on a real vehicle, on a real road, with a person sitting in it.</p>
+      <p>I work on an <b>Autoware Universe</b> stack deployed on a full-size vehicle, as an Embodied AI Autonomous Driving Engineering Intern. The platform has driven over 50&nbsp;km autonomously across campus and road routes — measured as distance actually driven, not route length on a map.</p>
+      <p>My work sits at two ends of the stack. At the bottom, the <b>vehicle interface</b>: translating the planner's output into the low-level commands the vehicle's drive-by-wire layer accepts, and the <b>autonomous emergency braking</b> behaviour that runs on top of it. At the top, <b>perception</b>: I took the vehicle from LiDAR-only sensing to a working camera–LiDAR fusion pipeline, including the calibration it depends on.</p>
+      <p class="dim">In between is the part nobody writes about: diagnosing why the vehicle did something strange two hundred metres ago. Localisation drift, actuation latency, handoff between planner and controller. This is most of the job, and it's the part I've learned the most from.</p>
+    </div>
+
+    <figure class="fig">
+      <figcaption class="fig-head"><span>Autonomy stack — signal path</span><span class="id">FIG 1</span></figcaption>
+      <div class="fig-body">
+        <div class="pipeline">
+          <div class="stage"><span class="sn">Sensing</span><span class="st">LiDAR + camera</span><span class="sd">Range and appearance</span></div>
+          <div class="stage mine"><span class="sn">Calibration</span><span class="st">Intrinsic + extrinsic</span><span class="sd">Where each sensor sits</span></div>
+          <div class="stage mine"><span class="sn">Perception</span><span class="st">Fusion</span><span class="sd">Class attached to geometry</span></div>
+          <div class="stage"><span class="sn">Decision</span><span class="st">Planning</span><span class="sd">Route, behaviour, trajectory</span></div>
+          <div class="stage mine"><span class="sn">Interface</span><span class="st">Base driver</span><span class="sd">Commands the vehicle accepts</span></div>
+          <div class="stage mine"><span class="sn">Actuation</span><span class="st">Drive-by-wire</span><span class="sd">Steering, throttle, braking</span></div>
         </div>
-        <nav class="nav-links mono">
-          <a href="#about">./about</a>
-          <a href="#skills">./skills</a>
-          <a href="#featured">./featured</a>
-          <a href="#infra">./cloud</a>
-          <a href="#projects">./projects</a>
-          <a href="#experience">./experience</a>
-          <a href="#contact">./contact</a>
-        </nav>
-        <a href="https://github.com/hassannmurtada" target="_blank" class="btn btn-ghost mono" style="padding:7px 14px">github ↗</a>
+        <div class="pipe-key"><span><i class="on"></i>Stages I work on</span><span><i></i>Stages I work with</span></div>
       </div>
-    </header>
+      <figcaption class="fig-cap">The stack reads left to right, from raw measurement to the vehicle moving. Calibration isn't a step you do once at the start — it's the thing every downstream stage silently depends on, which is why it sits inline here rather than in a footnote.</figcaption>
+    </figure>
+  </div>
+</section>
 
-    <!-- HERO -->
-    <section id="home" style="padding-top:130px;padding-bottom:80px">
-      <div class="wrap">
-        <div class="grid g2" style="align-items:center;gap:40px">
-          <div class="reveal">
-            <div class="mono" style="font-size:12px;color:var(--lime);margin-bottom:18px">
-              <span class="dim">$</span> ./status --availability
-              <div class="dim" style="margin-top:4px">› open for internships · Jul–Oct 2026 · Malaysia / Singapore</div>
-            </div>
-            <h1 style="font-size:clamp(34px,6vw,56px);line-height:1.05;letter-spacing:-1.5px;color:var(--head);font-weight:800;margin:0 0 18px">
-              Hassan Murtada<span class="lime blink">_</span>
-            </h1>
-            <p style="font-size:17px;max-width:30rem;margin:0 0 14px">
-              I like building things that have to work in the real world — systems that take in something messy, figure out what to do, and <span class="head" style="font-weight:600">reliably get it done on their own</span>.
-            </p>
-            <p style="font-size:15px;color:var(--txt-dim);max-width:30rem;margin:0 0 28px">
-              I'm a final-year Electrical Engineering student at UTM, and I'm comfortable across the whole stack — from <span class="amber mono">computer vision</span> and <span class="amber mono">ROS 2</span> all the way down to <span class="amber mono">STM32 firmware</span>.
-            </p>
-            <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
-              <a href="#featured" class="btn btn-primary">See my best work</a>
-              <a href="https://github.com/hassannmurtada/Basket-Image" target="_blank" class="btn btn-ghost">View the code</a>
-            </div>
-          </div>
+<div class="frame"><div class="ticks"></div></div>
 
-          <div class="reveal">
-            <div class="term float">
-              <div class="term-bar">
-                <span class="dots"><i style="background:#f07178"></i><i style="background:#ffb454"></i><i style="background:#b3f361"></i></span>
-                <span class="t mono">hassan@robocon: ~</span>
-              </div>
-              <div class="term-body mono">
-                <div><span class="lime">hassan@robocon</span><span class="dim">:</span><span class="cyan">~</span><span class="dim">$</span> whoami</div>
-                <div class="dim" style="margin:2px 0 10px">robotics &amp; automation engineer · builder of things that must work</div>
-                <div><span class="lime">hassan@robocon</span><span class="dim">:</span><span class="cyan">~</span><span class="dim">$</span> cat stack.txt</div>
-                <div style="margin:2px 0 10px"><span class="amber">vision</span> → <span class="amber">ROS 2 / micro-ROS</span> → <span class="amber">STM32 / C</span></div>
-                <div><span class="lime">hassan@robocon</span><span class="dim">:</span><span class="cyan">~</span><span class="dim">$</span> ls projects/</div>
-                <div style="margin:2px 0 10px">
-                  <span class="head">basketball-robot/</span>&nbsp;&nbsp;vision/&nbsp;&nbsp;projectile/&nbsp;&nbsp;cloud-infra/
-                </div>
-                <div><span class="lime">hassan@robocon</span><span class="dim">:</span><span class="cyan">~</span><span class="dim">$</span> ./run --best-work<span class="blink">_</span></div>
-              </div>
-            </div>
-          </div>
+<!-- ══════════════ FUSION NOTE ══════════════ -->
+<section class="frame band split rv" id="fusion">
+  <div class="rail">
+    <span class="k">Type</span>
+    <span class="v">Engineering note</span>
+    <span class="k">Subject</span>
+    <span class="v">Camera–LiDAR fusion</span>
+    <span class="k">Written</span>
+    <span class="v">August 2026</span>
+    <span class="k">Scope</span>
+    <span class="v">General principles only — no employer configuration</span>
+  </div>
+
+  <div>
+    <p class="eyebrow">Engineering note</p>
+    <h2 class="sec">Why fusing a camera with a LiDAR is a geometry problem, not a sensor problem</h2>
+
+    <div class="prose">
+      <p class="lead">A LiDAR knows <b>where</b> things are but not <b>what</b> they are. A camera knows <b>what</b> things are but not <b>where</b>. Fusion exists to move information across that gap — and it only ever moves in one direction.</p>
+      <p>A LiDAR measures time of flight, so its range is direct and metric: a point at 12.4&nbsp;m is at 12.4&nbsp;m. It has no idea whether those points are a traffic cone or a fire hydrant. A camera has enormous angular detail — colour, texture, lettering — but a pixel only tells you the <em>ray</em> the light arrived along, not how far along it the object sits. That's scale ambiguity, and it's geometry, not a hardware limitation to engineer away.</p>
+      <p>So fusion asks one question, over and over: <b>given a 3D point, which pixel does it land on?</b> Answer that and you can read off what the camera saw there and attach it to the point. The reverse — recovering 3D from a pixel — is not available, because the projection divides by depth and destroys it.</p>
+    </div>
+
+    <figure class="fig">
+      <figcaption class="fig-head"><span>Projection — 3D point to pixel</span><span class="id">FIG 2</span></figcaption>
+      <div class="fig-body scroll-x">
+        <svg viewBox="0 0 720 250" width="100%" height="250" role="img" aria-label="Diagram: a 3D point is transformed by extrinsic rotation and translation into camera coordinates, then divided by depth to land on a pixel in the image plane.">
+          <!-- world point -->
+          <circle cx="58" cy="88" r="5.5" class="f-accent"/>
+          <text x="58" y="72" text-anchor="middle" class="f-ink">P</text>
+          <text x="58" y="112" text-anchor="middle" class="f-dim lbl">world</text>
+
+          <!-- extrinsics arrow -->
+          <path d="M78 90 L192 118" class="s-dim" stroke-width="1.2" fill="none" stroke-dasharray="4 3"/>
+          <polygon points="192,118 183,113 184,121" class="f-dim"/>
+          <text x="132" y="96" text-anchor="middle" class="f-dim lbl">extrinsics</text>
+          <text x="132" y="140" text-anchor="middle" class="f-dim">R · P + t</text>
+
+          <!-- camera frame -->
+          <g>
+            <path d="M232 122 L232 60" class="s-rule" stroke-width="1.2"/>
+            <path d="M232 122 L294 122" class="s-rule" stroke-width="1.2"/>
+            <path d="M232 122 L196 158" class="s-rule" stroke-width="1.2"/>
+            <text x="226" y="54" class="f-dim lbl">y</text>
+            <text x="300" y="126" class="f-dim lbl">z</text>
+            <text x="186" y="168" class="f-dim lbl">x</text>
+            <circle cx="232" cy="122" r="4" class="f-ink"/>
+            <text x="232" y="192" text-anchor="middle" class="f-dim lbl">camera origin</text>
+          </g>
+
+          <!-- rays to image plane -->
+          <path d="M232 122 L520 46" class="s-accent" stroke-width="1.1" fill="none" opacity=".55"/>
+          <path d="M232 122 L520 206" class="s-accent" stroke-width="1.1" fill="none" opacity=".55"/>
+          <path d="M232 122 L560 96" class="s-accent" stroke-width="1.6" fill="none"/>
+
+          <!-- image plane -->
+          <rect x="520" y="46" width="150" height="160" class="f-surface s-rule" stroke-width="1.3"/>
+          <path d="M520 126 L670 126" class="s-rule" stroke-width=".8" stroke-dasharray="3 4"/>
+          <path d="M595 46 L595 206" class="s-rule" stroke-width=".8" stroke-dasharray="3 4"/>
+          <circle cx="595" cy="126" r="2.6" class="f-dim"/>
+          <text x="602" y="140" class="f-dim lbl">cx, cy</text>
+
+          <!-- projected pixel -->
+          <circle cx="560" cy="96" r="5.5" class="f-accent"/>
+          <text x="560" y="82" text-anchor="middle" class="f-accent">u, v</text>
+
+          <text x="595" y="228" text-anchor="middle" class="f-dim lbl">image plane</text>
+
+          <!-- intrinsics label -->
+          <text x="400" y="26" text-anchor="middle" class="f-dim lbl">intrinsics</text>
+          <text x="400" y="42" text-anchor="middle" class="f-dim">u = fx · (X/Z) + cx</text>
+        </svg>
+      </div>
+      <figcaption class="fig-cap">Two transforms, in order. Extrinsics move the point into the camera's frame — six numbers, three of position and three of orientation. Intrinsics flatten it onto the sensor by dividing by depth. That division is where the distance information goes, and it is why the operation runs one way only.</figcaption>
+    </figure>
+
+    <div class="prose" style="margin-top:34px">
+      <h3>Calibration is the whole game, and it fails silently</h3>
+      <p>Everything above rests on ten numbers: six extrinsic, four intrinsic. Get them wrong and nothing crashes, nothing warns you — the projection simply lands in the wrong place, and the system confidently attaches the wrong label or drops the object entirely.</p>
+      <p>An angular error of <span class="mono">θ</span> displaces the projection by roughly <span class="mono">d · tan θ</span> at distance <span class="mono">d</span>. That gets bad faster than intuition suggests:</p>
+    </div>
+
+    <figure class="fig">
+      <figcaption class="fig-head"><span>Extrinsic error budget</span><span class="id">TAB 1</span></figcaption>
+      <div class="fig-body scroll-x">
+        <table class="tbl">
+          <caption>Projection displacement from a rotational mounting error</caption>
+          <thead><tr><th>Rotation error</th><th>At 10 m</th><th>At 30 m</th><th>Consequence</th></tr></thead>
+          <tbody>
+            <tr><td>0.5°</td><td>8.7 cm</td><td>26 cm</td><td>Tolerable</td></tr>
+            <tr><td>1.0°</td><td>17 cm</td><td>52 cm</td><td>Match quality degrades</td></tr>
+            <tr><td class="flag">2.0°</td><td class="flag">35 cm</td><td class="flag">105 cm</td><td class="flag">A pedestrian falls outside their own box</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figcaption class="fig-cap">A person is roughly 50&nbsp;cm wide. At 30&nbsp;m, a two-degree mounting error puts them entirely outside their own bounding box — so fusion either mislabels them or discards them. This is why extrinsics are calibrated against a target rather than measured with a tape: a tape gets position to a centimetre but orientation to a couple of degrees, and orientation is what hurts.</figcaption>
+    </figure>
+
+    <div class="note">
+      <span class="nt">Order matters</span>
+      Intrinsics must be solved <b>before</b> extrinsics. Extrinsic calibration works by projecting points into the image and minimising alignment error — so if the intrinsics are wrong, the solver quietly finds a <em>wrong</em> mounting pose that happens to cancel the intrinsic error. It converges. It looks correct. It is meaningless.
+    </div>
+
+    <div class="prose" style="margin-top:34px">
+      <h3>Geometry isn't enough — the clocks have to agree too</h3>
+      <p>At 5&nbsp;m/s, a 100&nbsp;ms timing mismatch means the vehicle moved half a metre between the LiDAR sweep and the camera frame. Everything projects 50&nbsp;cm off — and it is <em>indistinguishable</em> from a calibration error in the output, while having a completely different cause. A spinning LiDAR makes this worse: points at the start and end of a single sweep are already a full rotation period apart from each other.</p>
+      <h3>The upgrade that makes things worse</h3>
+      <p>Fusion frameworks are written on the assumption of a full camera ring. Under that assumption, a sensible default says: if no camera saw it, it's probably noise — discard it. Inherit that default on a vehicle with one forward camera and a detector that has never seen your object class, and enabling fusion takes you from <em>"detected, but unlabelled"</em> to <em>"not detected at all."</em></p>
+    </div>
+
+    <div class="note warn">
+      <span class="nt">The lesson worth more than the parameter</span>
+      Defaults encode assumptions about hardware you may not have. Every default that says "if the camera didn't see it, drop it" becomes a self-inflicted blind spot when you have one camera instead of eight. Audit them rather than inheriting them — and reason about what a change will do <em>before</em> you make it, because the failure mode here is silent.
+    </div>
+
+    <p class="fig-cap" style="padding:22px 0 0;max-width:68ch">This note is written from general principles. It contains no configuration, parameters, hardware layout or source from my employer's vehicle.</p>
+  </div>
+</section>
+
+<div class="frame"><div class="ticks"></div></div>
+
+<!-- ══════════════ BASKETBALL ROBOT ══════════════ -->
+<section class="frame band split rv" id="robot">
+  <div class="rail">
+    <span class="k">Signal path</span>
+    <span class="v">camera → inference → solver → firmware → flywheel</span>
+    <span class="k">Event</span>
+    <span class="v">ABU Robocon 2025</span>
+    <span class="k">Role</span>
+    <span class="v">Senior programmer — perception, control link, integration</span>
+    <span class="k">Link rate</span>
+    <span class="v">230–450 Hz measured</span>
+  </div>
+
+  <div>
+    <p class="eyebrow">Competition robot</p>
+    <h2 class="sec">A robot that sees a hoop, solves the physics, and takes the shot</h2>
+
+    <div class="prose">
+      <p class="lead">Autonomous scoring, on a competition floor, against a clock. The interesting constraint wasn't accuracy — it was that everything had to happen inside a frame, on a small onboard GPU, and never hang.</p>
+      <p>I owned the software from the camera to the motor command: the detector that finds the basket, the projectile-motion solver that computes launch velocity and angle from the measured distance, the localisation, and the micro-ROS link down to the board. A teammate built the STM32 mainboard firmware; I built on top of it, against an interface we agreed on first.</p>
+    </div>
+
+    <figure class="fig">
+      <figcaption class="fig-head"><span>Camera to flywheel</span><span class="id">FIG 3</span></figcaption>
+      <div class="fig-body">
+        <div class="pipeline">
+          <div class="stage"><span class="sn">Input</span><span class="st">Camera</span><span class="sd">Newest frame only</span></div>
+          <div class="stage mine"><span class="sn">Perception</span><span class="st">YOLO + TensorRT</span><span class="sd">Hoop detection, on-board</span></div>
+          <div class="stage mine"><span class="sn">Solve</span><span class="st">Projectile model</span><span class="sd">Distance → velocity, angle</span></div>
+          <div class="stage mine"><span class="sn">Transport</span><span class="st">micro-ROS</span><span class="sd">230–450 Hz measured</span></div>
+          <div class="stage"><span class="sn">Firmware</span><span class="st">STM32</span><span class="sd">Teammate's mainboard</span></div>
+          <div class="stage mine"><span class="sn">Actuation</span><span class="st">Flywheel</span><span class="sd">Shot released</span></div>
+        </div>
+        <div class="pipe-key"><span><i class="on"></i>My work</span><span><i></i>Team / hardware</span></div>
+      </div>
+    </figure>
+
+    <figure class="fig">
+      <figcaption class="fig-head"><span>ABU Robocon 2025 robot</span><span class="id">PLATE 1</span></figcaption>
+      <div class="plate">
+        <img src="https://raw.githubusercontent.com/hassannmurtada/portfolio/main/BasketballRobot.jpeg" alt="The ABU Robocon 2025 basketball robot on the competition floor" loading="lazy" onerror="this.insertAdjacentHTML('afterend','&lt;div class=&quot;fallback&quot;&gt;BasketballRobot.jpeg&lt;/div&gt;');this.remove();">
+      </div>
+    </figure>
+
+    <ol class="decisions">
+      <li>
+        <b>Solve the shot, don't tabulate it</b>
+        <span>Rather than hard-coding launch power per position, the robot measures distance to the hoop and solves launch velocity and angle from projectile motion. It shoots from anywhere on the floor instead of from marked spots — and when it misses, the error is a physical parameter to correct, not a lookup table to re-tune.</span>
+      </li>
+      <li>
+        <b>Always act on the newest frame</b>
+        <span>The camera feed drops stale frames rather than queueing them. When you're aiming in real time, acting on an old frame is worse than skipping one — a backed-up queue turns latency into a control error that grows.</span>
+      </li>
+      <li>
+        <b>Quantise for the hardware you actually have</b>
+        <span>The trained detector was exported to TensorRT so inference fit the robot's small onboard GPU without starving the rest of the system. Model accuracy is irrelevant if it can't run in the loop.</span>
+      </li>
+      <li>
+        <b>Fail to a safe pose, not to a bad reading</b>
+        <span>When the hoop leaves the frame, the robot holds a centred aim rather than chasing noise. Degrading predictably beats degrading confidently.</span>
+      </li>
+      <li>
+        <b>Agree the interface, then build in parallel</b>
+        <span>Vision and firmware talked through one fixed message contract, so my teammate and I could develop and test independently without blocking each other. Most of what looks like an integration problem is really an interface that was never written down.</span>
+      </li>
+    </ol>
+
+    <div class="contact-grid" style="margin-top:30px">
+      <a href="https://github.com/hassannmurtada/Basket-Image" target="_blank" rel="noopener">
+        <span class="cl">Repository</span><span class="cv">Vision pipeline &nearr;</span>
+      </a>
+      <a href="https://github.com/MohdSaif44/abu-mainboard" target="_blank" rel="noopener">
+        <span class="cl">Repository — team</span><span class="cv">Mainboard firmware &nearr;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="frame"><div class="ticks"></div></div>
+
+<!-- ══════════════ WORK INDEX ══════════════ -->
+<section class="frame band split rv" id="work">
+  <div class="rail">
+    <span class="k">Index</span>
+    <span class="v">Selected earlier work</span>
+  </div>
+  <div>
+    <p class="eyebrow">Index</p>
+    <h2 class="sec">Earlier work</h2>
+    <div class="index">
+      <div class="index-row">
+        <span class="yr">2025</span>
+        <div><span class="ti">LiDAR mapping pipelines — A2TECH Sdn Bhd</span><span class="de">Built and validated mapping pipelines on Ouster and Livox sensors for autonomous navigation in industrial settings; integrated multi-sensor streams into the robot's onboard compute and qualified the hardware for field deployment.</span></div>
+        <span class="tg">Ouster · Livox<br>ROS 2 · sensor validation</span>
+      </div>
+      <div class="index-row">
+        <span class="yr">2024</span>
+        <div><span class="ti">ABU Robocon 2024 — R2 vision pipeline</span><span class="de">OpenCV colour masking plus YOLO models trained on cloud GPUs to detect balls and silos in real time. Owned dataset annotation and the remote training workflow for the team.</span></div>
+        <span class="tg">OpenCV · YOLO<br>cloud training</span>
+      </div>
+      <div class="index-row">
+        <span class="yr">2024</span>
+        <div><span class="ti">Team training and data infrastructure</span><span class="de">Moved the team off "it works on my laptop": on-demand cloud GPU training driven over SSH, and centralised dataset storage so versions stayed consistent and nothing lived on one person's machine.</span></div>
+        <span class="tg">Docker · SSH<br>S3 · reproducibility</span>
+      </div>
+      <div class="index-row">
+        <span class="yr">2024</span>
+        <div><span class="ti">Omni-drive robot</span><span class="de">Four-wheel omni platform with IMU-based balancing, PID path following and Bluetooth teleoperation, built on ESP-IDF.</span></div>
+        <span class="tg">ESP32 · PID<br>CAN · I²C · UART</span>
+      </div>
+      <div class="index-row">
+        <span class="yr">2023</span>
+        <div><span class="ti">Factory automation sequence — PLC</span><span class="de">Five-stage supply, drill, inspect and classify cycle in ladder logic, with timed cylinder actuation and defect classification.</span></div>
+        <span class="tg">GLOFA GM6 · GMWIN<br>ladder logic</span>
+      </div>
+      <div class="index-row">
+        <span class="yr">2023</span>
+        <div><span class="ti">Register-level STM32 and PCB design</span><span class="de">Six-week intensive: STM32 programming down to the register and flash level, custom schematic and board design, and mechanical modelling.</span></div>
+        <span class="tg">STM32 · Altium<br>SolidWorks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="frame"><div class="ticks"></div></div>
+
+<!-- ══════════════ CAPABILITY BY LAYER ══════════════ -->
+<section class="frame band split rv" id="stack">
+  <div class="rail">
+    <span class="k">Reading</span>
+    <span class="v">Top of stack down to the metal</span>
+  </div>
+  <div>
+    <p class="eyebrow">Capability</p>
+    <h2 class="sec">What I can carry, layer by layer</h2>
+    <p class="prose dim" style="margin-bottom:22px">Listed by where it sits in a robot rather than by category, because that's how the work actually divides.</p>
+    <div class="layers">
+      <div class="layer">
+        <span class="ln">Perception</span>
+        <span class="lc"><b>YOLO (v8 / v10 / v11), YOLOX, TensorRT, OpenCV</b> · camera–LiDAR fusion · intrinsic and extrinsic calibration · point-cloud processing, ground segmentation and clustering · LiDAR mapping</span>
+      </div>
+      <div class="layer">
+        <span class="ln">Decision</span>
+        <span class="lc"><b>Autoware Universe</b> — perception, planning and control · behaviour and planner configuration · localisation · PID and EKF · autonomous emergency braking</span>
+      </div>
+      <div class="layer">
+        <span class="ln">Middleware</span>
+        <span class="lc"><b>ROS 2, micro-ROS</b> · TF and coordinate frames · node composition and lifecycle · Foxglove and RViz for introspection</span>
+      </div>
+      <div class="layer">
+        <span class="ln">Interface</span>
+        <span class="lc"><b>Drive-by-wire and base-driver integration</b> · CAN, UART, SPI, I²C · message contracts between subsystems · encoder and odometry feedback</span>
+      </div>
+      <div class="layer">
+        <span class="ln">Firmware</span>
+        <span class="lc"><b>STM32F4 (HAL and register level), ESP32 / ESP-IDF, ATMEGA32</b> · PID motor control · VESC · Altium schematic and PCB design</span>
+      </div>
+      <div class="layer">
+        <span class="ln">Infrastructure</span>
+        <span class="lc"><b>Docker, Linux, Git</b> · cloud GPU training · dataset versioning and annotation · NVIDIA Jetson · Ouster, Livox and RoboSense SDKs</span>
+      </div>
+      <div class="layer">
+        <span class="ln">Languages</span>
+        <span class="lc"><b>Python, C, C++</b> · MATLAB · VHDL / Verilog · STM32 assembly</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="frame"><div class="ticks"></div></div>
+
+<!-- ══════════════ TIMELINE ══════════════ -->
+<section class="frame band split rv" id="timeline">
+  <div class="rail">
+    <span class="k">Record</span>
+    <span class="v">Roles and study</span>
+  </div>
+  <div>
+    <p class="eyebrow">Record</p>
+    <h2 class="sec">Where I've worked</h2>
+    <div class="tl">
+      <div class="tl-row">
+        <span class="when">Jul 2026 — present</span>
+        <div>
+          <div class="role">Embodied AI Autonomous Driving Engineering Intern</div>
+          <div class="org">HelloWorld Robotics · Malaysia — Autoware Universe on a full-size vehicle; perception, fusion, vehicle interface and on-road testing.</div>
         </div>
       </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about">
-      <div class="wrap">
-        <div class="prompt mono reveal"><span class="dim">$</span> <b>cat</b> about.md</div>
-        <div class="grid g2 reveal" style="gap:40px;align-items:start">
-          <div>
-            <h2 class="sec">I like taking a messy problem and turning it into something that quietly works.</h2>
-            <p style="font-size:15px">I was Senior Programmer for the UTM Robocon team, where I looked after the perception and navigation software for our competition robots — the part that takes a camera feed, decides what to do, and gives the hardware clean commands in real time, with a competition clock running.</p>
-            <p style="font-size:15px;color:var(--txt-dim)">I'm happy working end-to-end: training a model on cloud GPUs, wiring it into a ROS 2 pipeline, and chasing a bug all the way down to a custom STM32 board. Honestly, the part I enjoy most is the unglamorous bit — getting it to be reliable and fast, and testing it until I trust it.</p>
-          </div>
-          <div class="card" style="padding:22px">
-            <div class="mono dim" style="font-size:12px;margin-bottom:14px">// at a glance</div>
-            <div class="grid g2" style="gap:14px">
-              <div><div class="mono lime" style="font-size:22px;font-weight:700">3.68</div><div class="dim" style="font-size:12px">CGPA · Dean's List ×4</div></div>
-              <div><div class="mono lime" style="font-size:22px;font-weight:700">2 yrs</div><div class="dim" style="font-size:12px">robotics software (Robocon)</div></div>
-              <div><div class="mono lime" style="font-size:22px;font-weight:700">vision→fw</div><div class="dim" style="font-size:12px">full-stack on real robots</div></div>
-              <div><div class="mono lime" style="font-size:22px;font-weight:700">Python·C</div><div class="dim" style="font-size:12px">+ Docker, Linux, cloud GPU</div></div>
-            </div>
-          </div>
+      <div class="tl-row">
+        <span class="when">Jul — Oct 2025</span>
+        <div>
+          <div class="role">Robotics Engineer Intern</div>
+          <div class="org">A2TECH Sdn Bhd · Malaysia — LiDAR mapping pipelines and sensor integration for industrial autonomous navigation.</div>
         </div>
       </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills">
-      <div class="wrap">
-        <div class="prompt mono reveal"><span class="dim">$</span> <b>ls</b> -la skills/</div>
-        <h2 class="sec reveal">Technical Skills</h2>
-        <div class="grid g3 reveal">
-          <div class="card" style="padding:20px">
-            <div class="mono amber" style="font-size:12px;margin-bottom:12px">robotics_vision_ai/</div>
-            <div style="display:flex;flex-wrap:wrap;gap:7px">
-              <span class="chip">ROS 2 (Humble)</span><span class="chip">micro-ROS</span><span class="chip">OpenCV</span>
-              <span class="chip">YOLO + TensorRT</span><span class="chip">Sensor Fusion</span><span class="chip">Localization</span><span class="chip">Path Planning</span>
-            </div>
-          </div>
-          <div class="card" style="padding:20px">
-            <div class="mono amber" style="font-size:12px;margin-bottom:12px">embedded_hardware/</div>
-            <div style="display:flex;flex-wrap:wrap;gap:7px">
-              <span class="chip">C / C++</span><span class="chip">STM32 (HAL &amp; Register)</span><span class="chip">ESP32 / ESP-IDF</span>
-              <span class="chip">PID &amp; Motor Control</span><span class="chip">CAN · I2C · UART · SPI</span><span class="chip">PCB (Altium)</span>
-            </div>
-          </div>
-          <div class="card" style="padding:20px">
-            <div class="mono amber" style="font-size:12px;margin-bottom:12px">tools_automation/</div>
-            <div style="display:flex;flex-wrap:wrap;gap:7px">
-              <span class="chip">Python</span><span class="chip">Docker</span><span class="chip">Linux / SSH</span>
-              <span class="chip">Cloud GPUs (Vast.ai)</span><span class="chip">STM32CubeIDE</span><span class="chip">SolidWorks</span>
-            </div>
-          </div>
+      <div class="tl-row">
+        <span class="when">Nov 2023 — Jun 2025</span>
+        <div>
+          <div class="role">Senior Programmer, Robotics Team</div>
+          <div class="org">UTM Robocon · Malaysia — perception and control software for two ABU Robocon international campaigns.</div>
         </div>
       </div>
-    </section>
-
-    <!-- FEATURED -->
-    <section id="featured">
-      <div class="wrap">
-        <div class="prompt mono reveal"><span class="dim">$</span> <b>./run</b> --best-work <span class="c">basketball-robot</span></div>
-        <h2 class="sec reveal" style="margin-bottom:8px">Autonomous Basketball Robot <span class="dim mono" style="font-size:14px;font-weight:400">· ABU Robocon 2025</span></h2>
-        <p class="reveal" style="font-size:15px;max-width:48rem;margin:0 0 28px">A competition robot that <span class="head">sees</span> the hoop, <span class="head">aims</span> itself, computes the <span class="head">physics of the shot</span>, and <span class="head">scores</span> — fully autonomously. I built the software brain end-to-end: the vision that finds the basket, the projectile-motion solver that works out how hard and at what angle to launch, the localization that tracks the robot, the micro-ROS link to the board, and the integration that made it all run in real time on a live competition floor.</p>
-
-        <div class="grid reveal" style="grid-template-columns:2fr 3fr;gap:18px">
-          <!-- left -->
-          <div style="display:flex;flex-direction:column;gap:18px">
-            <div class="card" style="overflow:hidden">
-              <div class="ph" style="height:230px;padding:10px">
-                <img src="https://raw.githubusercontent.com/hassannmurtada/portfolio/main/BasketballRobot.jpeg" alt="ABU Robocon 2025 Basketball Robot" style="max-width:100%;max-height:100%;object-fit:contain" onerror="this.style.display='none';this.parentNode.innerHTML='BasketballRobot.jpeg'">
-              </div>
-            </div>
-            <div class="card" style="padding:20px;border-color:#2c3a49">
-              <div class="mono lime" style="font-size:11px;letter-spacing:1px;margin-bottom:12px">// WHAT I BUILT</div>
-              <ul class="clean">
-                <li>The camera and YOLO vision that finds the basket (optimized with TensorRT)</li>
-                <li>The shooting — working out the launch speed and angle from projectile motion</li>
-                <li>The flywheel and motor control that actually takes the shot</li>
-                <li>The localization that keeps track of where the robot is</li>
-                <li>The micro-ROS link carrying everything to the board</li>
-                <li>The cloud training (Vast.ai) and AWS dataset setup for the team</li>
-                <li>Putting it all together and testing it on the field</li>
-              </ul>
-              <p class="dim" style="font-size:12px;margin:12px 0 0">My teammate built the STM32 mainboard firmware and board bring-up; I built my pipeline on top of it.</p>
-            </div>
-          </div>
-          <!-- right -->
-          <div style="display:flex;flex-direction:column;gap:18px">
-            <div class="card" style="padding:22px">
-              <div class="mono dim" style="font-size:11px;letter-spacing:1px;margin-bottom:14px">// SIGNAL PIPELINE — camera to motors</div>
-              <div class="pipe mono">
-                <span class="node">Camera</span><span class="arrow">→</span>
-                <span class="node mine">YOLO / TensorRT</span><span class="arrow">→</span>
-                <span class="node mine">Projectile solver</span><span class="arrow">→</span>
-                <span class="node mine">micro-ROS</span><span class="arrow">→</span>
-                <span class="node">STM32F407</span><span class="arrow">→</span>
-                <span class="node mine">Flywheel + Motors</span>
-              </div>
-              <p style="font-size:14px;margin:16px 0 0">My detector finds the basket each frame, estimates the distance, and centers the aim by driving the basket's horizontal offset to zero. From that distance my projectile-motion solver computes the launch velocity and angle the ball needs, and sends it over the micro-ROS link — benchmarked at <span class="lime mono">~230–450&nbsp;Hz</span> — to the mainboard, which spins the flywheel and takes the shot. <span class="lime mono" style="font-size:12px">(green = my work)</span></p>
-            </div>
-
-            <div class="grid g3" style="gap:14px">
-              <div class="card" style="padding:18px;text-align:center">
-                <div class="mono lime" style="font-size:18px;font-weight:700">v · θ</div>
-                <div class="dim" style="font-size:12px;margin-top:5px">physics-based shot — solves launch velocity &amp; angle from distance</div>
-              </div>
-              <div class="card" style="padding:18px;text-align:center">
-                <div class="mono lime" style="font-size:18px;font-weight:700">TensorRT</div>
-                <div class="dim" style="font-size:12px;margin-top:5px">YOLO exported to a GPU engine for fast on-board inference</div>
-              </div>
-              <div class="card" style="padding:18px;text-align:center">
-                <div class="mono lime" style="font-size:18px;font-weight:700">fail-safe</div>
-                <div class="dim" style="font-size:12px;margin-top:5px">defaults to "aim centered" when no basket is detected</div>
-              </div>
-            </div>
-
-            <div class="card" style="padding:22px">
-              <div class="mono dim" style="font-size:11px;letter-spacing:1px;margin-bottom:12px">// SOME THINGS I'M GLAD I GOT RIGHT</div>
-              <ul class="clean">
-                <li>Rather than hard-coding how hard to shoot, I worked out the launch speed and angle from the distance to the hoop, so the robot adjusts its shot wherever it's standing instead of only working from one spot.</li>
-                <li>For the camera feed I made the robot always act on the newest frame rather than work through a backed-up queue — when you're aiming in real time, reacting to an old frame is worse than skipping one.</li>
-                <li>To keep detection fast on the robot's small onboard GPU, I exported the trained model to TensorRT so it could run quickly without choking the system.</li>
-                <li>If the camera loses sight of the basket, the robot doesn't panic — it just holds a centered aim instead of reacting to a bad reading.</li>
-                <li>I kept the vision and firmware talking through one simple, agreed-on message, so my teammate and I could each build and test our half without getting in each other's way.</li>
-              </ul>
-              <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:18px">
-                <a href="https://github.com/hassannmurtada/Basket-Image" target="_blank" class="btn btn-primary" style="padding:8px 14px">vision code ↗</a>
-                <a href="https://github.com/MohdSaif44/abu-mainboard" target="_blank" class="btn btn-ghost" style="padding:8px 14px">mainboard firmware (team) ↗</a>
-              </div>
-            </div>
-          </div>
+      <div class="tl-row">
+        <span class="when">2023 — present</span>
+        <div>
+          <div class="role">Technical Mentor &amp; Workshop Organiser</div>
+          <div class="org">UTM · Malaysia — ROS 2, computer vision and embedded C workshops for 20+ students; mentored exchange students and junior team members.</div>
         </div>
       </div>
-    </section>
-
-    <!-- CLOUD INFRA -->
-    <section id="infra">
-      <div class="wrap">
-        <div class="prompt mono reveal"><span class="dim">$</span> <b>cat</b> infrastructure.md <span class="dim">| grep cloud</span></div>
-        <h2 class="sec reveal" style="margin-bottom:8px">Cloud Training &amp; Data Infrastructure</h2>
-        <p class="reveal" style="font-size:15px;max-width:48rem;margin:0 0 24px">Beyond the robot itself, I set up the cloud workflow that let our team train models fast and never lose their data — turning a slow, manual, "it-works-on-my-laptop" process into a repeatable one anyone could use.</p>
-        <div class="grid g2 reveal" style="gap:18px">
-          <div class="card" style="padding:24px">
-            <div class="mono amber" style="font-size:12px;margin-bottom:10px">gpu_training/ · Vast.ai</div>
-            <h3 class="head" style="margin:0 0 8px;font-size:16px">On-demand GPU training</h3>
-            <p style="font-size:14px;color:var(--txt-dim)">Spun up cloud GPU instances on Vast.ai and drove them over SSH to train our YOLO models — far faster than local hardware, and available to teammates who didn't own a GPU. Trained, exported and benchmarked models in a loop until they were field-ready.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:14px"><span class="chip">Vast.ai</span><span class="chip">SSH</span><span class="chip">YOLO training</span><span class="chip">Docker</span></div>
-          </div>
-          <div class="card" style="padding:24px">
-            <div class="mono amber" style="font-size:12px;margin-bottom:10px">data_pipeline/ · AWS S3</div>
-            <h3 class="head" style="margin:0 0 8px;font-size:16px">Centralized dataset storage</h3>
-            <p style="font-size:14px;color:var(--txt-dim)">Set up AWS S3 as the team's single source of truth for image datasets — so anyone could pull the latest data from anywhere, versions stayed consistent, and nothing lived on one person's machine. The training instances pulled straight from it.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:14px"><span class="chip">AWS S3</span><span class="chip">Dataset versioning</span><span class="chip">Team access</span></div>
-          </div>
-        </div>
-        <div class="card reveal" style="padding:18px 22px;margin-top:18px;border-color:#2c3a49">
-          <p style="font-size:14px;margin:0"><span class="lime mono" style="font-size:12px">// why it matters →</span> &nbsp;This was really just automation applied to our own work — taking something slow and manual and making it fast and easy for the whole team. It's the same instinct I'd bring to automating a business's processes.</p>
+      <div class="tl-row">
+        <span class="when">Oct 2022 — Feb 2027</span>
+        <div>
+          <div class="role">B.Eng. Electrical Engineering</div>
+          <div class="org">Universiti Teknologi Malaysia · CGPA 3.70, Dean's List four semesters. Final year project: machine-learning estimation of lithium-ion battery state of health.</div>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <!-- PROJECTS -->
-    <section id="projects">
-      <div class="wrap">
-        <div class="prompt mono reveal"><span class="dim">$</span> <b>ls</b> projects/ <span class="dim">--all</span></div>
-        <h2 class="sec reveal">More Projects</h2>
-        <div class="grid g3 reveal">
-          <div class="card" style="overflow:hidden">
-            <div class="ph" style="height:150px">images/robocon2024.jpg</div>
-            <div style="padding:20px">
-              <div class="mono amber" style="font-size:12px;margin-bottom:6px">vision-pipeline/</div>
-              <h3 class="head" style="margin:0 0 8px;font-size:15px">ABU Robocon 2024 — Vision Pipeline</h3>
-              <p style="font-size:13px;color:var(--txt-dim)">Built the detection pipeline: OpenCV color masking, dataset annotation in LabelMe/Roboflow, and YOLO training on Vast.ai cloud GPUs over SSH for the remote team.</p>
-              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span class="chip">OpenCV</span><span class="chip">YOLO</span><span class="chip">Vast.ai</span></div>
-            </div>
-          </div>
-          <div class="card" style="overflow:hidden">
-            <div class="ph" style="height:150px">images/minigame2024.jpg</div>
-            <div style="padding:20px">
-              <div class="mono amber" style="font-size:12px;margin-bottom:6px">omni-drive/</div>
-              <h3 class="head" style="margin:0 0 8px;font-size:15px">UTM Robocon Minigame 2024</h3>
-              <p style="font-size:13px;color:var(--txt-dim)">Foundational robot with omni-drive wheels. Implemented IMU balancing, path planning and PID control over CAN/UART/I2C, plus PS4 teleop over Bluetooth on ESP-IDF.</p>
-              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span class="chip">ESP-IDF</span><span class="chip">PID</span><span class="chip">CAN/I2C</span></div>
-            </div>
-          </div>
-          <div class="card" style="overflow:hidden">
-            <div class="ph" style="height:150px">images/apprentice.jpg</div>
-            <div style="padding:20px">
-              <div class="mono amber" style="font-size:12px;margin-bottom:6px">apprentice-bootcamp/</div>
-              <h3 class="head" style="margin:0 0 8px;font-size:15px">Robocon Apprentice Bootcamp</h3>
-              <p style="font-size:13px;color:var(--txt-dim)">6-week intensive: register-level STM32 programming and flash ops, custom schematic/PCB design in Altium, and mechanical modeling in SolidWorks.</p>
-              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:12px"><span class="chip">Altium</span><span class="chip">STM32</span><span class="chip">SolidWorks</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<div class="frame"><div class="ticks"></div></div>
 
-    <!-- EXPERIENCE -->
-    <section id="experience">
-      <div class="wrap">
-        <div class="prompt mono reveal"><span class="dim">$</span> <b>git</b> log --career</div>
-        <h2 class="sec reveal">Experience &amp; Education</h2>
-        <div class="reveal" style="border-left:1px solid var(--line);padding-left:26px;margin-left:6px;display:flex;flex-direction:column;gap:30px">
-          <div style="position:relative">
-            <span style="position:absolute;left:-32px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px var(--bg)"></span>
-            <h3 class="head" style="margin:0;font-size:16px">Robotics Engineer Intern</h3>
-            <div class="mono dim" style="font-size:12px;margin:3px 0 10px">A2TECH Sdn Bhd · 2025 · Johor, MY</div>
-            <ul class="clean">
-              <li>Implemented and tested LiDAR mapping pipelines (Ouster, Livox) for autonomous navigation.</li>
-              <li>Ran structured sensor validation &amp; documentation to qualify hardware for deployment.</li>
-              <li>Integrated sensor data into the robot's central compute with the engineering team.</li>
-            </ul>
-          </div>
-          <div style="position:relative">
-            <span style="position:absolute;left:-32px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--txt-dim);box-shadow:0 0 0 4px var(--bg)"></span>
-            <h3 class="head" style="margin:0;font-size:16px">Senior Programmer</h3>
-            <div class="mono dim" style="font-size:12px;margin:3px 0 10px">UTM Robocon Team · 2023–2025 · Johor, MY</div>
-            <ul class="clean">
-              <li>Owned perception + localization software for competition robots, incl. the 2025 basketball robot.</li>
-              <li>Built ROS 2 / micro-ROS pipelines bridging GPU vision to STM32 motor control.</li>
-              <li>Improved field reliability via soak-testing, fail-safe defaults, and clean module interfaces.</li>
-            </ul>
-          </div>
-          <div style="position:relative">
-            <span style="position:absolute;left:-32px;top:5px;width:11px;height:11px;border-radius:50%;background:var(--txt-dim);box-shadow:0 0 0 4px var(--bg)"></span>
-            <h3 class="head" style="margin:0;font-size:16px">B.Eng. Electrical Engineering</h3>
-            <div class="mono dim" style="font-size:12px;margin:3px 0 10px">Universiti Teknologi Malaysia (UTM) · Expected 2027</div>
-            <ul class="clean">
-              <li>CGPA 3.68 · Dean's List (4 semesters). Focus: embedded systems, control, robotics.</li>
-              <li>Projects: STM32 calculator (ASM), ESP32 dev-kit design, PLC lift control system.</li>
-              <li>Core member: UTM Robocon &amp; SAUVC competitive engineering teams.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+<!-- ══════════════ CONTACT ══════════════ -->
+<section class="frame band split rv" id="contact">
+  <div class="rail">
+    <span class="k">Status</span>
+    <span class="v">Graduating Feb 2027 · open to graduate roles in robotics software and autonomy</span>
+    <span class="k">Based</span>
+    <span class="v">Johor Bahru, Malaysia</span>
+  </div>
+  <div>
+    <p class="eyebrow">Contact</p>
+    <h2 class="sec">Get in touch</h2>
+    <p class="prose dim">I'm most interested in work where the software has to survive contact with real hardware — autonomy, perception, robotics platforms. Happy to talk about any of the above in more detail, including the parts that didn't work.</p>
+    <div class="contact-grid">
+      <a href="mailto:hassann.abdallawork@gmail.com"><span class="cl">Email</span><span class="cv">hassann.abdallawork@gmail.com</span></a>
+      <a href="tel:+60123526362"><span class="cl">Phone</span><span class="cv">+60 12-352 6362</span></a>
+      <a href="https://www.linkedin.com/in/hassan-murtada-b68139266/" target="_blank" rel="noopener"><span class="cl">LinkedIn</span><span class="cv">hassan-murtada &nearr;</span></a>
+      <a href="https://github.com/hassannmurtada" target="_blank" rel="noopener"><span class="cl">GitHub</span><span class="cv">hassannmurtada &nearr;</span></a>
+    </div>
+  </div>
+</section>
 
-    <!-- CONTACT -->
-    <section id="contact">
-      <div class="wrap">
-        <div class="prompt mono reveal"><span class="dim">$</span> <b>./contact</b> --connect</div>
-        <div class="term reveal">
-          <div class="term-bar">
-            <span class="dots"><i style="background:#f07178"></i><i style="background:#ffb454"></i><i style="background:#b3f361"></i></span>
-            <span class="t mono">hassan@robocon: ~/contact</span>
-          </div>
-          <div class="term-body mono" style="font-size:14px">
-            <div style="margin-bottom:14px"><span class="lime">hassan@robocon</span><span class="dim">:</span><span class="cyan">~</span><span class="dim">$</span> echo "let's build something that has to work."</div>
-            <div class="head" style="margin-bottom:18px">Open to internships in robotics, embedded, software &amp; automation · Jul–Oct 2026.</div>
-            <div style="display:flex;flex-wrap:wrap;gap:10px">
-              <a href="mailto:hassann.abdallawork@gmail.com" class="btn btn-primary">email ↗</a>
-              <a href="tel:+60123526362" class="btn btn-ghost">+60 12 352 6362</a>
-              <a href="https://www.linkedin.com/in/hassan-murtada-b68139266/" target="_blank" class="btn btn-ghost">linkedin ↗</a>
-              <a href="https://github.com/hassannmurtada" target="_blank" class="btn btn-ghost">github ↗</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<footer>
+  <div class="frame foot-in">
+    <span>Hassan Murtada · <span id="yr"></span></span>
+    <span>Set in Archivo and IBM Plex</span>
+    <a href="#top" style="color:inherit;text-decoration:none">Return to top &uarr;</a>
+  </div>
+</footer>
 
-    <footer>
-      <div class="wrap mono" style="display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between">
-        <span>© <span id="year"></span> Hassan Murtada</span>
-        <a href="#home" class="dim" style="transition:color .2s" onmouseover="this.style.color='var(--lime)'" onmouseout="this.style.color='var(--txt-dim)'">return ↑</a>
-      </div>
-    </footer>
+<script>
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
 
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-      const io = new IntersectionObserver((es,o)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}})},{threshold:.12});
-      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-    </script>
-  </body>
+  // theme toggle — cycles system → light → dark
+  var root = document.documentElement, btn = document.getElementById('tt');
+  var stored = null;
+  try { stored = localStorage.getItem('hm-theme'); } catch(e) {}
+  if (stored === 'light' || stored === 'dark') root.setAttribute('data-theme', stored);
+  btn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('hm-theme', next); } catch(e) {}
+  });
+
+  // scroll reveal
+  var els = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    els.forEach(function(el){ el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries, obs){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
 </html>
