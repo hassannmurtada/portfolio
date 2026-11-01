@@ -10,6 +10,9 @@
 <meta property="og:type" content="website" />
 <meta name="theme-color" content="#0A1322" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E1A2C'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23F2B23A' stroke-width='1.5' opacity='.5'/%3E%3Crect x='11' y='13' width='10' height='6' rx='1' fill='%23F2B23A'/%3E%3C/svg%3E" />
+<!-- Privacy-friendly visit stats (no cookies). Dashboard: hassannmurtada.goatcounter.com, private.
+     Visit the site with #toggle-goatcounter once to stop counting your own visits in that browser. -->
+<script data-goatcounter="https://hassannmurtada.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -438,8 +441,8 @@ footer{padding:30px 0 44px}
       <p class="sub">I write the code that sits between a robot's sensors and its motors: <b>perception</b>, <b>ROS&nbsp;2</b>, and the <b>embedded firmware</b> underneath. Most recently I worked on an Autoware stack that drove <b>full-size vehicles on real roads</b>.</p>
       <div class="btns">
         <a class="btn primary" href="#projects">See my work <span class="arr">↓</span></a>
-        <a class="btn" href="mailto:hassann.abdallawork@gmail.com">Email me</a>
-        <a class="btn" href="https://github.com/hassannmurtada" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn" href="mailto:hassann.abdallawork@gmail.com" data-goatcounter-click="click-hero-email" data-goatcounter-title="Hero: Email me">Email me</a>
+        <a class="btn" href="https://github.com/hassannmurtada" target="_blank" rel="noopener" data-goatcounter-click="click-hero-github" data-goatcounter-title="Hero: GitHub">GitHub ↗</a>
       </div>
     </div>
     <figure class="scan" id="scanfig" aria-label="Interactive simulated top-down 2D LiDAR sweep around a vehicle. Click or tap to place cones.">
@@ -535,7 +538,7 @@ footer{padding:30px 0 44px}
         <div class="stage mine"><span class="sn">Actuation</span><span class="st">Drive-by-wire</span><span class="sd">Steer, throttle, brake</span></div>
       </div>
     </div>
-    <details class="deep">
+    <details class="deep" data-ev="open-autoware-story">
       <summary><span class="pm" aria-hidden="true">+</span>Read the full story <span class="rt">· 1 min</span></summary>
       <div class="deep-body">
         <p>Most autonomy work isn't inventing planners. It's taking a stack that works on paper and making it behave on real hardware.</p>
@@ -579,7 +582,7 @@ footer{padding:30px 0 44px}
         <div class="stage mine"><span class="sn">Actuation</span><span class="st">Flywheel</span><span class="sd">Shot released</span></div>
       </div>
     </div>
-    <details class="deep">
+    <details class="deep" data-ev="open-robot-rules">
       <summary><span class="pm" aria-hidden="true">+</span>Five rules this robot taught me <span class="rt">· 1 min</span></summary>
       <ol class="rules">
         <li><div><b>Solve the shot, don't tabulate it.</b> <span>The robot measures distance and solves projectile motion, so when it misses, the error is a physical parameter to fix, not a lookup table to re-tune.</span></div></li>
@@ -590,8 +593,8 @@ footer{padding:30px 0 44px}
       </ol>
     </details>
     <div class="links">
-      <a class="btn" href="https://github.com/hassannmurtada/Basket-Image" target="_blank" rel="noopener">Vision pipeline code ↗</a>
-      <a class="btn" href="https://github.com/MohdSaif44/abu-mainboard" target="_blank" rel="noopener">Team mainboard firmware ↗</a>
+      <a class="btn" href="https://github.com/hassannmurtada/Basket-Image" target="_blank" rel="noopener" data-goatcounter-click="click-repo-vision" data-goatcounter-title="Repo: Vision pipeline">Vision pipeline code ↗</a>
+      <a class="btn" href="https://github.com/MohdSaif44/abu-mainboard" target="_blank" rel="noopener" data-goatcounter-click="click-repo-mainboard" data-goatcounter-title="Repo: Team mainboard">Team mainboard firmware ↗</a>
     </div>
   </article>
 </section>
@@ -676,7 +679,7 @@ footer{padding:30px 0 44px}
     </div>
   </div>
 
-  <details class="deep reveal">
+  <details class="deep reveal" data-ev="open-fusion-note">
     <summary><span class="pm" aria-hidden="true">+</span>Read the full engineering note: why fusion is a geometry problem <span class="rt">· 3 min</span></summary>
     <div class="deep-body" style="max-width:none">
       <p style="max-width:66ch">A LiDAR measures time of flight, so its range is direct and metric. It has no idea whether those points are a traffic cone or a fire hydrant. A camera has huge angular detail, but a pixel only tells you the <em>ray</em> the light arrived along, not how far along it the object is.</p>
@@ -792,9 +795,9 @@ footer{padding:30px 0 44px}
     <p>Graduating Feb 2027 and open to graduate roles and research in robotics and autonomy. Based in Johor Bahru, Malaysia. The fastest way to reach me is email.</p>
     <div class="clinks">
       <button type="button" id="copymail" data-mail="hassann.abdallawork@gmail.com"><span><span class="cl">Email · click to copy</span><span class="cv">hassann.abdallawork@gmail.com</span></span><span class="go" id="copylbl">Copy</span></button>
-      <a href="tel:+60123526362"><span><span class="cl">Phone</span><span class="cv">+60 12-352 6362</span></span><span class="go">Call</span></a>
-      <a href="https://www.linkedin.com/in/hassan-murtada-b68139266/" target="_blank" rel="noopener"><span><span class="cl">LinkedIn</span><span class="cv">hassan-murtada</span></span><span class="go">↗</span></a>
-      <a href="https://github.com/hassannmurtada" target="_blank" rel="noopener"><span><span class="cl">GitHub</span><span class="cv">hassannmurtada</span></span><span class="go">↗</span></a>
+      <a href="tel:+60123526362" data-goatcounter-click="click-contact-phone" data-goatcounter-title="Contact: Phone"><span><span class="cl">Phone</span><span class="cv">+60 12-352 6362</span></span><span class="go">Call</span></a>
+      <a href="https://www.linkedin.com/in/hassan-murtada-b68139266/" target="_blank" rel="noopener" data-goatcounter-click="click-contact-linkedin" data-goatcounter-title="Contact: LinkedIn"><span><span class="cl">LinkedIn</span><span class="cv">hassan-murtada</span></span><span class="go">↗</span></a>
+      <a href="https://github.com/hassannmurtada" target="_blank" rel="noopener" data-goatcounter-click="click-contact-github" data-goatcounter-title="Contact: GitHub"><span><span class="cl">GitHub</span><span class="cv">hassannmurtada</span></span><span class="go">↗</span></a>
     </div>
   </div>
 </section>
@@ -803,7 +806,7 @@ footer{padding:30px 0 44px}
 <footer>
   <div class="frame foot-in">
     <span>© <span id="yr">2026</span> Hassan Murtada</span>
-    <span>Hand-built. No frameworks, no tracking, one fake LiDAR.</span>
+    <span>Hand-built. No frameworks, no cookies, one fake LiDAR.</span>
     <a href="#top">Back to top ↑</a>
   </div>
 </footer>
@@ -823,6 +826,22 @@ footer{padding:30px 0 44px}
 <script>
 (function(){
   var root = document.documentElement;
+  /* GoatCounter events: each fires at most once per page view so the numbers mean "visitors who did X" */
+  var sent = {};
+  function track(name, title){
+    if (sent[name]) return; sent[name] = true;
+    (function go(n){
+      if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: name, title: title || name, event: true });
+      else if (n < 20) setTimeout(function(){ go(n + 1); }, 500);
+    })(0);
+  }
+  document.querySelectorAll('details[data-ev]').forEach(function(d){
+    d.addEventListener('toggle', function(){ if (d.open) track(d.getAttribute('data-ev'), 'Opened: ' + d.getAttribute('data-ev').replace(/^open-/, '').replace(/-/g, ' ')); });
+  });
+  if ('IntersectionObserver' in window){
+    var seen = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ track('reached-' + e.target.id, 'Scrolled to: ' + e.target.id); seen.unobserve(e.target); } }); }, { threshold: 0.25 });
+    ['projects','lessons','contact'].forEach(function(id){ var el = document.getElementById(id); if (el) seen.observe(el); });
+  }
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -831,7 +850,7 @@ footer{padding:30px 0 44px}
     var cur = root.getAttribute('data-theme');
     if (!cur) cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     var next = cur === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
+    root.setAttribute('data-theme', next); track('toggle-theme', 'Toggled theme');
     try { localStorage.setItem('hm-theme', next); } catch(e) {}
   });
 
@@ -854,7 +873,7 @@ footer{padding:30px 0 44px}
   /* copy email */
   var cm = document.getElementById('copymail');
   cm.addEventListener('click', function(){
-    var m = cm.getAttribute('data-mail');
+    var m = cm.getAttribute('data-mail'); track('click-contact-email-copy', 'Contact: Copied email');
     function done(){ document.getElementById('copylbl').textContent = 'Copied ✓'; toast('Email copied. Talk soon!'); setTimeout(function(){ document.getElementById('copylbl').textContent = 'Copy'; }, 2200); }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(m).then(done, function(){ location.href = 'mailto:' + m; });
     else location.href = 'mailto:' + m;
@@ -888,6 +907,7 @@ footer{padding:30px 0 44px}
     var userPaused = reduce;
     function sync(){ t.textContent = v.paused ? '▶ Play' : '❚❚ Pause'; fig.classList.toggle('paused', v.paused); }
     v.addEventListener('play', sync); v.addEventListener('pause', sync); sync();
+    v.addEventListener('timeupdate', function(){ if (v.currentTime > 8) track('watched-onroad-video', 'Watched on-road video (8s+)'); });
     t.addEventListener('click', function(){ if (v.paused){ userPaused = false; v.play().catch(function(){}); } else { userPaused = true; v.pause(); } });
     if ('IntersectionObserver' in window){
       new IntersectionObserver(function(es){ es.forEach(function(e){
@@ -906,7 +926,7 @@ footer{padding:30px 0 44px}
       img.src = s.getAttribute('data-lb'); img.alt = s.querySelector('img').alt;
       cap.innerHTML = ''; var m = document.createElement('span'); m.className = 'mono'; m.textContent = c[0]; cap.appendChild(m); cap.appendChild(document.createTextNode(c.slice(1).join(' · ')));
     }
-    shots.forEach(function(s, i){ s.addEventListener('click', function(){ show(i); lb.showModal(); }); });
+    shots.forEach(function(s, i){ s.addEventListener('click', function(){ show(i); lb.showModal(); track('zoom-' + s.getAttribute('data-lb').replace(/^media\/|\.webp$/g, ''), 'Zoomed screenshot'); }); });
     document.getElementById('lbx').addEventListener('click', function(){ lb.close(); });
     document.getElementById('lbn').addEventListener('click', function(){ show(cur + 1); });
     document.getElementById('lbp').addEventListener('click', function(){ show(cur - 1); });
@@ -949,7 +969,9 @@ footer{padding:30px 0 44px}
       document.getElementById('vf').textContent = d + ' m × tan(' + a.toFixed(1) + '°) = ' + s.toFixed(2) + ' m · ' + inside + '/' + dots.length + ' points on target';
     }
     ang.addEventListener('input', upd); dst.addEventListener('input', upd);
-    document.querySelectorAll('.presets button').forEach(function(b){ b.addEventListener('click', function(){ ang.value = b.getAttribute('data-a'); dst.value = b.getAttribute('data-d'); upd(); }); });
+    function used(){ track('used-calibration-playground', 'Played with calibration sliders'); }
+    ang.addEventListener('change', used); dst.addEventListener('change', used);
+    document.querySelectorAll('.presets button').forEach(function(b){ b.addEventListener('click', function(){ ang.value = b.getAttribute('data-a'); dst.value = b.getAttribute('data-d'); upd(); used(); }); });
     upd();
   })();
 
@@ -1030,7 +1052,7 @@ footer{padding:30px 0 44px}
     if (e.target === resetBtn) return;
     var r = cv.getBoundingClientRect(), mx = (e.clientX - r.left - W/2) / S, my = -(e.clientY - r.top - H/2) / S;
     if (Math.hypot(mx, my) < 1.8 || Math.hypot(mx, my) > RANGE) return;
-    cones.push([mx, my]); if (cones.length > 10) cones.shift();
+    cones.push([mx, my]); if (cones.length > 10) cones.shift(); track('dropped-lidar-cone', 'Dropped a cone on the LiDAR map');
     hint.style.opacity = 0; rebuild(); cast(); if (reduce) { commit(); draw(null); } updCap();
   });
   resetBtn.addEventListener('click', function(){ cones = []; rebuild(); cast(); if (reduce){ commit(); draw(null); } updCap(); });
