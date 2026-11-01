@@ -244,6 +244,58 @@ details.deep summary:hover{color:var(--accent)}
 
 .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 
+/* field media: dark instrument frames, same family as the LiDAR scan */
+.field{margin:0 0 22px}
+.reel{position:relative;margin:0;border-radius:14px;overflow:hidden;background:var(--scan-bg);border:1px solid var(--rule-strong);aspect-ratio:2/1;box-shadow:0 24px 60px -34px rgba(10,20,40,.6)}
+.reel video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%}
+.reel::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(7,16,29,.55) 0,transparent 22%,transparent 62%,rgba(7,16,29,.85) 100%)}
+.reel .rec,.reel figcaption,.reel .vt{position:absolute;z-index:1}
+.reel .rec{top:12px;left:14px;display:flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;font-size:12px;color:rgba(214,226,240,.85);letter-spacing:.04em}
+.reel .rec i{width:8px;height:8px;border-radius:50%;background:#EF5A6A;animation:blink 1.6s steps(2,start) infinite}
+.reel.paused .rec i{animation:none;opacity:.4}
+@keyframes blink{to{visibility:hidden}}
+@media (prefers-reduced-motion: reduce){ .reel .rec i{animation:none} }
+.reel figcaption{left:16px;right:120px;bottom:14px;font-size:14px;line-height:1.45;color:#E5EBF2;max-width:60ch}
+.reel figcaption .mono{color:#F2B23A;font-size:12px;display:block;margin-bottom:2px}
+.reel .vt{right:12px;bottom:12px;font:inherit;font-size:12.5px;color:#E5EBF2;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:5px 12px;cursor:pointer;backdrop-filter:blur(6px)}
+.reel .vt:hover{border-color:#F2B23A}
+@media (max-width:600px){
+  .reel{aspect-ratio:auto}
+  .reel video{position:relative;display:block;height:auto;aspect-ratio:16/10}
+  .reel::after{bottom:auto;height:0;padding-top:62.5%}
+  .reel .rec{text-shadow:0 1px 3px rgba(0,0,0,.8)}
+  .reel figcaption{position:static;padding:12px 14px 14px;font-size:13.5px}
+  .reel .vt{top:10px;right:10px;bottom:auto}
+}
+.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}
+.shots.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:700px){
+  .shots,.shots.two{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:82%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+  .shot{scroll-snap-align:start}
+  .shot:hover{transform:none}
+}
+.shot{position:relative;display:block;width:100%;padding:0;margin:0;font:inherit;text-align:left;cursor:zoom-in;border-radius:12px;overflow:hidden;background:var(--scan-bg);border:1px solid var(--rule-strong);aspect-ratio:16/10;transition:border-color .2s,transform .2s}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.shot:hover{border-color:var(--accent-bright);transform:translateY(-2px)}
+.shot:hover img{transform:scale(1.04)}
+.shot::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(7,16,29,.9));pointer-events:none}
+.shot .sc{position:absolute;z-index:1;left:12px;right:12px;bottom:10px;font-size:13px;line-height:1.35;color:#E5EBF2}
+.shot .sc .mono{display:block;font-size:11.5px;color:#F2B23A;margin-bottom:1px}
+.shot .zoom{position:absolute;z-index:1;top:8px;right:8px;width:26px;height:26px;border-radius:50%;background:rgba(7,16,29,.6);color:#E5EBF2;display:grid;place-items:center;font-size:13px;opacity:0;transition:opacity .2s}
+.shot:hover .zoom,.shot:focus-visible .zoom{opacity:1}
+.field-note{font-size:13px;color:var(--ink-3);margin:10px 0 0}
+
+/* lightbox */
+dialog.lb{border:none;padding:0;background:transparent;max-width:min(1200px,94vw);max-height:92vh;color:#E5EBF2}
+dialog.lb::backdrop{background:rgba(5,10,20,.88);backdrop-filter:blur(4px)}
+.lb-fig{margin:0;background:var(--scan-bg);border:1px solid rgba(160,185,215,.25);border-radius:14px;overflow:hidden}
+.lb-fig img{max-width:100%;max-height:78vh;margin:0 auto;object-fit:contain}
+.lb-bar{display:flex;align-items:center;gap:12px;padding:12px 14px;font-size:14px;line-height:1.45}
+.lb-bar .lbc{flex:1}
+.lb-bar .lbc .mono{display:block;font-size:12px;color:#F2B23A}
+.lb-bar button{font:inherit;font-size:13px;color:#E5EBF2;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:999px;height:32px;min-width:32px;padding:0 12px;cursor:pointer}
+.lb-bar button:hover{border-color:#F2B23A}
+
 /* fusion playground */
 .play{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:0;background:var(--surface);border:1px solid var(--rule);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
 @media (max-width:860px){ .play{grid-template-columns:1fr} }
@@ -441,6 +493,28 @@ footer{padding:30px 0 44px}
         <ul class="chips hot"><li class="k">Autoware Universe</li><li class="k">ROS 2</li><li>C++</li><li>Python</li><li class="k">Camera–LiDAR fusion</li><li>Calibration</li><li>AEB</li></ul>
       </div>
     </div>
+    <div class="field">
+      <figure class="reel" id="reel">
+        <video id="reelv" src="media/av-onroad.mp4" poster="media/av-onroad-poster.webp" muted loop playsinline preload="metadata" controls aria-label="In-cabin video of an on-road autonomous test: the steering wheel turns on its own while a laptop runs the autonomy stack."></video>
+        <span class="rec" aria-hidden="true"><i></i>REC · on-road test</span>
+        <figcaption><span class="mono">Fig. 1 · from the driver's seat</span>The stack driving on a real road. Nobody is turning that wheel: steering commands go through the vehicle interface I worked on.</figcaption>
+        <button class="vt" id="reelt" type="button" hidden>Pause</button>
+      </figure>
+      <div class="shots">
+        <button class="shot" type="button" data-lb="media/av-pointcloud.webp" data-cap="Sensing · Raw LiDAR point cloud in RViz, coloured by intensity. The concentric rings are the ground around the vehicle.">
+          <img src="media/av-pointcloud.webp" width="1047" height="684" alt="Raw LiDAR point cloud in RViz, coloured by intensity" loading="lazy">
+          <span class="zoom" aria-hidden="true">⤢</span><span class="sc"><span class="mono">1a · Sensing</span>Raw LiDAR point cloud</span>
+        </button>
+        <button class="shot" type="button" data-lb="media/av-pedestrians.webp" data-cap="Perception · Pedestrians detected in the LiDAR point cloud. These are the final objects the planner receives.">
+          <img src="media/av-pedestrians.webp" width="929" height="732" alt="RViz view of LiDAR points with two objects labelled PEDESTRIAN" loading="lazy">
+          <span class="zoom" aria-hidden="true">⤢</span><span class="sc"><span class="mono">1b · Perception</span>Pedestrians, detected</span>
+        </button>
+        <button class="shot" type="button" data-lb="media/av-planner.webp" data-cap="Planning · Drivable area, parked vehicles and an obstacle stop on a curved road, visualised in Foxglove.">
+          <img src="media/av-planner.webp" width="1395" height="643" alt="Foxglove top-down view of a curved road with drivable area, parked-vehicle boxes and an obstacle stop marker" loading="lazy" style="object-position:45% 50%">
+          <span class="zoom" aria-hidden="true">⤢</span><span class="sc"><span class="mono">1c · Planning</span>Obstacle stop on a curve</span>
+        </button>
+      </div>
+    </div>
     <div class="cpr">
       <div><span class="h"><i></i>The challenge</span><p>A stack that works in a paper has to behave on a real vehicle, on a real road, with a person sitting in it.</p></div>
       <div class="did"><span class="h"><i></i>What I built</span><ul>
@@ -566,6 +640,20 @@ footer{padding:30px 0 44px}
         <span class="vf" id="vf">30 m × tan(1.0°) = 0.52 m</span>
       </div>
     </div>
+  </div>
+
+  <div class="reveal" style="margin-top:22px">
+    <div class="shots two">
+      <button class="shot" type="button" data-lb="media/calib-board.webp" data-cap="Step 1, intrinsics · A checkerboard target held at many poses, so the solver can learn the lens. This always comes first.">
+        <img src="media/calib-board.webp" width="726" height="406" alt="Camera view of a person holding a checkerboard calibration target, with detected corners overlaid" loading="lazy">
+        <span class="zoom" aria-hidden="true">⤢</span><span class="sc"><span class="mono">For real · step 1</span>Intrinsics: teach it the lens</span>
+      </button>
+      <button class="shot" type="button" data-lb="media/fusion-overlay.webp" data-cap="Step 2, extrinsics · LiDAR points projected onto the camera image. This is the playground above, on a real vehicle: if the mounting pose is off, the stripes slide off the objects they hit.">
+        <img src="media/fusion-overlay.webp" width="641" height="437" alt="Camera image of a vehicle in a workshop with coloured LiDAR points projected onto it" loading="lazy">
+        <span class="zoom" aria-hidden="true">⤢</span><span class="sc"><span class="mono">For real · step 2</span>Extrinsics: LiDAR painted onto the image</span>
+      </button>
+    </div>
+    <p class="field-note">Cropped screenshots from calibration work. Parameter panels are deliberately left out.</p>
   </div>
 
   <h3 class="reveal" style="margin-top:44px;font-size:21px">Three silent failures worth knowing</h3>
@@ -720,6 +808,17 @@ footer{padding:30px 0 44px}
   </div>
 </footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<dialog class="lb" id="lb" aria-label="Image viewer">
+  <figure class="lb-fig">
+    <img id="lbi" alt="">
+    <figcaption class="lb-bar">
+      <span class="lbc" id="lbc"></span>
+      <button type="button" id="lbp" aria-label="Previous image">←</button>
+      <button type="button" id="lbn" aria-label="Next image">→</button>
+      <button type="button" id="lbx">Close</button>
+    </figcaption>
+  </figure>
+</dialog>
 
 <script>
 (function(){
@@ -780,6 +879,40 @@ footer{padding:30px 0 44px}
   } else {
     document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
   }
+
+  /* on-road reel: autoplay muted while on screen (unless reduced motion), custom pause toggle */
+  (function(){
+    var v = document.getElementById('reelv'), t = document.getElementById('reelt'), fig = document.getElementById('reel');
+    if (!v) return;
+    v.removeAttribute('controls'); t.hidden = false;
+    var userPaused = reduce;
+    function sync(){ t.textContent = v.paused ? '▶ Play' : '❚❚ Pause'; fig.classList.toggle('paused', v.paused); }
+    v.addEventListener('play', sync); v.addEventListener('pause', sync); sync();
+    t.addEventListener('click', function(){ if (v.paused){ userPaused = false; v.play().catch(function(){}); } else { userPaused = true; v.pause(); } });
+    if ('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){
+        if (e.isIntersecting){ if (!userPaused) v.play().catch(function(){}); } else if (!v.paused) v.pause();
+      }); }, { threshold: 0.35 }).observe(v);
+    }
+  })();
+
+  /* lightbox for field screenshots */
+  (function(){
+    var lb = document.getElementById('lb'); if (!lb || !lb.showModal) return;
+    var shots = [].slice.call(document.querySelectorAll('[data-lb]')), cur = 0;
+    var img = document.getElementById('lbi'), cap = document.getElementById('lbc');
+    function show(i){
+      cur = (i + shots.length) % shots.length; var s = shots[cur], c = s.getAttribute('data-cap').split(' · ');
+      img.src = s.getAttribute('data-lb'); img.alt = s.querySelector('img').alt;
+      cap.innerHTML = ''; var m = document.createElement('span'); m.className = 'mono'; m.textContent = c[0]; cap.appendChild(m); cap.appendChild(document.createTextNode(c.slice(1).join(' · ')));
+    }
+    shots.forEach(function(s, i){ s.addEventListener('click', function(){ show(i); lb.showModal(); }); });
+    document.getElementById('lbx').addEventListener('click', function(){ lb.close(); });
+    document.getElementById('lbn').addEventListener('click', function(){ show(cur + 1); });
+    document.getElementById('lbp').addEventListener('click', function(){ show(cur - 1); });
+    lb.addEventListener('click', function(e){ if (e.target === lb) lb.close(); });
+    lb.addEventListener('keydown', function(e){ if (e.key === 'ArrowRight') show(cur + 1); if (e.key === 'ArrowLeft') show(cur - 1); });
+  })();
 
   /* calibration playground */
   (function(){
