@@ -3,37 +3,53 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Hassan Murtada</title>
-<meta name="description" content="Robotics software engineer, from sensor driver to vehicle behaviour. ROS 2, Autoware, perception and embedded firmware." />
+<title>Hassan Murtada · Robotics Software</title>
+<meta name="description" content="Hassan Murtada, robotics software engineer. Autoware on full-size vehicles, camera–LiDAR fusion, ROS 2 and embedded firmware. Graduating Feb 2027." />
+<meta property="og:title" content="Hassan Murtada · Robotics Software" />
+<meta property="og:description" content="I write the code between a robot's sensors and its wheels: perception, ROS 2, and embedded firmware." />
+<meta property="og:type" content="website" />
+<meta name="theme-color" content="#0A1322" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E1A2C'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23F2B23A' stroke-width='1.5' opacity='.5'/%3E%3Crect x='11' y='13' width='10' height='6' rx='1' fill='%23F2B23A'/%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<script>
+  /* set theme + js flag before paint so nothing flashes */
+  (function(){ var r=document.documentElement; r.classList.add('js');
+    try{ var s=localStorage.getItem('hm-theme'); if(s==='light'||s==='dark') r.setAttribute('data-theme',s); }catch(e){} })();
+</script>
 <style>
 :root{
   --paper:#F3F5F8; --surface:#FFFFFF; --surface-2:#E9EDF2;
-  --ink:#0F1B2D; --ink-2:#4A5869; --ink-3:#7F8C9C;
+  --ink:#0F1B2D; --ink-2:#4A5869; --ink-3:#6F7D8E;
   --rule:#D3DAE2; --rule-strong:#A9B5C2;
-  --accent:#B86A00; --accent-bright:#E89B14; --accent-wash:rgba(232,155,20,.11);
+  --accent:#A65F00; --accent-bright:#E89B14; --accent-wash:rgba(232,155,20,.12);
   --warn:#B23A48; --warn-wash:rgba(178,58,72,.08);
-  --scan-bg:#0E1A2C; --scan-grid:rgba(160,185,215,.10); --scan-pt:#F2B23A; --scan-car:#8FB4E8;
+  --ok:#1F7A55; --ok-wash:rgba(31,122,85,.10);
+  --scan-bg:#0E1A2C; --scan-grid:rgba(160,185,215,.10); --scan-pt:#F2B23A; --scan-car:#8FB4E8; --scan-cone:#7EE2B8;
+  --shadow:0 1px 2px rgba(15,27,45,.04),0 12px 32px -18px rgba(15,27,45,.25);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#0A1322; --surface:#101C2F; --surface-2:#15233A;
-    --ink:#E5EBF2; --ink-2:#9AA8B9; --ink-3:#6B7A8D;
+    --ink:#E5EBF2; --ink-2:#9AA8B9; --ink-3:#7A899C;
     --rule:#1D2C42; --rule-strong:#2F425C;
     --accent:#F2B23A; --accent-bright:#F2B23A; --accent-wash:rgba(242,178,58,.10);
     --warn:#EF8592; --warn-wash:rgba(239,133,146,.10);
+    --ok:#6FD3A6; --ok-wash:rgba(111,211,166,.10);
     --scan-bg:#07101D;
+    --shadow:0 1px 2px rgba(0,0,0,.2),0 16px 40px -20px rgba(0,0,0,.6);
   }
 }
 :root[data-theme="dark"]{
   --paper:#0A1322; --surface:#101C2F; --surface-2:#15233A;
-  --ink:#E5EBF2; --ink-2:#9AA8B9; --ink-3:#6B7A8D;
+  --ink:#E5EBF2; --ink-2:#9AA8B9; --ink-3:#7A899C;
   --rule:#1D2C42; --rule-strong:#2F425C;
   --accent:#F2B23A; --accent-bright:#F2B23A; --accent-wash:rgba(242,178,58,.10);
   --warn:#EF8592; --warn-wash:rgba(239,133,146,.10);
+  --ok:#6FD3A6; --ok-wash:rgba(111,211,166,.10);
   --scan-bg:#07101D;
+  --shadow:0 1px 2px rgba(0,0,0,.2),0 16px 40px -20px rgba(0,0,0,.6);
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -47,497 +63,672 @@ body{
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration-color:var(--rule-strong);text-underline-offset:3px}
 a:hover{text-decoration-color:var(--accent)}
-:focus-visible{outline:2px solid var(--accent-bright);outline-offset:3px;border-radius:2px}
+:focus-visible{outline:2px solid var(--accent-bright);outline-offset:3px;border-radius:4px}
 .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:8px}
+.skip:focus{left:8px}
 
-/* layout: .frame owns horizontal padding only; vertical rhythm lives on inner wrappers */
-.frame{max-width:1140px;margin:0 auto;padding-left:clamp(20px,4.5vw,40px);padding-right:clamp(20px,4.5vw,40px)}
-.band{padding-top:clamp(56px,8vw,96px);padding-bottom:clamp(56px,8vw,96px)}
-.split{display:grid;grid-template-columns:190px minmax(0,1fr);gap:56px;align-items:start}
-@media (max-width:920px){ .split{grid-template-columns:minmax(0,1fr);gap:18px} }
-.split > *{min-width:0}
+.frame{max-width:1140px;margin:0 auto;padding-left:clamp(16px,4.5vw,40px);padding-right:clamp(16px,4.5vw,40px)}
+.band{padding-top:clamp(56px,8vw,96px);padding-bottom:clamp(20px,3vw,32px)}
 
-.rail{position:sticky;top:92px;font-size:13px;line-height:1.5;color:var(--ink-3)}
-@media (max-width:920px){ .rail{position:static;display:flex;flex-wrap:wrap;gap:4px 22px} }
-.rail div{margin-bottom:14px}
-@media (max-width:920px){ .rail div{margin-bottom:0} }
-.rail dt{color:var(--ink-2);font-weight:600}
-.rail dd{margin:0}
+/* reveal on scroll (only when JS is on, so content is never hidden without it) */
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){ .js .reveal{opacity:1;transform:none;transition:none} }
 
-.prose{max-width:66ch}
-.prose p{margin:0 0 1.05em}
-.prose p:last-child{margin-bottom:0}
-.lead{font-size:19px;line-height:1.55;color:var(--ink)}
-.dim{color:var(--ink-2)}
-
-.ticks{
-  height:10px;width:100%;opacity:.9;
-  background-image:repeating-linear-gradient(90deg,var(--rule-strong) 0 1px,transparent 1px 64px),
-                   repeating-linear-gradient(90deg,var(--rule) 0 1px,transparent 1px 16px);
-  background-position:0 0,0 4px;background-size:100% 10px,100% 6px;background-repeat:repeat-x;
-}
-
-.kicker{font-size:14px;font-weight:600;color:var(--accent);margin:0 0 10px}
+/* section headings */
+.eyebrow{display:flex;align-items:center;gap:12px;font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--accent);margin:0 0 12px;letter-spacing:.02em}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--rule);max-width:120px}
 h2.sec{
   font-family:"Archivo","Helvetica Neue",Arial,sans-serif;font-variation-settings:"wdth" 110,"wght" 720;
-  font-size:clamp(27px,3.4vw,38px);line-height:1.1;letter-spacing:-.025em;margin:0 0 20px;text-wrap:balance;max-width:24ch;
+  font-size:clamp(28px,3.6vw,42px);line-height:1.08;letter-spacing:-.025em;margin:0 0 14px;text-wrap:balance;max-width:22ch;
 }
+.sec-intro{max-width:62ch;color:var(--ink-2);margin:0 0 34px;font-size:17px}
 h3{
-  font-family:"Archivo","Helvetica Neue",Arial,sans-serif;font-variation-settings:"wdth" 104,"wght" 640;
+  font-family:"Archivo","Helvetica Neue",Arial,sans-serif;font-variation-settings:"wdth" 104,"wght" 660;
   font-size:19px;line-height:1.3;margin:0 0 8px;letter-spacing:-.01em;
 }
 
-/* top bar */
+/* progress + top bar */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:80;background:var(--accent-bright);transform-origin:0 50%;transform:scaleX(0)}
 .topbar{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--paper) 86%,transparent);
   backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid var(--rule)}
 @supports not (background: color-mix(in srgb,red,blue)){ .topbar{background:var(--paper)} }
 .topbar-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:58px}
-.wordmark{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 118,"wght" 760;font-size:16px;letter-spacing:-.01em;text-decoration:none}
-.topnav{display:flex;gap:26px}
+.wordmark{display:flex;align-items:center;gap:9px;font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 118,"wght" 760;font-size:16px;letter-spacing:-.01em;text-decoration:none}
+.wordmark i{width:9px;height:9px;border-radius:2px;background:var(--accent-bright);display:inline-block}
+.topnav{display:flex;gap:24px}
 .topnav a{font-size:14px;color:var(--ink-2);text-decoration:none;padding:6px 0;border-bottom:1.5px solid transparent;transition:color .15s,border-color .15s}
-.topnav a:hover{color:var(--ink);border-bottom-color:var(--accent-bright)}
-@media (max-width:840px){ .topnav{display:none} }
-.themetoggle{font:inherit;font-size:13.5px;background:none;border:1px solid var(--rule-strong);color:var(--ink-2);
-  padding:5px 13px;border-radius:999px;cursor:pointer;transition:border-color .15s,color .15s}
-.themetoggle:hover{border-color:var(--accent-bright);color:var(--ink)}
+.topnav a:hover,.topnav a.on{color:var(--ink);border-bottom-color:var(--accent-bright)}
+.tb-right{display:flex;gap:8px;align-items:center}
+.iconbtn{font:inherit;font-size:13.5px;background:none;border:1px solid var(--rule-strong);color:var(--ink-2);
+  height:34px;min-width:34px;padding:0 12px;border-radius:999px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:border-color .15s,color .15s}
+.iconbtn:hover{border-color:var(--accent-bright);color:var(--ink)}
+.iconbtn svg{width:16px;height:16px}
+.menubtn{display:none}
+@media (max-width:860px){
+  .topnav{display:none;position:absolute;top:58px;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--rule);padding:6px 16px 14px}
+  .topnav.open{display:flex}
+  .topnav a{padding:12px 4px;font-size:16px;border-bottom:1px solid var(--rule)}
+  .topnav a:last-child{border-bottom:none}
+  .menubtn{display:inline-flex}
+}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:15px;font-weight:600;text-decoration:none;cursor:pointer;
+  padding:11px 18px;border-radius:999px;border:1.5px solid var(--rule-strong);background:var(--surface);color:var(--ink);transition:transform .15s,border-color .15s,background .15s}
+.btn:hover{border-color:var(--accent-bright);transform:translateY(-1px)}
+.btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn.primary:hover{background:color-mix(in srgb,var(--ink) 88%,var(--accent-bright))}
+.btn .arr{transition:transform .15s}
+.btn:hover .arr{transform:translateX(2px)}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
 
 /* hero */
-.hero{padding-top:clamp(44px,7vw,84px);padding-bottom:clamp(36px,5vw,56px)}
+.hero{padding-top:clamp(36px,6vw,76px);padding-bottom:clamp(30px,4vw,48px)}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,5vw,64px);align-items:center}
 @media (max-width:940px){ .hero-grid{grid-template-columns:minmax(0,1fr)} }
-.hello{font-size:15.5px;color:var(--ink-2);margin:0 0 18px}
+.status{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:6px 14px 6px 12px;margin:0 0 22px}
+.status .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 var(--ok);animation:ping 2.2s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 60%,transparent)}70%,100%{box-shadow:0 0 0 8px transparent}}
+@media (prefers-reduced-motion: reduce){ .status .dot{animation:none} }
+.hello{font-size:18px;color:var(--ink-2);margin:0 0 10px}
 .hello b{color:var(--ink);font-weight:600}
 .hero h1{
   font-family:"Archivo","Helvetica Neue",Arial,sans-serif;font-variation-settings:"wdth" 122,"wght" 820;
-  font-size:clamp(48px,8.2vw,104px);line-height:.9;letter-spacing:-.045em;margin:0 0 26px;
+  font-size:clamp(46px,8vw,100px);line-height:.92;letter-spacing:-.045em;margin:0 0 24px;
 }
 .hero h1 span{display:block}
 .hero h1 .thin{font-variation-settings:"wdth" 70,"wght" 300;letter-spacing:-.03em;color:var(--ink-2)}
-.stance{font-size:clamp(19px,2.2vw,23px);line-height:1.4;max-width:26ch;margin:0 0 22px}
-.hero .sub{max-width:54ch;color:var(--ink-2);margin:0 0 28px}
-.now{display:flex;flex-wrap:wrap;gap:10px 26px;font-size:14px;color:var(--ink-2);margin:0;padding:0;list-style:none}
-.now li b{display:block;color:var(--ink);font-weight:600;font-size:15px}
+.hero .sub{max-width:50ch;color:var(--ink-2);margin:0 0 28px;font-size:17.5px;line-height:1.6}
+.hero .sub b{color:var(--ink);font-weight:600}
 
-/* the scan: one deliberate moving element */
-.scan{position:relative;margin:0;border-radius:14px;overflow:hidden;background:var(--scan-bg);aspect-ratio:1/1;border:1px solid var(--rule-strong);
-  box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 24px 60px -30px rgba(10,20,40,.55)}
+.scan{position:relative;margin:0;border-radius:16px;overflow:hidden;background:var(--scan-bg);aspect-ratio:1/1;border:1px solid var(--rule-strong);
+  box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 24px 60px -30px rgba(10,20,40,.55);cursor:crosshair;touch-action:manipulation}
 .scan canvas{position:absolute;inset:0;width:100%;height:100%}
-.scan figcaption{position:absolute;left:16px;right:16px;bottom:12px;display:flex;justify-content:space-between;gap:12px;
-  font-size:12.5px;color:rgba(214,226,240,.62)}
-.scan figcaption .mono{color:rgba(242,178,58,.85)}
-@media (max-width:940px){ .scan{max-width:520px;aspect-ratio:4/3} }
+.scan figcaption{position:absolute;left:14px;right:14px;bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;
+  font-size:12.5px;color:rgba(214,226,240,.7);pointer-events:none}
+.scan figcaption .mono{color:rgba(242,178,58,.9)}
+.scan .hint{position:absolute;top:12px;left:12px;font-size:12.5px;color:#0E1A2C;background:rgba(242,178,58,.95);padding:5px 10px;border-radius:999px;font-weight:600;pointer-events:none;transition:opacity .4s}
+.scan .reset{position:absolute;top:10px;right:10px;font:inherit;font-size:12px;color:rgba(214,226,240,.85);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:4px 10px;cursor:pointer;display:none}
+.scan .reset:hover{background:rgba(255,255,255,.16)}
+@media (max-width:940px){ .scan{max-width:560px;aspect-ratio:4/3} }
 
 .readout{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:clamp(36px,5vw,56px);border-top:1px solid var(--rule-strong)}
 @media (max-width:760px){ .readout{grid-template-columns:repeat(2,minmax(0,1fr))} }
 .readout div{padding:18px 18px 4px 0}
-.readout .n{display:block;font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 100,"wght" 760;font-size:clamp(28px,3.2vw,38px);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.readout .n{display:block;font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 100,"wght" 760;font-size:clamp(30px,3.4vw,42px);line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .readout .n small{font-size:.5em;font-variation-settings:"wdth" 100,"wght" 600;color:var(--ink-2);margin-left:2px;letter-spacing:0}
 .readout .l{display:block;font-size:13.5px;color:var(--ink-2);line-height:1.4;margin-top:8px;max-width:20ch}
 
-/* figures */
-.fig{margin:34px 0 0;background:var(--surface);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
-.fig-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:12px 18px;border-bottom:1px solid var(--rule);font-size:13.5px;color:var(--ink-2)}
-.fig-head b{color:var(--ink);font-weight:600}
-.fig-head .id{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent)}
-.fig-body{padding:22px 18px}
-.fig-cap{padding:0 18px 18px;font-size:14px;color:var(--ink-2);max-width:78ch;line-height:1.55}
+/* short version */
+.tldr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){ .tldr{grid-template-columns:1fr} }
+.tcard{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:22px 22px 20px;box-shadow:var(--shadow)}
+.tcard .ic{width:38px;height:38px;border-radius:10px;background:var(--accent-wash);color:var(--accent);display:grid;place-items:center;margin-bottom:14px}
+.tcard .ic svg{width:20px;height:20px}
+.tcard h3{font-size:17px;margin-bottom:6px}
+.tcard p{margin:0;color:var(--ink-2);font-size:15px;line-height:1.6}
+.tcard p b{color:var(--ink);font-weight:600}
 
-.pipeline{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;counter-reset:s}
+/* project cases */
+.case{background:var(--surface);border:1px solid var(--rule);border-radius:18px;padding:clamp(20px,3.4vw,36px);box-shadow:var(--shadow);margin-bottom:22px}
+.case-top{display:flex;gap:18px;align-items:flex-start;margin-bottom:22px}
+.case-no{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 70,"wght" 300;font-size:clamp(40px,5vw,60px);line-height:.85;color:var(--accent-bright);letter-spacing:-.04em}
+.case-meta{font-size:13.5px;color:var(--ink-3);margin:0 0 6px}
+.case-meta b{color:var(--accent);font-weight:600}
+.case h3.ct{font-size:clamp(22px,2.6vw,30px);line-height:1.15;letter-spacing:-.02em;margin:0 0 12px;font-variation-settings:"wdth" 108,"wght" 720;text-wrap:balance}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.chips li{font-size:12.5px;padding:3px 10px;border-radius:999px;background:var(--surface-2);color:var(--ink-2);border:1px solid var(--rule)}
+.chips.hot li.k{background:var(--accent-wash);color:var(--ink);border-color:color-mix(in srgb,var(--accent-bright) 45%,var(--rule))}
+
+.cpr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+@media (max-width:760px){ .cpr{grid-template-columns:1fr} }
+.cpr > div{background:var(--paper);padding:18px 18px 16px}
+.cpr .h{display:flex;align-items:center;gap:8px;font-size:12.5px;font-family:"IBM Plex Mono",monospace;color:var(--ink-3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.cpr .h i{width:8px;height:8px;border-radius:2px;background:var(--rule-strong)}
+.cpr .res .h i{background:var(--ok)}
+.cpr .did .h i{background:var(--accent-bright)}
+.cpr p{margin:0;font-size:15px;line-height:1.6}
+.cpr ul{margin:0;padding-left:18px;font-size:15px;line-height:1.6}
+.cpr li{margin-bottom:4px}
+.cpr .big{display:block;font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 100,"wght" 760;font-size:30px;line-height:1;letter-spacing:-.03em;margin:2px 0 8px;color:var(--ok)}
+
+.case-split{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:28px;align-items:start}
+@media (max-width:860px){ .case-split{grid-template-columns:1fr} }
+.photo{margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--rule);background:var(--surface-2);position:relative}
+.photo img{width:100%;height:auto;aspect-ratio:671/1280;object-fit:cover}
+@media (max-width:860px){ .photo img{aspect-ratio:4/3;object-position:50% 40%} }
+.photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:24px 12px 10px;font-size:12.5px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.65))}
+.photo .fallback{padding:34px 20px;text-align:center;font-size:13px;color:var(--ink-3);min-height:210px;display:flex;align-items:center;justify-content:center}
+
+/* pipeline */
+.pipe{margin-top:22px}
+.pipe-t{font-size:13px;color:var(--ink-3);margin:0 0 10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.pipeline{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0}
 @media (max-width:760px){ .pipeline{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px} }
-.stage{position:relative;padding:12px 14px 12px 12px;border:1px solid var(--rule);background:var(--paper);margin-right:-1px}
+.stage{position:relative;padding:11px 12px;border:1px solid var(--rule);background:var(--paper);margin-right:-1px;transition:transform .2s}
 @media (max-width:760px){ .stage{margin-right:0} }
-.stage:first-child{border-radius:8px 0 0 8px}
-.stage:last-child{border-radius:0 8px 8px 0}
-@media (max-width:760px){ .stage,.stage:first-child,.stage:last-child{border-radius:8px} }
+.stage:first-child{border-radius:10px 0 0 10px}
+.stage:last-child{border-radius:0 10px 10px 0}
+@media (max-width:760px){ .stage,.stage:first-child,.stage:last-child{border-radius:10px} }
 .stage.mine{background:var(--accent-wash);border-color:color-mix(in srgb,var(--accent-bright) 55%,var(--rule));z-index:1}
-.stage .sn{display:block;font-size:12px;color:var(--ink-3);margin-bottom:4px}
+.stage:hover{transform:translateY(-2px)}
+.stage .sn{display:block;font-size:11.5px;color:var(--ink-3);margin-bottom:3px}
 .stage.mine .sn{color:var(--accent)}
 .stage .st{display:block;font-size:14px;font-weight:600;line-height:1.3}
 .stage .sd{display:block;font-size:12.5px;color:var(--ink-2);line-height:1.4;margin-top:3px}
-.pipe-key{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--ink-3)}
-.pipe-key i{display:inline-block;width:10px;height:10px;border:1px solid var(--rule-strong);border-radius:3px;margin-right:7px;vertical-align:-1px}
+.pipe-key{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3)}
+.pipe-key i{display:inline-block;width:10px;height:10px;border:1px solid var(--rule-strong);border-radius:3px;margin-right:6px;vertical-align:-1px}
 .pipe-key i.on{border-color:var(--accent-bright);background:var(--accent-wash)}
+
+/* rules list */
+.rules{list-style:none;padding:0;margin:22px 0 0;counter-reset:r;display:grid;gap:8px}
+.rules li{counter-increment:r;display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;font-size:15px;line-height:1.55}
+.rules li::before{content:counter(r);width:26px;height:26px;border-radius:50%;background:var(--accent-wash);color:var(--accent);font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:500;display:grid;place-items:center;margin-top:1px}
+.rules b{font-weight:600}
+.rules span{color:var(--ink-2)}
+
+/* expandable deep dives */
+details.deep{margin-top:22px;border-top:1px dashed var(--rule-strong);padding-top:4px}
+details.deep summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 0;font-weight:600;font-size:15px;color:var(--ink)}
+details.deep summary::-webkit-details-marker{display:none}
+details.deep summary .pm{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--accent-bright);display:grid;place-items:center;color:var(--accent);font-size:15px;line-height:1;transition:transform .2s}
+details.deep[open] summary .pm{transform:rotate(45deg)}
+details.deep summary .rt{font-weight:400;font-size:13px;color:var(--ink-3)}
+details.deep summary:hover{color:var(--accent)}
+.deep-body{padding:6px 0 4px;max-width:68ch}
+.deep-body p{margin:0 0 1em;color:var(--ink-2)}
+.deep-body p b{color:var(--ink)}
+.deep-body h4{font-size:15.5px;margin:22px 0 6px;color:var(--ink)}
+
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+
+/* fusion playground */
+.play{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:0;background:var(--surface);border:1px solid var(--rule);border-radius:18px;overflow:hidden;box-shadow:var(--shadow)}
+@media (max-width:860px){ .play{grid-template-columns:1fr} }
+.play-vis{background:var(--scan-bg);position:relative;min-height:280px;display:flex;align-items:center;justify-content:center;padding:18px}
+.play-vis svg{width:100%;max-width:440px;height:auto;display:block}
+.play-vis .tag{position:absolute;top:12px;left:14px;font-size:12px;font-family:"IBM Plex Mono",monospace;color:rgba(214,226,240,.6)}
+.play-ctl{padding:clamp(20px,3vw,30px)}
+.play-ctl h3{font-size:20px;margin-bottom:4px}
+.play-ctl > p{margin:0 0 18px;color:var(--ink-2);font-size:15px}
+.sl{margin-bottom:16px}
+.sl label{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:6px}
+.sl label output{font-family:"IBM Plex Mono",monospace;font-weight:500;color:var(--accent)}
+input[type=range]{width:100%;accent-color:var(--accent-bright);height:24px;cursor:pointer}
+.verdict{border-radius:12px;padding:14px 16px;background:var(--paper);border:1px solid var(--rule);transition:background .2s,border-color .2s}
+.verdict .vs{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 100,"wght" 760;font-size:32px;line-height:1;letter-spacing:-.03em}
+.verdict .vs small{font-size:.45em;color:var(--ink-2);font-variation-settings:"wdth" 100,"wght" 500;letter-spacing:0;margin-left:4px}
+.verdict .vl{display:block;font-weight:600;margin-top:8px;font-size:15px}
+.verdict .vf{display:block;font-size:12.5px;color:var(--ink-3);margin-top:4px;font-family:"IBM Plex Mono",monospace}
+.verdict.ok{background:var(--ok-wash);border-color:color-mix(in srgb,var(--ok) 35%,transparent)} .verdict.ok .vl{color:var(--ok)}
+.verdict.mid{background:var(--accent-wash);border-color:color-mix(in srgb,var(--accent-bright) 40%,transparent)} .verdict.mid .vl{color:var(--accent)}
+.verdict.bad{background:var(--warn-wash);border-color:color-mix(in srgb,var(--warn) 40%,transparent)} .verdict.bad .vl{color:var(--warn)}
+.presets{display:flex;gap:6px;flex-wrap:wrap;margin:-6px 0 16px}
+.presets button{font:inherit;font-size:12.5px;padding:4px 10px;border-radius:999px;border:1px solid var(--rule-strong);background:none;color:var(--ink-2);cursor:pointer}
+.presets button:hover{border-color:var(--accent-bright);color:var(--ink)}
+
+/* silent failure cards */
+.fails{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+@media (max-width:900px){ .fails{grid-template-columns:1fr} }
+.fail{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
+.fail .sym{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 104,"wght" 680;font-size:17.5px;line-height:1.3;letter-spacing:-.01em}
+.fail .sym::before{content:"Symptom";display:block;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--warn);letter-spacing:.06em;text-transform:uppercase;font-variation-settings:normal;font-weight:500;margin-bottom:6px}
+.fail .row{font-size:14.5px;line-height:1.55;color:var(--ink-2)}
+.fail .row b{display:block;color:var(--ink);font-size:12px;font-family:"IBM Plex Mono",monospace;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.fail .row.fix b{color:var(--ok)}
 
 svg .s-rule{stroke:var(--rule-strong)} svg .s-ink{stroke:var(--ink)} svg .s-accent{stroke:var(--accent-bright)} svg .s-dim{stroke:var(--ink-3)}
 svg .f-ink{fill:var(--ink)} svg .f-dim{fill:var(--ink-3)} svg .f-accent{fill:var(--accent-bright)} svg .f-surface{fill:var(--surface)}
 svg text{font-family:"IBM Plex Mono",monospace;font-size:11px}
 svg .lbl{font-family:"IBM Plex Sans",sans-serif;font-size:11.5px}
-
+.fig{margin:18px 0 0;background:var(--paper);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.fig-body{padding:18px}
+.fig-cap{padding:0 18px 16px;font-size:13.5px;color:var(--ink-2);line-height:1.55}
+.scroll-x{overflow-x:auto}
 .tbl{width:100%;border-collapse:collapse;font-size:14.5px}
-.tbl caption{text-align:left;font-size:13.5px;color:var(--ink-3);padding-bottom:10px}
 .tbl th{text-align:left;font-size:13px;color:var(--ink-2);font-weight:600;padding:0 14px 9px 0;border-bottom:1px solid var(--rule-strong)}
 .tbl td{padding:10px 14px 10px 0;border-bottom:1px solid var(--rule);font-variant-numeric:tabular-nums}
 .tbl tr:last-child td{border-bottom:none}
 .tbl .flag{color:var(--warn);font-weight:600}
-.scroll-x{overflow-x:auto}
+.small-print{font-size:13px;color:var(--ink-3);margin:14px 0 0}
 
-.note{border-left:3px solid var(--accent-bright);background:var(--accent-wash);padding:16px 20px;margin:28px 0 0;font-size:15px;line-height:1.6;border-radius:0 8px 8px 0;max-width:72ch}
-.note.warn{border-left-color:var(--warn);background:var(--warn-wash)}
-.note .nt{display:block;font-weight:600;color:var(--ink);margin-bottom:4px}
+/* earlier work */
+.grid-work{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:900px){ .grid-work{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:600px){ .grid-work{grid-template-columns:1fr} }
+.wcard{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px;transition:border-color .2s,transform .2s}
+.wcard:hover{border-color:var(--accent-bright);transform:translateY(-3px)}
+.wcard .yr{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--accent)}
+.wcard h3{font-size:17px;margin:0}
+.wcard p{margin:0;font-size:14.5px;color:var(--ink-2);line-height:1.55;flex:1}
+.wcard .chips li{font-size:12px}
 
-.decisions{list-style:none;padding:0;margin:30px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
-@media (max-width:760px){ .decisions{grid-template-columns:1fr} }
-.decisions li{background:var(--surface);padding:18px 20px}
-.decisions li:last-child:nth-child(odd){grid-column:1/-1}
-.decisions b{display:block;font-weight:600;font-size:15.5px;margin-bottom:4px}
-.decisions span{display:block;font-size:14.5px;color:var(--ink-2);line-height:1.55}
-
-.index{border-top:1px solid var(--rule-strong)}
-.index-row{display:grid;grid-template-columns:72px minmax(0,1fr) 200px;gap:24px;padding:20px 0;border-bottom:1px solid var(--rule);align-items:baseline}
-@media (max-width:760px){ .index-row{grid-template-columns:1fr;gap:4px} }
-.index-row .yr{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--accent)}
-.index-row .ti{display:block;font-size:16px;font-weight:600;line-height:1.35}
-.index-row .de{display:block;font-size:14.5px;color:var(--ink-2);margin-top:4px;line-height:1.55}
-.index-row .tg{font-size:13px;color:var(--ink-3);line-height:1.6}
-
+/* skills */
 .layers{border-top:1px solid var(--rule-strong)}
-.layer{display:grid;grid-template-columns:150px minmax(0,1fr);gap:24px;padding:16px 0;border-bottom:1px solid var(--rule)}
-@media (max-width:760px){ .layer{grid-template-columns:1fr;gap:4px} }
-.layer .ln{font-weight:600;color:var(--ink);font-size:15px}
-.layer .lc{font-size:14.5px;line-height:1.65;color:var(--ink-2)}
-.layer .lc b{color:var(--ink);font-weight:600}
+.layer{display:grid;grid-template-columns:170px minmax(0,1fr);gap:20px;padding:16px 0;border-bottom:1px solid var(--rule);align-items:center}
+@media (max-width:700px){ .layer{grid-template-columns:1fr;gap:8px} }
+.layer .ln{font-weight:600;font-size:15px;display:flex;gap:10px;align-items:center}
+.layer .ln .lvl{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-3);font-weight:400}
 
+/* timeline */
 .tl{position:relative;margin-left:6px;border-left:1.5px solid var(--rule-strong);padding-left:28px}
-.tl-row{position:relative;padding:0 0 28px}
+.tl-row{position:relative;padding:0 0 26px}
 .tl-row:last-child{padding-bottom:0}
-.tl-row::before{content:"";position:absolute;left:-35px;top:7px;width:11px;height:11px;border-radius:50%;background:var(--paper);border:2px solid var(--accent-bright)}
+.tl-row::before{content:"";position:absolute;left:-35px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--paper);border:2px solid var(--accent-bright)}
+.tl-row.now::before{background:var(--accent-bright)}
 .tl-row .when{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--ink-3)}
 .tl-row .role{font-size:17px;font-weight:600;line-height:1.35;margin-top:2px}
 .tl-row .org{font-size:14.5px;color:var(--ink-2);margin-top:3px;max-width:68ch}
+.tl-row .org b{color:var(--ink);font-weight:600}
+.two{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:clamp(28px,5vw,64px);align-items:start}
+@media (max-width:900px){ .two{grid-template-columns:1fr} }
 
-.plate{background:var(--surface-2);min-height:210px;display:grid;place-items:center}
-.plate img{width:100%;height:100%;object-fit:cover;max-height:420px}
-.plate .fallback{padding:34px 20px;text-align:center;font-size:13px;color:var(--ink-3);width:100%;min-height:210px;display:flex;align-items:center;justify-content:center}
+/* contact */
+.contact-box{background:var(--scan-bg);color:#E5EBF2;border-radius:22px;padding:clamp(28px,6vw,64px);position:relative;overflow:hidden}
+.contact-box::before{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;
+  background:repeating-radial-gradient(circle,rgba(160,185,215,.12) 0 1px,transparent 1px 34px);pointer-events:none}
+.contact-box .eyebrow{color:#F2B23A}
+.contact-box .eyebrow::after{background:rgba(160,185,215,.2)}
+.contact-box h2.sec{font-size:clamp(32px,5vw,58px);max-width:16ch;color:#fff}
+.contact-box p{color:#9AA8B9;max-width:56ch;margin:0 0 28px;font-size:17px}
+.clinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;position:relative}
+@media (max-width:620px){ .clinks{grid-template-columns:1fr} }
+.clinks a,.clinks button{display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;font:inherit;color:inherit;background:rgba(255,255,255,.05);border:1px solid rgba(160,185,215,.2);border-radius:12px;padding:15px 18px;text-decoration:none;cursor:pointer;transition:border-color .15s,background .15s}
+.clinks a:hover,.clinks button:hover{border-color:#F2B23A;background:rgba(242,178,58,.08)}
+.clinks .cl{display:block;font-size:12.5px;color:#7A899C}
+.clinks .cv{display:block;font-size:16px;font-weight:600;word-break:break-word;color:#fff}
+.clinks .go{color:#F2B23A;font-size:13px;white-space:nowrap}
 
-.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:28px}
-@media (max-width:620px){ .links{grid-template-columns:1fr} }
-.links a{display:block;background:var(--surface);border:1px solid var(--rule);border-radius:10px;padding:16px 18px;text-decoration:none;transition:border-color .15s}
-.links a:hover{border-color:var(--accent-bright)}
-.links .cl{display:block;font-size:13px;color:var(--ink-3);margin-bottom:2px}
-.links .cv{display:block;font-size:16px;font-weight:600;word-break:break-word}
-
-.contact h2.sec{font-size:clamp(34px,5vw,58px);max-width:16ch}
-
-footer{border-top:1px solid var(--rule);padding:26px 0 44px}
+footer{padding:30px 0 44px}
 .foot-in{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:13.5px;color:var(--ink-3)}
 .foot-in a{text-decoration:none}
+.foot-in a:hover{color:var(--ink)}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;z-index:90;transition:opacity .2s,transform .2s;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
+<a href="#main" class="skip">Skip to content</a>
+<div class="progress" id="progress" aria-hidden="true"></div>
 
 <div class="topbar">
   <div class="frame topbar-in">
-    <a href="#top" class="wordmark">Hassan Murtada</a>
-    <nav class="topnav" aria-label="Sections">
-      <a href="#autoware">Vehicle autonomy</a>
-      <a href="#fusion">Fusion note</a>
-      <a href="#robot">Competition robot</a>
+    <a href="#top" class="wordmark"><i aria-hidden="true"></i>Hassan Murtada</a>
+    <nav class="topnav" id="nav" aria-label="Sections">
+      <a href="#projects">Projects</a>
+      <a href="#lessons">Lessons</a>
       <a href="#work">Earlier work</a>
+      <a href="#skills">Skills</a>
+      <a href="#journey">Journey</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button class="themetoggle" id="tt" type="button" aria-label="Switch colour theme">Dark / light</button>
+    <div class="tb-right">
+      <button class="iconbtn" id="tt" type="button" aria-label="Switch colour theme" title="Switch theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button class="iconbtn menubtn" id="menu" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
   </div>
 </div>
 
+<main id="main">
 <header id="top" class="frame hero">
   <div class="hero-grid">
     <div>
-      <p class="hello"><b>Hassan Murtada</b>, robotics software engineer</p>
+      <p class="status"><span class="dot" aria-hidden="true"></span>Open to robotics &amp; autonomy roles · Graduating Feb 2027</p>
+      <p class="hello">Hi, I'm <b>Hassan</b>. I write robot software.</p>
       <h1><span>Robotics</span><span>software,</span><span class="thin">sensor to wheel.</span></h1>
-      <p class="stance">From sensor driver to vehicle behaviour, and every layer in between.</p>
-      <p class="sub">I'm a final-year Electrical Engineering student at Universiti Teknologi Malaysia. Since 2023 I've been writing the software that sits between sensors and machines: perception pipelines, ROS&nbsp;2 systems, and the embedded firmware underneath them. Most recently that meant an Autoware Universe autonomy stack on full-size vehicles in live road testing.</p>
-      <ul class="now">
-        <li><b>HelloWorld Robotics</b>Autonomous driving, 2026</li>
-        <li><b>Johor Bahru</b>Malaysia</li>
-        <li><b>Graduating Feb 2027</b>Open to robotics and autonomy roles</li>
-      </ul>
+      <p class="sub">I write the code that sits between a robot's sensors and its motors: <b>perception</b>, <b>ROS&nbsp;2</b>, and the <b>embedded firmware</b> underneath. Most recently I worked on an Autoware stack that drove <b>full-size vehicles on real roads</b>.</p>
+      <div class="btns">
+        <a class="btn primary" href="#projects">See my work <span class="arr">↓</span></a>
+        <a class="btn" href="mailto:hassann.abdallawork@gmail.com">Email me</a>
+        <a class="btn" href="https://github.com/hassannmurtada" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
     </div>
-    <figure class="scan" aria-label="Animated, simulated top-down 2D LiDAR sweep around a vehicle">
+    <figure class="scan" id="scanfig" aria-label="Interactive simulated top-down 2D LiDAR sweep around a vehicle. Click or tap to place cones.">
       <canvas id="scan"></canvas>
-      <figcaption><span>Simulated 2D LiDAR sweep</span><span class="mono" id="scanhz">10 Hz</span></figcaption>
+      <span class="hint" id="scanhint">Tap the map to drop a cone</span>
+      <button class="reset" id="scanreset" type="button">Clear cones</button>
+      <figcaption><span id="scancap">Simulated 2D LiDAR, car park</span><span class="mono" id="scanhz">10 Hz</span></figcaption>
     </figure>
   </div>
   <div class="readout">
-    <div><span class="n">50<small>km</small></span><span class="l">Autonomous driving on full-size vehicles</span></div>
-    <div><span class="n">3<small>yrs</small></span><span class="l">Writing robotics software</span></div>
-    <div><span class="n">2&times;</span><span class="l">ABU Robocon international finals</span></div>
-    <div><span class="n">3.70</span><span class="l">CGPA, Dean's List four semesters</span></div>
+    <div><span class="n"><span data-count="50">50</span><small>km</small></span><span class="l">Driven autonomously on full-size vehicles</span></div>
+    <div><span class="n"><span data-count="3">3</span><small>yrs</small></span><span class="l">Writing robotics software</span></div>
+    <div><span class="n"><span data-count="2">2</span>&times;</span><span class="l">ABU Robocon international campaigns</span></div>
+    <div><span class="n"><span data-count="3.70" data-dec="2">3.70</span></span><span class="l">CGPA, Dean's List four semesters</span></div>
   </div>
 </header>
 
-<div class="frame"><div class="ticks"></div></div>
-
-<section class="frame band split" id="autoware">
-  <dl class="rail">
-    <div><dt>Signal path</dt><dd>Sensing, perception, planning, actuation</dd></div>
-    <div><dt>Period</dt><dd>Jul – Oct 2026</dd></div>
-    <div><dt>Stack</dt><dd>Autoware Universe, ROS 2, C++ and Python</dd></div>
-    <div><dt>Platform</dt><dd>Full-size vehicles, on-road</dd></div>
-  </dl>
-  <div>
-    <p class="kicker">Vehicle autonomy</p>
-    <h2 class="sec">Running an autonomy stack on a vehicle that actually drives</h2>
-    <div class="prose">
-      <p class="lead">Most autonomy work isn't inventing planners. It's making a stack that works in a paper behave itself on a real vehicle, on a real road, with a person sitting in it.</p>
-      <p>As an Embodied AI Autonomous Driving Engineering Intern, I worked on an <b>Autoware Universe</b> stack deployed on full-size vehicles. The platform drove over 50&nbsp;km autonomously across campus and road routes, measured as distance actually driven, not route length on a map.</p>
-      <p>My work sat at two ends of the stack. At the bottom, the <b>vehicle interface</b>: translating the planner's output into the low-level commands the vehicle's drive-by-wire layer accepts, and the <b>autonomous emergency braking</b> behaviour that runs on top of it. At the top, <b>perception</b>: I took the vehicle from LiDAR-only sensing to a working camera–LiDAR fusion pipeline, including the calibration it depends on.</p>
-      <p class="dim">In between is the part nobody writes about: diagnosing why the vehicle did something strange two hundred metres ago. Localisation drift, actuation latency, handoff between planner and controller. That is most of the job, and it's the part I learned the most from.</p>
+<section class="frame band" id="short" aria-labelledby="short-h">
+  <p class="eyebrow reveal">00 / The short version</p>
+  <h2 class="sec reveal" id="short-h">Me, in thirty seconds</h2>
+  <div class="tldr">
+    <div class="tcard reveal">
+      <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+      <h3>What I do</h3>
+      <p>I turn sensor data into robot behaviour: <b>camera and LiDAR perception</b>, ROS&nbsp;2 systems, and the <b>firmware and vehicle interfaces</b> that make things actually move.</p>
     </div>
-    <figure class="fig">
-      <figcaption class="fig-head"><b>Autonomy stack, signal path</b><span class="id">Fig. 1</span></figcaption>
-      <div class="fig-body">
-        <div class="pipeline">
-          <div class="stage"><span class="sn">Sensing</span><span class="st">LiDAR + camera</span><span class="sd">Range and appearance</span></div>
-          <div class="stage mine"><span class="sn">Calibration</span><span class="st">Intrinsic + extrinsic</span><span class="sd">Where each sensor sits</span></div>
-          <div class="stage mine"><span class="sn">Perception</span><span class="st">Fusion</span><span class="sd">Class attached to geometry</span></div>
-          <div class="stage"><span class="sn">Decision</span><span class="st">Planning</span><span class="sd">Route, behaviour, trajectory</span></div>
-          <div class="stage mine"><span class="sn">Interface</span><span class="st">Base driver</span><span class="sd">Commands the vehicle accepts</span></div>
-          <div class="stage mine"><span class="sn">Actuation</span><span class="st">Drive-by-wire</span><span class="sd">Steering, throttle, braking</span></div>
+    <div class="tcard reveal">
+      <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="17" r="2.5"/><circle cx="17" cy="17" r="2.5"/><path d="M4.5 17H3v-5l2-5h10l4 5h2v5h-1.5M9.5 17h5"/></svg></div>
+      <h3>Where I've done it</h3>
+      <p><b>Autonomous driving intern</b> at HelloWorld Robotics (2026), <b>robotics intern</b> at A2TECH (2025), and senior programmer on two <b>ABU Robocon</b> international campaigns.</p>
+    </div>
+    <div class="tcard reveal">
+      <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/></svg></div>
+      <h3>What I'm looking for</h3>
+      <p>Graduate roles or research in <b>robotics, autonomy and perception</b>, starting 2027. I like work where the software has to survive real hardware.</p>
+    </div>
+  </div>
+</section>
+
+<section class="frame band" id="projects" aria-labelledby="proj-h">
+  <p class="eyebrow reveal">01 / Projects</p>
+  <h2 class="sec reveal" id="proj-h">Two projects I'm proud of</h2>
+  <p class="sec-intro reveal">Each one in the same format: the challenge, what I built, and what came out of it. Open "the full story" if you want the details.</p>
+
+  <article class="case reveal" id="autoware">
+    <div class="case-top">
+      <span class="case-no" aria-hidden="true">01</span>
+      <div>
+        <p class="case-meta"><b>Vehicle autonomy</b> · HelloWorld Robotics · Jul – Oct 2026</p>
+        <h3 class="ct">Getting an autonomy stack to behave on a car that actually drives</h3>
+        <ul class="chips hot"><li class="k">Autoware Universe</li><li class="k">ROS 2</li><li>C++</li><li>Python</li><li class="k">Camera–LiDAR fusion</li><li>Calibration</li><li>AEB</li></ul>
+      </div>
+    </div>
+    <div class="cpr">
+      <div><span class="h"><i></i>The challenge</span><p>A stack that works in a paper has to behave on a real vehicle, on a real road, with a person sitting in it.</p></div>
+      <div class="did"><span class="h"><i></i>What I built</span><ul>
+        <li>The <b>vehicle interface</b>: planner output → drive-by-wire commands</li>
+        <li><b>Autonomous emergency braking</b> on top of it</li>
+        <li>An upgrade from LiDAR-only to <b>camera–LiDAR fusion</b>, including calibration</li>
+      </ul></div>
+      <div class="res"><span class="h"><i></i>The result</span><span class="big">50+ km</span><p>driven autonomously across campus and road routes. That's distance actually driven, not route length on a map.</p></div>
+    </div>
+    <div class="pipe">
+      <p class="pipe-t"><span>Signal path: from raw measurement to the vehicle moving</span><span class="pipe-key"><span><i class="on"></i>I worked on</span><span><i></i>I worked with</span></span></p>
+      <div class="pipeline">
+        <div class="stage"><span class="sn">Sensing</span><span class="st">LiDAR + camera</span><span class="sd">Range and appearance</span></div>
+        <div class="stage mine"><span class="sn">Calibration</span><span class="st">Intrinsic + extrinsic</span><span class="sd">Where each sensor sits</span></div>
+        <div class="stage mine"><span class="sn">Perception</span><span class="st">Fusion</span><span class="sd">Labels attached to geometry</span></div>
+        <div class="stage"><span class="sn">Decision</span><span class="st">Planning</span><span class="sd">Route, behaviour, trajectory</span></div>
+        <div class="stage mine"><span class="sn">Interface</span><span class="st">Base driver</span><span class="sd">Commands the car accepts</span></div>
+        <div class="stage mine"><span class="sn">Actuation</span><span class="st">Drive-by-wire</span><span class="sd">Steer, throttle, brake</span></div>
+      </div>
+    </div>
+    <details class="deep">
+      <summary><span class="pm" aria-hidden="true">+</span>Read the full story <span class="rt">· 1 min</span></summary>
+      <div class="deep-body">
+        <p>Most autonomy work isn't inventing planners. It's taking a stack that works on paper and making it behave on real hardware.</p>
+        <p>My work sat at <b>both ends</b> of the stack. At the bottom was the vehicle interface: translating the planner's output into the low-level commands the vehicle's drive-by-wire layer accepts, plus the emergency braking behaviour that runs on top of it. At the top was perception: I took the vehicle from LiDAR-only sensing to a working camera–LiDAR fusion pipeline, including the calibration it depends on.</p>
+        <p>In between is the part nobody writes about: figuring out why the vehicle did something strange two hundred metres ago. Localisation drift, actuation latency, the handoff between planner and controller. That's most of the job, and it's where I learned the most.</p>
+        <p>Calibration appears inline in the diagram above, not as a footnote, because every stage after it depends on it without anyone noticing. See <a href="#lessons">Lessons</a> for why.</p>
+      </div>
+    </details>
+  </article>
+
+  <article class="case reveal" id="robot">
+    <div class="case-top">
+      <span class="case-no" aria-hidden="true">02</span>
+      <div>
+        <p class="case-meta"><b>Competition robot</b> · ABU Robocon 2025 · Senior programmer</p>
+        <h3 class="ct">A robot that spots the hoop, solves the physics, and takes the shot</h3>
+        <ul class="chips hot"><li class="k">YOLO</li><li class="k">TensorRT</li><li class="k">micro-ROS</li><li>Projectile model</li><li>STM32</li><li>Jetson</li></ul>
+      </div>
+    </div>
+    <div class="case-split">
+      <div>
+        <div class="cpr" style="grid-template-columns:1fr">
+          <div><span class="h"><i></i>The challenge</span><p>Score autonomously on a competition floor, against a clock. Everything has to happen within a single frame, on a small onboard GPU, and never hang.</p></div>
+          <div class="did"><span class="h"><i></i>What I built</span><p>Everything from the camera to the motor command: the <b>hoop detector</b>, a <b>projectile-motion solver</b> for launch speed and angle, localisation, and the <b>micro-ROS link</b> to the mainboard. A teammate built the STM32 firmware, and we agreed the interface first.</p></div>
+          <div class="res"><span class="h"><i></i>The result</span><span class="big">230–450 Hz</span><p>measured control link, and a robot that shoots from <b>anywhere</b> on the floor, not just from marked spots.</p></div>
         </div>
-        <div class="pipe-key"><span><i class="on"></i>Stages I worked on</span><span><i></i>Stages I worked with</span></div>
       </div>
-      <figcaption class="fig-cap">The stack reads left to right, from raw measurement to the vehicle moving. Calibration isn't a step you do once at the start. Every downstream stage silently depends on it, which is why it sits inline here rather than in a footnote.</figcaption>
-    </figure>
-  </div>
+      <figure class="photo">
+        <img src="BasketballRobot.jpeg" width="671" height="1280" alt="The ABU Robocon 2025 basketball robot on the competition floor" loading="lazy" onerror="this.insertAdjacentHTML('afterend','&lt;div class=&quot;fallback&quot;&gt;Robot photo unavailable&lt;/div&gt;');this.remove();">
+        <figcaption>The ABU Robocon 2025 robot</figcaption>
+      </figure>
+    </div>
+    <div class="pipe">
+      <p class="pipe-t"><span>Camera to flywheel</span><span class="pipe-key"><span><i class="on"></i>My work</span><span><i></i>Team and hardware</span></span></p>
+      <div class="pipeline">
+        <div class="stage"><span class="sn">Input</span><span class="st">Camera</span><span class="sd">Newest frame only</span></div>
+        <div class="stage mine"><span class="sn">Perception</span><span class="st">YOLO + TensorRT</span><span class="sd">Hoop detection, on-board</span></div>
+        <div class="stage mine"><span class="sn">Solve</span><span class="st">Projectile model</span><span class="sd">Distance → speed, angle</span></div>
+        <div class="stage mine"><span class="sn">Transport</span><span class="st">micro-ROS</span><span class="sd">230–450 Hz measured</span></div>
+        <div class="stage"><span class="sn">Firmware</span><span class="st">STM32</span><span class="sd">Teammate's mainboard</span></div>
+        <div class="stage mine"><span class="sn">Actuation</span><span class="st">Flywheel</span><span class="sd">Shot released</span></div>
+      </div>
+    </div>
+    <details class="deep">
+      <summary><span class="pm" aria-hidden="true">+</span>Five rules this robot taught me <span class="rt">· 1 min</span></summary>
+      <ol class="rules">
+        <li><div><b>Solve the shot, don't tabulate it.</b> <span>The robot measures distance and solves projectile motion, so when it misses, the error is a physical parameter to fix, not a lookup table to re-tune.</span></div></li>
+        <li><div><b>Always act on the newest frame.</b> <span>Stale camera frames are dropped, not queued. When you aim in real time, a queue that backs up adds lag, and the lag becomes aiming error.</span></div></li>
+        <li><div><b>Optimise for the hardware you have.</b> <span>The detector was exported to TensorRT so it fit the small onboard GPU. An accurate model is useless if it can't keep up with the control loop.</span></div></li>
+        <li><div><b>Fail to a safe pose, not a bad reading.</b> <span>If the hoop leaves the frame, the robot holds a centred aim instead of chasing noise. It's better to fail in a predictable way than to act confidently on bad data.</span></div></li>
+        <li><div><b>Agree the interface, then build in parallel.</b> <span>One fixed message contract between vision and firmware meant neither of us blocked the other. Most "integration problems" turn out to be an interface nobody wrote down.</span></div></li>
+      </ol>
+    </details>
+    <div class="links">
+      <a class="btn" href="https://github.com/hassannmurtada/Basket-Image" target="_blank" rel="noopener">Vision pipeline code ↗</a>
+      <a class="btn" href="https://github.com/MohdSaif44/abu-mainboard" target="_blank" rel="noopener">Team mainboard firmware ↗</a>
+    </div>
+  </article>
 </section>
 
-<div class="frame"><div class="ticks"></div></div>
+<section class="frame band" id="lessons" aria-labelledby="les-h">
+  <p class="eyebrow reveal">02 / Lessons</p>
+  <h2 class="sec reveal" id="les-h">Tiny errors, big consequences</h2>
+  <p class="sec-intro reveal">A LiDAR knows <b>where</b> things are but not <b>what</b> they are. A camera knows <b>what</b> but not <b>where</b>. Fusion glues them together, and the glue is a handful of calibration numbers. Try it: mount the camera slightly crooked and watch what happens to a pedestrian.</p>
 
-<section class="frame band split" id="fusion">
-  <dl class="rail">
-    <div><dt>Type</dt><dd>Engineering note</dd></div>
-    <div><dt>Subject</dt><dd>Camera–LiDAR fusion</dd></div>
-    <div><dt>Written</dt><dd>August 2026</dd></div>
-    <div><dt>Scope</dt><dd>General principles only, no employer configuration</dd></div>
-  </dl>
-  <div>
-    <p class="kicker">Engineering note</p>
-    <h2 class="sec">Why fusing a camera with a LiDAR is a geometry problem, not a sensor problem</h2>
-    <div class="prose">
-      <p class="lead">A LiDAR knows <b>where</b> things are but not <b>what</b> they are. A camera knows <b>what</b> things are but not <b>where</b>. Fusion exists to move information across that gap, and it only ever moves in one direction.</p>
-      <p>A LiDAR measures time of flight, so its range is direct and metric: a point at 12.4&nbsp;m is at 12.4&nbsp;m. It has no idea whether those points are a traffic cone or a fire hydrant. A camera has enormous angular detail (colour, texture, lettering), but a pixel only tells you the <em>ray</em> the light arrived along, not how far along it the object sits. That's scale ambiguity, and it's geometry, not a hardware limitation to engineer away.</p>
-      <p>So fusion asks one question, over and over: <b>given a 3D point, which pixel does it land on?</b> Answer that and you can read off what the camera saw there and attach it to the point. The reverse, recovering 3D from a pixel, is not available, because the projection divides by depth and destroys it.</p>
+  <div class="play reveal">
+    <div class="play-vis">
+      <span class="tag">camera view · LiDAR points projected</span>
+      <svg id="pv" viewBox="0 0 400 240" role="img" aria-label="A pedestrian's bounding box in the camera image, with LiDAR points projected onto it and shifted sideways by the calibration error.">
+        <rect x="8" y="8" width="384" height="224" rx="6" fill="none" stroke="rgba(160,185,215,.18)"/>
+        <path d="M8 196 L392 196" stroke="rgba(160,185,215,.14)"/>
+        <g id="pv-person" fill="rgba(143,180,232,.22)">
+          <circle cx="200" cy="66" r="13"/>
+          <rect x="183" y="82" width="34" height="62" rx="12"/>
+          <rect x="186" y="136" width="12" height="58" rx="5"/>
+          <rect x="202" y="136" width="12" height="58" rx="5"/>
+        </g>
+        <rect id="pv-box" x="160" y="44" width="80" height="154" rx="3" fill="none" stroke="#8FB4E8" stroke-width="1.6" stroke-dasharray="5 4"/>
+        <text x="160" y="38" fill="#8FB4E8" style="font-size:10.5px">detection box</text>
+        <g id="pv-pts"></g>
+      </svg>
     </div>
-    <figure class="fig">
-      <figcaption class="fig-head"><b>Projection, 3D point to pixel</b><span class="id">Fig. 2</span></figcaption>
-      <div class="fig-body scroll-x">
-        <svg viewBox="0 0 720 250" width="100%" height="250" role="img" aria-label="Diagram: a 3D point is transformed by extrinsic rotation and translation into camera coordinates, then divided by depth to land on a pixel in the image plane." style="min-width:560px">
-          <circle cx="58" cy="88" r="5.5" class="f-accent"/>
-          <text x="58" y="72" text-anchor="middle" class="f-ink">P</text>
-          <text x="58" y="112" text-anchor="middle" class="f-dim lbl">world</text>
-          <path d="M78 90 L192 118" class="s-dim" stroke-width="1.2" fill="none" stroke-dasharray="4 3"/>
-          <polygon points="192,118 183,113 184,121" class="f-dim"/>
-          <text x="132" y="96" text-anchor="middle" class="f-dim lbl">extrinsics</text>
-          <text x="132" y="140" text-anchor="middle" class="f-dim">R · P + t</text>
-          <path d="M232 122 L232 60" class="s-rule" stroke-width="1.2"/>
-          <path d="M232 122 L294 122" class="s-rule" stroke-width="1.2"/>
-          <path d="M232 122 L196 158" class="s-rule" stroke-width="1.2"/>
-          <text x="226" y="54" class="f-dim lbl">y</text>
-          <text x="300" y="126" class="f-dim lbl">z</text>
-          <text x="186" y="168" class="f-dim lbl">x</text>
-          <circle cx="232" cy="122" r="4" class="f-ink"/>
-          <text x="232" y="192" text-anchor="middle" class="f-dim lbl">camera origin</text>
-          <path d="M232 122 L520 46" class="s-accent" stroke-width="1.1" fill="none" opacity=".5"/>
-          <path d="M232 122 L520 206" class="s-accent" stroke-width="1.1" fill="none" opacity=".5"/>
-          <path d="M232 122 L560 96" class="s-accent" stroke-width="1.7" fill="none"/>
-          <rect x="520" y="46" width="150" height="160" rx="4" class="f-surface s-rule" stroke-width="1.3"/>
-          <path d="M520 126 L670 126" class="s-rule" stroke-width=".8" stroke-dasharray="3 4"/>
-          <path d="M595 46 L595 206" class="s-rule" stroke-width=".8" stroke-dasharray="3 4"/>
-          <circle cx="595" cy="126" r="2.6" class="f-dim"/>
-          <text x="602" y="140" class="f-dim">cx, cy</text>
-          <circle cx="560" cy="96" r="5.5" class="f-accent"/>
-          <text x="560" y="82" text-anchor="middle" class="f-ink">u, v</text>
-          <text x="595" y="228" text-anchor="middle" class="f-dim lbl">image plane</text>
-          <text x="400" y="26" text-anchor="middle" class="f-dim lbl">intrinsics</text>
-          <text x="400" y="42" text-anchor="middle" class="f-dim">u = fx · (X/Z) + cx</text>
-        </svg>
+    <div class="play-ctl">
+      <h3>The calibration playground</h3>
+      <p>Shift ≈ distance × tan(angle error). Drag the sliders.</p>
+      <div class="sl">
+        <label for="ang">Camera mounting error <output id="ango">1.0°</output></label>
+        <input type="range" id="ang" min="0" max="3" step="0.1" value="1">
       </div>
-      <figcaption class="fig-cap">Two transforms, in order. Extrinsics move the point into the camera's frame: six numbers, three of position and three of orientation. Intrinsics flatten it onto the sensor by dividing by depth. That division is where the distance information goes, and it is why the operation runs one way only.</figcaption>
-    </figure>
-
-    <div class="prose" style="margin-top:38px">
-      <h3>Calibration is the whole game, and it fails silently</h3>
-      <p>Everything above rests on ten numbers: six extrinsic, four intrinsic. Get them wrong and nothing crashes, nothing warns you. The projection simply lands in the wrong place, and the system confidently attaches the wrong label or drops the object entirely.</p>
-      <p>An angular error of <span class="mono">θ</span> displaces the projection by roughly <span class="mono">d · tan θ</span> at distance <span class="mono">d</span>. That gets bad faster than intuition suggests:</p>
-    </div>
-    <figure class="fig">
-      <figcaption class="fig-head"><b>Extrinsic error budget</b><span class="id">Table 1</span></figcaption>
-      <div class="fig-body scroll-x">
-        <table class="tbl">
-          <caption>Projection displacement from a rotational mounting error</caption>
-          <thead><tr><th>Rotation error</th><th>At 10 m</th><th>At 30 m</th><th>Consequence</th></tr></thead>
-          <tbody>
-            <tr><td>0.5°</td><td>8.7 cm</td><td>26 cm</td><td>Tolerable</td></tr>
-            <tr><td>1.0°</td><td>17 cm</td><td>52 cm</td><td>Match quality degrades</td></tr>
-            <tr><td class="flag">2.0°</td><td class="flag">35 cm</td><td class="flag">105 cm</td><td class="flag">A pedestrian falls outside their own box</td></tr>
-          </tbody>
-        </table>
+      <div class="presets" aria-label="Presets">
+        <button type="button" data-a="0.5" data-d="30">0.5° at 30 m</button>
+        <button type="button" data-a="1" data-d="30">1° at 30 m</button>
+        <button type="button" data-a="2" data-d="30">2° at 30 m</button>
       </div>
-      <figcaption class="fig-cap">A person is roughly 50&nbsp;cm wide. At 30&nbsp;m, a two-degree mounting error puts them entirely outside their own bounding box, so fusion either mislabels them or discards them. This is why extrinsics are calibrated against a target rather than measured with a tape: a tape gets position to a centimetre but orientation to a couple of degrees, and orientation is what hurts.</figcaption>
-    </figure>
-    <div class="note">
-      <span class="nt">Order matters</span>
-      Intrinsics must be solved <b>before</b> extrinsics. Extrinsic calibration works by projecting points into the image and minimising alignment error, so if the intrinsics are wrong, the solver quietly finds a <em>wrong</em> mounting pose that happens to cancel the intrinsic error. It converges. It looks correct. It is meaningless.
+      <div class="sl">
+        <label for="dst">Pedestrian distance <output id="dsto">30 m</output></label>
+        <input type="range" id="dst" min="5" max="40" step="1" value="30">
+      </div>
+      <div class="verdict" id="verdict" aria-live="polite">
+        <span class="vs" id="vs">52<small>cm off</small></span>
+        <span class="vl" id="vl">Match quality degrades</span>
+        <span class="vf" id="vf">30 m × tan(1.0°) = 0.52 m</span>
+      </div>
     </div>
-    <div class="prose" style="margin-top:38px">
-      <h3>Geometry isn't enough: the clocks have to agree too</h3>
-      <p>At 5&nbsp;m/s, a 100&nbsp;ms timing mismatch means the vehicle moved half a metre between the LiDAR sweep and the camera frame. Everything projects 50&nbsp;cm off, and it is <em>indistinguishable</em> from a calibration error in the output while having a completely different cause. A spinning LiDAR makes this worse: points at the start and end of a single sweep are already a full rotation period apart.</p>
-      <h3 style="margin-top:28px">The upgrade that makes things worse</h3>
-      <p>Fusion frameworks are written on the assumption of a full camera ring. Under that assumption, a sensible default says: if no camera saw it, it's probably noise, so discard it. Inherit that default on a vehicle with one forward camera and a detector that has never seen your object class, and enabling fusion takes you from <em>"detected, but unlabelled"</em> to <em>"not detected at all."</em></p>
-    </div>
-    <div class="note warn">
-      <span class="nt">The lesson worth more than the parameter</span>
-      Defaults encode assumptions about hardware you may not have. Every default that says "if the camera didn't see it, drop it" becomes a self-inflicted blind spot when you have one camera instead of eight. Audit them rather than inheriting them, and reason about what a change will do <em>before</em> you make it, because the failure mode here is silent.
-    </div>
-    <p class="fig-cap" style="padding:22px 0 0;max-width:66ch">This note is written from general principles. It contains no configuration, parameters, hardware layout or source from my employer's vehicles.</p>
   </div>
-</section>
 
-<div class="frame"><div class="ticks"></div></div>
-
-<section class="frame band split" id="robot">
-  <dl class="rail">
-    <div><dt>Signal path</dt><dd>Camera, inference, solver, firmware, flywheel</dd></div>
-    <div><dt>Event</dt><dd>ABU Robocon 2025</dd></div>
-    <div><dt>Role</dt><dd>Senior programmer: perception, control link, integration</dd></div>
-    <div><dt>Link rate</dt><dd>230–450 Hz measured</dd></div>
-  </dl>
-  <div>
-    <p class="kicker">Competition robot</p>
-    <h2 class="sec">A robot that sees a hoop, solves the physics, and takes the shot</h2>
-    <div class="prose">
-      <p class="lead">Autonomous scoring, on a competition floor, against a clock. The interesting constraint wasn't accuracy. It was that everything had to happen inside a frame, on a small onboard GPU, and never hang.</p>
-      <p>I owned the software from the camera to the motor command: the detector that finds the basket, the projectile-motion solver that computes launch velocity and angle from the measured distance, the localisation, and the micro-ROS link down to the board. A teammate built the STM32 mainboard firmware; I built on top of it, against an interface we agreed on first.</p>
+  <h3 class="reveal" style="margin-top:44px;font-size:21px">Three silent failures worth knowing</h3>
+  <p class="reveal" style="margin:0;color:var(--ink-2);max-width:62ch">Nothing crashes and nothing warns you. The output just looks a little wrong, and here's why.</p>
+  <div class="fails">
+    <div class="fail reveal">
+      <div class="sym">The calibration converged, looked perfect, and was wrong.</div>
+      <div class="row"><b>Cause</b>Extrinsics were solved before intrinsics. The solver found a <em>wrong</em> mounting pose that cancelled out the lens error.</div>
+      <div class="row fix"><b>Fix</b>Always solve intrinsics first. A solver that converges is not proof the answer is right.</div>
     </div>
-    <figure class="fig">
-      <figcaption class="fig-head"><b>Camera to flywheel</b><span class="id">Fig. 3</span></figcaption>
-      <div class="fig-body">
-        <div class="pipeline">
-          <div class="stage"><span class="sn">Input</span><span class="st">Camera</span><span class="sd">Newest frame only</span></div>
-          <div class="stage mine"><span class="sn">Perception</span><span class="st">YOLO + TensorRT</span><span class="sd">Hoop detection, on-board</span></div>
-          <div class="stage mine"><span class="sn">Solve</span><span class="st">Projectile model</span><span class="sd">Distance to velocity, angle</span></div>
-          <div class="stage mine"><span class="sn">Transport</span><span class="st">micro-ROS</span><span class="sd">230–450 Hz measured</span></div>
-          <div class="stage"><span class="sn">Firmware</span><span class="st">STM32</span><span class="sd">Teammate's mainboard</span></div>
-          <div class="stage mine"><span class="sn">Actuation</span><span class="st">Flywheel</span><span class="sd">Shot released</span></div>
+    <div class="fail reveal">
+      <div class="sym">Everything projects 50&nbsp;cm off, but the calibration is fine.</div>
+      <div class="row"><b>Cause</b>The clocks disagree. At 5&nbsp;m/s, a 100&nbsp;ms timing gap means the car moved half a metre between the LiDAR sweep and the camera frame.</div>
+      <div class="row fix"><b>Fix</b>Check timestamps before you blame geometry. The two problems look identical in the output.</div>
+    </div>
+    <div class="fail reveal">
+      <div class="sym">Turning fusion on made the car detect <em>less</em>.</div>
+      <div class="row"><b>Cause</b>A default built for a full camera ring: "no camera saw it, so drop it." With one forward camera, that becomes a blind spot.</div>
+      <div class="row fix"><b>Fix</b>Defaults encode assumptions about hardware you may not have. Audit them instead of inheriting them.</div>
+    </div>
+  </div>
+
+  <details class="deep reveal">
+    <summary><span class="pm" aria-hidden="true">+</span>Read the full engineering note: why fusion is a geometry problem <span class="rt">· 3 min</span></summary>
+    <div class="deep-body" style="max-width:none">
+      <p style="max-width:66ch">A LiDAR measures time of flight, so its range is direct and metric. It has no idea whether those points are a traffic cone or a fire hydrant. A camera has huge angular detail, but a pixel only tells you the <em>ray</em> the light arrived along, not how far along it the object is.</p>
+      <p style="max-width:66ch">So fusion asks one question, over and over: <b>given a 3D point, which pixel does it land on?</b> Answer that, and you can attach what the camera saw to the point. The reverse, recovering 3D from a pixel, isn't possible, because the projection divides by depth and throws it away.</p>
+      <figure class="fig">
+        <div class="fig-body scroll-x">
+          <svg viewBox="0 0 720 250" width="100%" height="250" role="img" aria-label="Diagram: a 3D point is transformed by extrinsic rotation and translation into camera coordinates, then divided by depth to land on a pixel in the image plane." style="min-width:560px">
+            <circle cx="58" cy="88" r="5.5" class="f-accent"/>
+            <text x="58" y="72" text-anchor="middle" class="f-ink">P</text>
+            <text x="58" y="112" text-anchor="middle" class="f-dim lbl">world</text>
+            <path d="M78 90 L192 118" class="s-dim" stroke-width="1.2" fill="none" stroke-dasharray="4 3"/>
+            <polygon points="192,118 183,113 184,121" class="f-dim"/>
+            <text x="132" y="96" text-anchor="middle" class="f-dim lbl">extrinsics</text>
+            <text x="132" y="140" text-anchor="middle" class="f-dim">R · P + t</text>
+            <path d="M232 122 L232 60" class="s-rule" stroke-width="1.2"/>
+            <path d="M232 122 L294 122" class="s-rule" stroke-width="1.2"/>
+            <path d="M232 122 L196 158" class="s-rule" stroke-width="1.2"/>
+            <text x="226" y="54" class="f-dim lbl">y</text>
+            <text x="300" y="126" class="f-dim lbl">z</text>
+            <text x="186" y="168" class="f-dim lbl">x</text>
+            <circle cx="232" cy="122" r="4" class="f-ink"/>
+            <text x="232" y="192" text-anchor="middle" class="f-dim lbl">camera origin</text>
+            <path d="M232 122 L520 46" class="s-accent" stroke-width="1.1" fill="none" opacity=".5"/>
+            <path d="M232 122 L520 206" class="s-accent" stroke-width="1.1" fill="none" opacity=".5"/>
+            <path d="M232 122 L560 96" class="s-accent" stroke-width="1.7" fill="none"/>
+            <rect x="520" y="46" width="150" height="160" rx="4" class="f-surface s-rule" stroke-width="1.3"/>
+            <path d="M520 126 L670 126" class="s-rule" stroke-width=".8" stroke-dasharray="3 4"/>
+            <path d="M595 46 L595 206" class="s-rule" stroke-width=".8" stroke-dasharray="3 4"/>
+            <circle cx="595" cy="126" r="2.6" class="f-dim"/>
+            <text x="602" y="140" class="f-dim">cx, cy</text>
+            <circle cx="560" cy="96" r="5.5" class="f-accent"/>
+            <text x="560" y="82" text-anchor="middle" class="f-ink">u, v</text>
+            <text x="595" y="228" text-anchor="middle" class="f-dim lbl">image plane</text>
+            <text x="400" y="26" text-anchor="middle" class="f-dim lbl">intrinsics</text>
+            <text x="400" y="42" text-anchor="middle" class="f-dim">u = fx · (X/Z) + cx</text>
+          </svg>
         </div>
-        <div class="pipe-key"><span><i class="on"></i>My work</span><span><i></i>Team and hardware</span></div>
-      </div>
-    </figure>
-    <figure class="fig">
-      <figcaption class="fig-head"><b>The ABU Robocon 2025 robot</b><span class="id">Plate 1</span></figcaption>
-      <div class="plate">
-        <img src="BasketballRobot.jpeg" alt="The ABU Robocon 2025 basketball robot on the competition floor" loading="lazy" onerror="this.insertAdjacentHTML('afterend','&lt;div class=&quot;fallback&quot;&gt;Robot photo unavailable&lt;/div&gt;');this.remove();">
-      </div>
-    </figure>
-    <ul class="decisions">
-      <li><b>Solve the shot, don't tabulate it</b><span>Rather than hard-coding launch power per position, the robot measures distance to the hoop and solves launch velocity and angle from projectile motion. It shoots from anywhere on the floor instead of from marked spots, and when it misses, the error is a physical parameter to correct, not a lookup table to re-tune.</span></li>
-      <li><b>Always act on the newest frame</b><span>The camera feed drops stale frames rather than queueing them. When you're aiming in real time, acting on an old frame is worse than skipping one: a backed-up queue turns latency into a control error that grows.</span></li>
-      <li><b>Quantise for the hardware you actually have</b><span>The trained detector was exported to TensorRT so inference fit the robot's small onboard GPU without starving the rest of the system. Model accuracy is irrelevant if it can't run in the loop.</span></li>
-      <li><b>Fail to a safe pose, not to a bad reading</b><span>When the hoop leaves the frame, the robot holds a centred aim rather than chasing noise. Degrading predictably beats degrading confidently.</span></li>
-      <li><b>Agree the interface, then build in parallel</b><span>Vision and firmware talked through one fixed message contract, so my teammate and I could develop and test independently without blocking each other. Most of what looks like an integration problem is really an interface that was never written down.</span></li>
-    </ul>
-    <div class="links">
-      <a href="https://github.com/hassannmurtada/Basket-Image" target="_blank" rel="noopener"><span class="cl">Repository</span><span class="cv">Vision pipeline ↗</span></a>
-      <a href="https://github.com/MohdSaif44/abu-mainboard" target="_blank" rel="noopener"><span class="cl">Team repository</span><span class="cv">Mainboard firmware ↗</span></a>
+        <figcaption class="fig-cap">Two transforms, in order. Extrinsics move the point into the camera's frame (six numbers: position and orientation). Intrinsics flatten it onto the sensor by dividing by depth, and that division is where the distance information is lost.</figcaption>
+      </figure>
+      <h4>Ten numbers, and they fail silently</h4>
+      <p style="max-width:66ch">Everything rests on six extrinsic and four intrinsic numbers. Get them wrong and the projection lands in the wrong place, so the system confidently attaches the wrong label or drops the object.</p>
+      <figure class="fig">
+        <div class="fig-body scroll-x">
+          <table class="tbl">
+            <thead><tr><th>Rotation error</th><th>At 10 m</th><th>At 30 m</th><th>Consequence</th></tr></thead>
+            <tbody>
+              <tr><td>0.5°</td><td>8.7 cm</td><td>26 cm</td><td>Tolerable</td></tr>
+              <tr><td>1.0°</td><td>17 cm</td><td>52 cm</td><td>Match quality degrades</td></tr>
+              <tr><td class="flag">2.0°</td><td class="flag">35 cm</td><td class="flag">105 cm</td><td class="flag">A pedestrian falls outside their own box</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <figcaption class="fig-cap">This is why extrinsics are calibrated against a target rather than measured with a tape. A tape gets position to within a centimetre but orientation only to within a couple of degrees, and orientation is what hurts.</figcaption>
+      </figure>
+      <p class="small-print">Written from general principles. Contains no configuration, parameters, hardware layout or source code from my employer's vehicles.</p>
+    </div>
+  </details>
+</section>
+
+<section class="frame band" id="work" aria-labelledby="work-h">
+  <p class="eyebrow reveal">03 / Earlier work</p>
+  <h2 class="sec reveal" id="work-h">Mapping, vision, firmware, and the plumbing in between</h2>
+  <p class="sec-intro reveal">2023 to 2025: from register-level STM32 code up to LiDAR mapping in industrial settings.</p>
+  <div class="grid-work">
+    <article class="wcard reveal"><span class="yr">2025 · A2TECH Sdn Bhd</span><h3>LiDAR mapping pipelines</h3><p>Built and validated mapping on Ouster and Livox sensors for industrial autonomous navigation, and qualified the hardware for field deployment.</p><ul class="chips"><li>Ouster</li><li>Livox</li><li>ROS 2</li></ul></article>
+    <article class="wcard reveal"><span class="yr">2024 · ABU Robocon</span><h3>R2 vision pipeline</h3><p>OpenCV colour masking plus YOLO models to spot balls and silos in real time. I owned dataset annotation and remote training.</p><ul class="chips"><li>OpenCV</li><li>YOLO</li><li>Cloud GPUs</li></ul></article>
+    <article class="wcard reveal"><span class="yr">2024 · UTM Robocon</span><h3>Team training infrastructure</h3><p>Got the team past "it works on my laptop": on-demand cloud GPU training over SSH and centralised, versioned datasets.</p><ul class="chips"><li>Docker</li><li>SSH</li><li>S3</li></ul></article>
+    <article class="wcard reveal"><span class="yr">2024 · Personal</span><h3>Omni-drive robot</h3><p>Four-wheel omni platform with IMU-based balancing, PID path following and Bluetooth teleoperation.</p><ul class="chips"><li>ESP32</li><li>PID</li><li>CAN · I²C · UART</li></ul></article>
+    <article class="wcard reveal"><span class="yr">2023 · Coursework</span><h3>Factory automation PLC</h3><p>A five-stage cycle (supply, drill, inspect, classify) written in ladder logic, with timed cylinders and defect sorting.</p><ul class="chips"><li>GLOFA GM6</li><li>Ladder logic</li></ul></article>
+    <article class="wcard reveal"><span class="yr">2023 · Intensive</span><h3>Register-level STM32 &amp; PCB</h3><p>Six weeks of STM32 programming at register and flash level, plus custom schematic and board design.</p><ul class="chips"><li>STM32</li><li>Altium</li><li>SolidWorks</li></ul></article>
+  </div>
+</section>
+
+<section class="frame band" id="skills" aria-labelledby="sk-h">
+  <p class="eyebrow reveal">04 / Skills</p>
+  <h2 class="sec reveal" id="sk-h">My toolbox, from the top of the stack down to the metal</h2>
+  <p class="sec-intro reveal">Grouped by where each tool sits in a robot, because that's how the work actually splits. The highlighted ones are what I use most.</p>
+  <div class="layers reveal">
+    <div class="layer"><span class="ln">Perception</span><ul class="chips hot"><li class="k">YOLO v8 / v10 / v11</li><li class="k">TensorRT</li><li class="k">Camera–LiDAR fusion</li><li>OpenCV</li><li>YOLOX</li><li>Intrinsic &amp; extrinsic calibration</li><li>Point clouds, ground seg, clustering</li><li>LiDAR mapping</li></ul></div>
+    <div class="layer"><span class="ln">Decision</span><ul class="chips hot"><li class="k">Autoware Universe</li><li>Planning &amp; control</li><li>Localisation</li><li>PID</li><li>EKF</li><li>Emergency braking</li></ul></div>
+    <div class="layer"><span class="ln">Middleware</span><ul class="chips hot"><li class="k">ROS 2</li><li class="k">micro-ROS</li><li>TF frames</li><li>Lifecycle nodes</li><li>Foxglove</li><li>RViz</li></ul></div>
+    <div class="layer"><span class="ln">Interface</span><ul class="chips hot"><li class="k">Drive-by-wire</li><li>CAN</li><li>UART</li><li>SPI</li><li>I²C</li><li>Encoders &amp; odometry</li></ul></div>
+    <div class="layer"><span class="ln">Firmware</span><ul class="chips hot"><li class="k">STM32F4 (HAL + register)</li><li>ESP32 / ESP-IDF</li><li>ATmega32</li><li>VESC</li><li>Altium PCB</li></ul></div>
+    <div class="layer"><span class="ln">Infrastructure</span><ul class="chips hot"><li class="k">Linux</li><li class="k">Docker</li><li>Git</li><li>NVIDIA Jetson</li><li>Cloud GPU training</li><li>Ouster · Livox · RoboSense SDKs</li></ul></div>
+    <div class="layer"><span class="ln">Languages</span><ul class="chips hot"><li class="k">Python</li><li class="k">C++</li><li class="k">C</li><li>MATLAB</li><li>VHDL / Verilog</li><li>STM32 assembly</li></ul></div>
+  </div>
+</section>
+
+<section class="frame band" id="journey" aria-labelledby="jr-h">
+  <p class="eyebrow reveal">05 / Journey</p>
+  <h2 class="sec reveal" id="jr-h">Where I've worked and studied</h2>
+  <div class="two">
+    <div class="tl reveal">
+      <div class="tl-row now"><span class="when">Jul – Oct 2026</span><div class="role">Autonomous Driving Engineering Intern</div><div class="org"><b>HelloWorld Robotics</b> (Embodied AI). Autoware on full-size vehicles: perception, fusion, vehicle interface, on-road testing.</div></div>
+      <div class="tl-row"><span class="when">Jul – Oct 2025</span><div class="role">Robotics Engineer Intern</div><div class="org"><b>A2TECH Sdn Bhd</b>. LiDAR mapping and sensor integration for industrial navigation.</div></div>
+      <div class="tl-row"><span class="when">Nov 2023 – Jun 2025</span><div class="role">Senior Programmer, Robotics Team</div><div class="org"><b>UTM Robocon</b>. Perception and control for two ABU Robocon international campaigns.</div></div>
+      <div class="tl-row"><span class="when">2023 – present</span><div class="role">Technical Mentor &amp; Workshop Organiser</div><div class="org"><b>UTM</b>. ROS&nbsp;2, computer vision and embedded C workshops for 100+ students.</div></div>
+      <div class="tl-row"><span class="when">Oct 2022 – Feb 2027</span><div class="role">B.Eng. Electrical Engineering</div><div class="org"><b>Universiti Teknologi Malaysia</b>. CGPA 3.70, Dean's List ×4. Final-year project: machine-learning estimation of lithium-ion battery health.</div></div>
+    </div>
+    <div class="tcard reveal" style="align-self:start">
+      <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
+      <h3>How I like to work</h3>
+      <p style="margin-bottom:10px">I'm most interested in work where the software has to survive contact with real hardware. Happy to go into any of it in detail, including the parts that <b>didn't</b> work.</p>
+      <p>I also run ROS&nbsp;2, computer vision and embedded C workshops. 100+ students so far.</p>
     </div>
   </div>
 </section>
 
-<div class="frame"><div class="ticks"></div></div>
-
-<section class="frame band split" id="work">
-  <dl class="rail">
-    <div><dt>Range</dt><dd>2023 to 2025</dd></div>
-  </dl>
-  <div>
-    <p class="kicker">Earlier work</p>
-    <h2 class="sec">Mapping, vision, firmware and the plumbing in between</h2>
-    <div class="index">
-      <div class="index-row"><span class="yr">2025</span><div><span class="ti">LiDAR mapping pipelines, A2TECH Sdn Bhd</span><span class="de">Built and validated mapping pipelines on Ouster and Livox sensors for autonomous navigation in industrial settings; integrated multi-sensor streams into the robot's onboard compute and qualified the hardware for field deployment.</span></div><span class="tg">Ouster, Livox<br>ROS 2, sensor validation</span></div>
-      <div class="index-row"><span class="yr">2024</span><div><span class="ti">ABU Robocon 2024, R2 vision pipeline</span><span class="de">OpenCV colour masking plus YOLO models trained on cloud GPUs to detect balls and silos in real time. Owned dataset annotation and the remote training workflow for the team.</span></div><span class="tg">OpenCV, YOLO<br>Cloud training</span></div>
-      <div class="index-row"><span class="yr">2024</span><div><span class="ti">Team training and data infrastructure</span><span class="de">Moved the team off "it works on my laptop": on-demand cloud GPU training driven over SSH, and centralised dataset storage so versions stayed consistent and nothing lived on one person's machine.</span></div><span class="tg">Docker, SSH<br>S3, reproducibility</span></div>
-      <div class="index-row"><span class="yr">2024</span><div><span class="ti">Omni-drive robot</span><span class="de">Four-wheel omni platform with IMU-based balancing, PID path following and Bluetooth teleoperation, built on ESP-IDF.</span></div><span class="tg">ESP32, PID<br>CAN, I²C, UART</span></div>
-      <div class="index-row"><span class="yr">2023</span><div><span class="ti">Factory automation sequence, PLC</span><span class="de">Five-stage supply, drill, inspect and classify cycle in ladder logic, with timed cylinder actuation and defect classification.</span></div><span class="tg">GLOFA GM6, GMWIN<br>Ladder logic</span></div>
-      <div class="index-row"><span class="yr">2023</span><div><span class="ti">Register-level STM32 and PCB design</span><span class="de">Six-week intensive: STM32 programming down to the register and flash level, custom schematic and board design, and mechanical modelling.</span></div><span class="tg">STM32, Altium<br>SolidWorks</span></div>
+<section class="frame band" id="contact" aria-labelledby="ct-h" style="padding-bottom:0">
+  <div class="contact-box reveal">
+    <p class="eyebrow">06 / Contact</p>
+    <h2 class="sec" id="ct-h">Let's build robots that leave the lab.</h2>
+    <p>Graduating Feb 2027 and open to graduate roles and research in robotics and autonomy. Based in Johor Bahru, Malaysia. The fastest way to reach me is email.</p>
+    <div class="clinks">
+      <button type="button" id="copymail" data-mail="hassann.abdallawork@gmail.com"><span><span class="cl">Email · click to copy</span><span class="cv">hassann.abdallawork@gmail.com</span></span><span class="go" id="copylbl">Copy</span></button>
+      <a href="tel:+60123526362"><span><span class="cl">Phone</span><span class="cv">+60 12-352 6362</span></span><span class="go">Call</span></a>
+      <a href="https://www.linkedin.com/in/hassan-murtada-b68139266/" target="_blank" rel="noopener"><span><span class="cl">LinkedIn</span><span class="cv">hassan-murtada</span></span><span class="go">↗</span></a>
+      <a href="https://github.com/hassannmurtada" target="_blank" rel="noopener"><span><span class="cl">GitHub</span><span class="cv">hassannmurtada</span></span><span class="go">↗</span></a>
     </div>
   </div>
 </section>
-
-<div class="frame"><div class="ticks"></div></div>
-
-<section class="frame band split" id="stack">
-  <dl class="rail">
-    <div><dt>Reading order</dt><dd>Top of the stack down to the metal</dd></div>
-  </dl>
-  <div>
-    <p class="kicker">Capability</p>
-    <h2 class="sec">What I can carry, layer by layer</h2>
-    <p class="prose dim" style="margin:0 0 22px">Listed by where it sits in a robot rather than by category, because that's how the work actually divides.</p>
-    <div class="layers">
-      <div class="layer"><span class="ln">Perception</span><span class="lc"><b>YOLO (v8, v10, v11), YOLOX, TensorRT, OpenCV</b>; camera–LiDAR fusion; intrinsic and extrinsic calibration; point-cloud processing, ground segmentation and clustering; LiDAR mapping</span></div>
-      <div class="layer"><span class="ln">Decision</span><span class="lc"><b>Autoware Universe</b> perception, planning and control; behaviour and planner configuration; localisation; PID and EKF; autonomous emergency braking</span></div>
-      <div class="layer"><span class="ln">Middleware</span><span class="lc"><b>ROS 2, micro-ROS</b>; TF and coordinate frames; node composition and lifecycle; Foxglove and RViz for introspection</span></div>
-      <div class="layer"><span class="ln">Interface</span><span class="lc"><b>Drive-by-wire and base-driver integration</b>; CAN, UART, SPI, I²C; message contracts between subsystems; encoder and odometry feedback</span></div>
-      <div class="layer"><span class="ln">Firmware</span><span class="lc"><b>STM32F4 (HAL and register level), ESP32 / ESP-IDF, ATmega32</b>; PID motor control; VESC; Altium schematic and PCB design</span></div>
-      <div class="layer"><span class="ln">Infrastructure</span><span class="lc"><b>Docker, Linux, Git</b>; cloud GPU training; dataset versioning and annotation; NVIDIA Jetson; Ouster, Livox and RoboSense SDKs</span></div>
-      <div class="layer"><span class="ln">Languages</span><span class="lc"><b>Python, C, C++</b>; MATLAB; VHDL and Verilog; STM32 assembly</span></div>
-    </div>
-  </div>
-</section>
-
-<div class="frame"><div class="ticks"></div></div>
-
-<section class="frame band split" id="timeline">
-  <dl class="rail">
-    <div><dt>Record</dt><dd>Roles and study, newest first</dd></div>
-  </dl>
-  <div>
-    <p class="kicker">Record</p>
-    <h2 class="sec">Where I've worked and studied</h2>
-    <div class="tl">
-      <div class="tl-row"><span class="when">Jul – Oct 2026</span><div class="role">Embodied AI Autonomous Driving Engineering Intern</div><div class="org">HelloWorld Robotics, Malaysia. Autoware Universe on full-size vehicles: perception, fusion, vehicle interface and on-road testing.</div></div>
-      <div class="tl-row"><span class="when">Jul – Oct 2025</span><div class="role">Robotics Engineer Intern</div><div class="org">A2TECH Sdn Bhd, Malaysia. LiDAR mapping pipelines and sensor integration for industrial autonomous navigation.</div></div>
-      <div class="tl-row"><span class="when">Nov 2023 – Jun 2025</span><div class="role">Senior Programmer, Robotics Team</div><div class="org">UTM Robocon, Malaysia. Perception and control software for two ABU Robocon international campaigns.</div></div>
-      <div class="tl-row"><span class="when">2023 – present</span><div class="role">Technical Mentor and Workshop Organiser</div><div class="org">UTM, Malaysia. ROS 2, computer vision and embedded C workshops for 100+ students; mentored exchange students and junior team members.</div></div>
-      <div class="tl-row"><span class="when">Oct 2022 – Feb 2027</span><div class="role">B.Eng. Electrical Engineering</div><div class="org">Universiti Teknologi Malaysia. CGPA 3.70, Dean's List four semesters. Final-year project: machine-learning estimation of lithium-ion battery state of health.</div></div>
-    </div>
-  </div>
-</section>
-
-<div class="frame"><div class="ticks"></div></div>
-
-<section class="frame band split contact" id="contact">
-  <dl class="rail">
-    <div><dt>Status</dt><dd>Graduating Feb 2027, open to graduate roles and research in robotics and autonomy</dd></div>
-    <div><dt>Based</dt><dd>Johor Bahru, Malaysia</dd></div>
-  </dl>
-  <div>
-    <p class="kicker">Contact</p>
-    <h2 class="sec">Let's talk about robots that leave the lab.</h2>
-    <p class="prose dim">I'm most interested in work where the software has to survive contact with real hardware: autonomy, perception, robotics platforms. Happy to go into any of the above in more detail, including the parts that didn't work.</p>
-    <div class="links">
-      <a href="mailto:hassann.abdallawork@gmail.com"><span class="cl">Email</span><span class="cv">hassann.abdallawork@gmail.com</span></a>
-      <a href="tel:+60123526362"><span class="cl">Phone</span><span class="cv">+60 12-352 6362</span></a>
-      <a href="https://www.linkedin.com/in/hassan-murtada-b68139266/" target="_blank" rel="noopener"><span class="cl">LinkedIn</span><span class="cv">hassan-murtada ↗</span></a>
-      <a href="https://github.com/hassannmurtada" target="_blank" rel="noopener"><span class="cl">GitHub</span><span class="cv">hassannmurtada ↗</span></a>
-    </div>
-  </div>
-</section>
+</main>
 
 <footer>
   <div class="frame foot-in">
-    <span>Hassan Murtada, <span id="yr"></span></span>
-    <span>Set in Archivo and IBM Plex</span>
+    <span>© <span id="yr">2026</span> Hassan Murtada</span>
+    <span>Hand-built. No frameworks, no tracking, one fake LiDAR.</span>
     <a href="#top">Back to top ↑</a>
   </div>
 </footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function(){
+  var root = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('yr').textContent = new Date().getFullYear();
-  var root = document.documentElement, btn = document.getElementById('tt');
-  try { var s = localStorage.getItem('hm-theme'); if (s === 'light' || s === 'dark') root.setAttribute('data-theme', s); } catch(e) {}
-  btn.addEventListener('click', function(){
+
+  /* theme */
+  document.getElementById('tt').addEventListener('click', function(){
     var cur = root.getAttribute('data-theme');
     if (!cur) cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     var next = cur === 'dark' ? 'light' : 'dark';
@@ -545,24 +736,107 @@ footer{border-top:1px solid var(--rule);padding:26px 0 44px}
     try { localStorage.setItem('hm-theme', next); } catch(e) {}
   });
 
-  /* Simulated top-down 2D LiDAR: ray-cast against a small car-park scene, sweep at 10 Hz-ish, points fade with age */
+  /* mobile menu */
+  var nav = document.getElementById('nav'), menu = document.getElementById('menu');
+  menu.addEventListener('click', function(){
+    var open = nav.classList.toggle('open'); menu.setAttribute('aria-expanded', open);
+  });
+  nav.addEventListener('click', function(e){ if (e.target.tagName === 'A'){ nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); } });
+
+  /* scroll progress */
+  var bar = document.getElementById('progress'), ticking = false;
+  function prog(){ var h = document.documentElement.scrollHeight - innerHeight; bar.style.transform = 'scaleX(' + (h > 0 ? scrollY / h : 0) + ')'; ticking = false; }
+  addEventListener('scroll', function(){ if (!ticking){ ticking = true; requestAnimationFrame(prog); } }, { passive: true }); prog();
+
+  /* toast */
+  var toastEl = document.getElementById('toast'), tt;
+  function toast(msg){ toastEl.textContent = msg; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(function(){ toastEl.classList.remove('show'); }, 1800); }
+
+  /* copy email */
+  var cm = document.getElementById('copymail');
+  cm.addEventListener('click', function(){
+    var m = cm.getAttribute('data-mail');
+    function done(){ document.getElementById('copylbl').textContent = 'Copied ✓'; toast('Email copied. Talk soon!'); setTimeout(function(){ document.getElementById('copylbl').textContent = 'Copy'; }, 2200); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(m).then(done, function(){ location.href = 'mailto:' + m; });
+    else location.href = 'mailto:' + m;
+  });
+
+  /* reveal, count-up, active nav */
+  function countUp(el){
+    var to = parseFloat(el.getAttribute('data-count')), dec = +(el.getAttribute('data-dec') || 0), t0 = null, D = 1100;
+    if (reduce) return;
+    function step(t){ if (!t0) t0 = t; var p = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = (to * e).toFixed(dec); if (p < 1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  }
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+    var co = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ countUp(e.target); co.unobserve(e.target); } }); });
+    document.querySelectorAll('[data-count]').forEach(function(el){ co.observe(el); });
+    var links = {}; nav.querySelectorAll('a').forEach(function(a){ links[a.getAttribute('href').slice(1)] = a; });
+    var so = new IntersectionObserver(function(es){ es.forEach(function(e){ var a = links[e.target.id]; if (a && e.isIntersecting){ for (var k in links) links[k].classList.remove('on'); a.classList.add('on'); } }); }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(links).forEach(function(id){ var s = document.getElementById(id); if (s) so.observe(s); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* calibration playground */
+  (function(){
+    var ang = document.getElementById('ang'), dst = document.getElementById('dst');
+    var g = document.getElementById('pv-pts'), NS = 'http://www.w3.org/2000/svg';
+    var PXM = 80; /* px per metre: the 80 px detection box is ~1 m wide */
+    var pts = [], seed = 7;
+    function rnd(){ seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    function inPerson(x, y){
+      if ((x-200)*(x-200) + (y-66)*(y-66) < 13*13) return true;
+      if (x > 184 && x < 216 && y > 83 && y < 143) return true;
+      if (((x > 187 && x < 197) || (x > 203 && x < 213)) && y > 137 && y < 192) return true;
+      return false;
+    }
+    while (pts.length < 46){ var x = 182 + rnd()*36, y = 52 + rnd()*142; if (inPerson(x, y)) pts.push([x, y]); }
+    var dots = pts.map(function(p){ var c = document.createElementNS(NS, 'circle'); c.setAttribute('r', '2.6'); c.setAttribute('cy', p[1].toFixed(1)); g.appendChild(c); return c; });
+    function upd(){
+      var a = +ang.value, d = +dst.value, s = d * Math.tan(a * Math.PI / 180), cm = Math.round(s * 100);
+      document.getElementById('ango').textContent = a.toFixed(1) + '°';
+      document.getElementById('dsto').textContent = d + ' m';
+      document.getElementById('vs').innerHTML = cm + '<small>cm off</small>';
+      var dx = Math.min(s * PXM, 230), inside = 0;
+      dots.forEach(function(c, i){
+        var x = pts[i][0] + dx, ok = x >= 160 && x <= 240; if (ok) inside++;
+        c.setAttribute('cx', x.toFixed(1));
+        c.setAttribute('fill', ok ? '#F2B23A' : '#EF8592');
+        c.setAttribute('opacity', x > 392 ? 0 : 1);
+      });
+      /* verdict follows what is drawn: share of LiDAR points still inside the box */
+      var frac = inside / dots.length, v = document.getElementById('verdict'), vl = document.getElementById('vl');
+      if (frac >= 0.9){ v.className = 'verdict ok'; vl.textContent = cm < 3 ? 'Spot on. Points land on the person.' : 'Tolerable. Points still land on the person.'; }
+      else if (frac > 0){ v.className = 'verdict mid'; vl.textContent = 'Match quality degrades'; }
+      else { v.className = 'verdict bad'; vl.textContent = 'The pedestrian falls outside their own box!'; }
+      document.getElementById('vf').textContent = d + ' m × tan(' + a.toFixed(1) + '°) = ' + s.toFixed(2) + ' m · ' + inside + '/' + dots.length + ' points on target';
+    }
+    ang.addEventListener('input', upd); dst.addEventListener('input', upd);
+    document.querySelectorAll('.presets button').forEach(function(b){ b.addEventListener('click', function(){ ang.value = b.getAttribute('data-a'); dst.value = b.getAttribute('data-d'); upd(); }); });
+    upd();
+  })();
+
+  /* Simulated top-down 2D LiDAR: ray-cast against a small car-park scene. Click to drop cones. */
   var cv = document.getElementById('scan'); if (!cv || !cv.getContext) return;
   var ctx = cv.getContext('2d');
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var W = 0, H = 0, S = 1, dpr = 1;
-  var N = 720, RANGE = 14;              // rays per sweep, metres
-  var hits = new Float32Array(N), age = new Float32Array(N);
-  var segs = [];
-  function box(cx, cy, w, h, a){
-    var c = Math.cos(a), s = Math.sin(a), pts = [[-w/2,-h/2],[w/2,-h/2],[w/2,h/2],[-w/2,h/2]].map(function(p){ return [cx + p[0]*c - p[1]*s, cy + p[0]*s + p[1]*c]; });
-    for (var i = 0; i < 4; i++) segs.push([pts[i][0], pts[i][1], pts[(i+1)%4][0], pts[(i+1)%4][1], 1]);
+  var N = 720, RANGE = 14;
+  var hits = new Float32Array(N), age = new Float32Array(N), kind = new Uint8Array(N);
+  var nextHits = new Float32Array(N), nextKind = new Uint8Array(N);
+  var base = [], segs = [], cones = [];
+  function box(arr, cx, cy, w, h, a, k){
+    var c = Math.cos(a), s = Math.sin(a), p = [[-w/2,-h/2],[w/2,-h/2],[w/2,h/2],[-w/2,h/2]].map(function(q){ return [cx + q[0]*c - q[1]*s, cy + q[0]*s + q[1]*c]; });
+    for (var i = 0; i < 4; i++) arr.push([p[i][0], p[i][1], p[(i+1)%4][0], p[(i+1)%4][1], k]);
   }
-  // walls of a car park (metres, vehicle at origin facing +x)
-  segs.push([-11,-7, 13,-7, 0],[13,-7, 13,8, 0],[13,8,-11,8, 0],[-11,8,-11,-7, 0]);
-  [[-6,-4.4],[-3.2,-4.5],[3.4,-4.4],[6.3,-4.6],[9.2,-4.4]].forEach(function(p,i){ box(p[0], p[1], 1.9, 4.4, (i%2?0.04:-0.03)); });
-  [[-5.6,5.2],[-2.6,5.3],[0.4,5.2],[6.6,5.3],[9.6,5.1]].forEach(function(p,i){ box(p[0], p[1], 1.9, 4.4, (i%2?-0.05:0.03)); });
-  segs.push([4.2,1.6, 4.4,1.8, 2],[4.4,1.8, 4.6,1.6, 2],[4.6,1.6, 4.4,1.4, 2],[4.4,1.4, 4.2,1.6, 2]); // a pedestrian / cone
-  var kind = new Uint8Array(N);
+  base.push([-11,-7, 13,-7, 0],[13,-7, 13,8, 0],[13,8,-11,8, 0],[-11,8,-11,-7, 0]);
+  [[-6,-4.4],[-3.2,-4.5],[3.4,-4.4],[6.3,-4.6],[9.2,-4.4]].forEach(function(p,i){ box(base, p[0], p[1], 1.9, 4.4, (i%2?0.04:-0.03), 1); });
+  [[-5.6,5.2],[-2.6,5.3],[0.4,5.2],[6.6,5.3],[9.6,5.1]].forEach(function(p,i){ box(base, p[0], p[1], 1.9, 4.4, (i%2?-0.05:0.03), 1); });
+  box(base, 4.4, 1.6, 0.3, 0.3, 0.785, 2);
+  function rebuild(){ segs = base.slice(); cones.forEach(function(c){ box(segs, c[0], c[1], 0.45, 0.45, 0.785, 3); }); }
   function cast(){
     for (var i = 0; i < N; i++){
       var a = i / N * Math.PI * 2, dx = Math.cos(a), dy = Math.sin(a), best = RANGE, k = 0;
@@ -572,13 +846,14 @@ footer{border-top:1px solid var(--rule);padding:26px 0 44px}
         var t = (sg[0]*ey - sg[1]*ex) / den, u = (sg[0]*dy - sg[1]*dx) / den;
         if (t > 0.3 && u >= 0 && u <= 1 && t < best){ best = t; k = sg[4]; }
       }
-      hits[i] = best < RANGE ? best + (Math.random()-0.5)*0.04 : 0; kind[i] = k;
+      nextHits[i] = best < RANGE ? best + (Math.random()-0.5)*0.04 : 0; nextKind[i] = k;
     }
   }
-  cast();
+  function commit(){ hits.set(nextHits); kind.set(nextKind); }
+  rebuild(); cast(); commit();
   function css(v){ return getComputedStyle(root).getPropertyValue(v).trim(); }
   var C = {};
-  function colours(){ C.bg = css('--scan-bg'); C.grid = css('--scan-grid'); C.pt = css('--scan-pt'); C.car = css('--scan-car'); }
+  function colours(){ C.bg = css('--scan-bg'); C.grid = css('--scan-grid'); C.pt = css('--scan-pt'); C.car = css('--scan-car'); C.cone = css('--scan-cone'); }
   function size(){
     var r = cv.getBoundingClientRect(); dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = r.width; H = r.height; cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
@@ -591,33 +866,48 @@ footer{border-top:1px solid var(--rule);padding:26px 0 44px}
     ctx.strokeStyle = C.grid; ctx.lineWidth = 1;
     for (var r = 2; r <= RANGE; r += 2){ ctx.beginPath(); ctx.arc(ox, oy, r*S, 0, Math.PI*2); ctx.stroke(); }
     ctx.beginPath(); ctx.moveTo(0,oy); ctx.lineTo(W,oy); ctx.moveTo(ox,0); ctx.lineTo(ox,H); ctx.stroke();
-    if (sweep !== null){
-      var g = ctx.createConicGradient ? ctx.createConicGradient(sweep, ox, oy) : null;
-      if (g){ g.addColorStop(0,'rgba(242,178,58,.20)'); g.addColorStop(0.14,'rgba(242,178,58,0)'); g.addColorStop(1,'rgba(242,178,58,0)');
-        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(ox, oy, RANGE*S, 0, Math.PI*2); ctx.fill(); }
+    if (sweep !== null && ctx.createConicGradient){
+      var g = ctx.createConicGradient(sweep, ox, oy);
+      g.addColorStop(0,'rgba(242,178,58,.20)'); g.addColorStop(0.14,'rgba(242,178,58,0)'); g.addColorStop(1,'rgba(242,178,58,0)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(ox, oy, RANGE*S, 0, Math.PI*2); ctx.fill();
     }
     for (var i = 0; i < N; i++){
       if (!hits[i]) continue;
       var a = i / N * Math.PI * 2, f = sweep === null ? 1 : Math.max(0, 1 - age[i]);
-      var x = ox + Math.cos(a)*hits[i]*S, y = oy - Math.sin(a)*hits[i]*S;
+      var x = ox + Math.cos(a)*hits[i]*S, y = oy - Math.sin(a)*hits[i]*S, k = kind[i], sz = k >= 2 ? 3.2 : 2.2;
       ctx.globalAlpha = 0.22 + 0.78*f*f;
-      ctx.fillStyle = kind[i] === 1 ? C.car : C.pt;
-      ctx.fillRect(x-1.1, y-1.1, kind[i] === 2 ? 3.4 : 2.2, kind[i] === 2 ? 3.4 : 2.2);
+      ctx.fillStyle = k === 1 ? C.car : k === 3 ? C.cone : C.pt;
+      ctx.fillRect(x - sz/2, y - sz/2, sz, sz);
     }
     ctx.globalAlpha = 1;
-    // ego vehicle footprint
+    /* placed cone markers (faint, so you can see where you clicked) */
+    ctx.strokeStyle = C.cone; ctx.globalAlpha = .35;
+    cones.forEach(function(c){ ctx.beginPath(); ctx.arc(ox + c[0]*S, oy - c[1]*S, 0.5*S, 0, Math.PI*2); ctx.stroke(); });
+    ctx.globalAlpha = 1;
     ctx.save(); ctx.translate(ox, oy);
-    ctx.fillStyle = 'rgba(242,178,58,.92)'; ctx.strokeStyle = 'rgba(242,178,58,1)';
+    ctx.fillStyle = 'rgba(242,178,58,.92)';
     var vl = 2.6*S, vw = 1.3*S; ctx.fillRect(-vl*0.35, -vw/2, vl, vw);
     ctx.fillStyle = C.bg; ctx.beginPath(); ctx.moveTo(vl*0.55, 0); ctx.lineTo(vl*0.3, -vw*0.28); ctx.lineTo(vl*0.3, vw*0.28); ctx.closePath(); ctx.fill();
     ctx.restore();
   }
+
+  var fig = document.getElementById('scanfig'), hint = document.getElementById('scanhint'), resetBtn = document.getElementById('scanreset'), cap = document.getElementById('scancap');
+  function updCap(){ cap.textContent = cones.length ? cones.length + ' cone' + (cones.length > 1 ? 's' : '') + ' detected' : 'Simulated 2D LiDAR, car park'; resetBtn.style.display = cones.length ? 'block' : 'none'; }
+  fig.addEventListener('click', function(e){
+    if (e.target === resetBtn) return;
+    var r = cv.getBoundingClientRect(), mx = (e.clientX - r.left - W/2) / S, my = -(e.clientY - r.top - H/2) / S;
+    if (Math.hypot(mx, my) < 1.8 || Math.hypot(mx, my) > RANGE) return;
+    cones.push([mx, my]); if (cones.length > 10) cones.shift();
+    hint.style.opacity = 0; rebuild(); cast(); if (reduce) { commit(); draw(null); } updCap();
+  });
+  resetBtn.addEventListener('click', function(){ cones = []; rebuild(); cast(); if (reduce){ commit(); draw(null); } updCap(); });
+
   size();
-  window.addEventListener('resize', function(){ size(); if (reduce) draw(null); });
-  if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener && window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', colours);
+  addEventListener('resize', function(){ size(); if (reduce) draw(null); });
+  var mq = window.matchMedia('(prefers-color-scheme: dark)'); if (mq.addEventListener) mq.addEventListener('change', colours);
   new MutationObserver(colours).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
   if (reduce){ draw(null); document.getElementById('scanhz').textContent = 'static'; return; }
-  var last = performance.now(), sweep = 0, PERIOD = 2.4; // seconds per revolution (slowed for readability)
+  var last = performance.now(), sweep = 0, PERIOD = 2.4;
   for (var i = 0; i < N; i++) age[i] = 1;
   var visible = true;
   if ('IntersectionObserver' in window) new IntersectionObserver(function(e){ visible = e[0].isIntersecting; }).observe(cv);
@@ -629,7 +919,7 @@ footer{border-top:1px solid var(--rule);padding:26px 0 44px}
         age[i] += dt / (PERIOD * 0.95);
         var a = i / N * Math.PI * 2;
         var passed = prev <= sweep ? (a > prev && a <= sweep) : (a > prev || a <= sweep);
-        if (passed){ age[i] = 0; if (Math.random() < 0.08) hits[i] = hits[i] ? hits[i] + (Math.random()-0.5)*0.03 : 0; }
+        if (passed){ age[i] = 0; hits[i] = nextHits[i] ? nextHits[i] + (Math.random()-0.5)*0.03 : 0; kind[i] = nextKind[i]; }
       }
       draw(-sweep);
     }
