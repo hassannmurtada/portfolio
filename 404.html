@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nothing detected · Hassan Murtada</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E1A2C'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23F2B23A' stroke-width='1.5' opacity='.5'/%3E%3Crect x='11' y='13' width='10' height='6' rx='1' fill='%23F2B23A'/%3E%3C/svg%3E" />
+<!-- Counts broken links as an event (no page view), so they show up by path in the private stats -->
+<script data-goatcounter="https://hassannmurtada.goatcounter.com/count" data-goatcounter-settings='{"no_onload": true}' async src="https://gc.zgo.at/count.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:#0A1322;color:#E5EBF2;font-family:"IBM Plex Sans",-apple-system,"Segoe UI",Roboto,sans-serif;font-size:17px;line-height:1.6;
+  display:grid;place-items:center;padding:24px;overflow:hidden;position:relative;-webkit-font-smoothing:antialiased}
+.rings{position:absolute;left:50%;top:50%;width:140vmax;height:140vmax;transform:translate(-50%,-50%);pointer-events:none;
+  background:repeating-radial-gradient(circle,rgba(160,185,215,.10) 0 1px,transparent 1px 56px)}
+.sweep{position:absolute;left:50%;top:50%;width:140vmax;height:140vmax;margin:-70vmax 0 0 -70vmax;pointer-events:none;border-radius:50%;
+  background:conic-gradient(from 0deg,rgba(242,178,58,.16),rgba(242,178,58,0) 14%,rgba(242,178,58,0));animation:spin 4.8s linear infinite}
+@keyframes spin{to{transform:rotate(-360deg)}}
+@media (prefers-reduced-motion: reduce){ .sweep{animation:none} }
+main{position:relative;max-width:560px;text-align:center}
+.code{font-family:"IBM Plex Mono",monospace;font-size:14px;color:#F2B23A;letter-spacing:.04em;margin:0 0 14px}
+h1{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 118,"wght" 800;font-size:clamp(38px,8vw,68px);line-height:.95;letter-spacing:-.04em;margin:0 0 18px}
+h1 span{display:block;font-variation-settings:"wdth" 70,"wght" 300;color:#9AA8B9;letter-spacing:-.02em}
+p{color:#9AA8B9;margin:0 0 28px}
+.path{font-family:"IBM Plex Mono",monospace;font-size:14px;color:#E5EBF2;word-break:break-all}
+a.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;text-decoration:none;padding:12px 22px;border-radius:999px;background:#E5EBF2;color:#0A1322;transition:transform .15s,background .15s}
+a.btn:hover{transform:translateY(-1px);background:#F2B23A}
+a.btn:focus-visible{outline:2px solid #F2B23A;outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="rings" aria-hidden="true"></div>
+<div class="sweep" aria-hidden="true"></div>
+<main>
+  <p class="code">404 · NO RETURN</p>
+  <h1>Nothing detected <span>at this range.</span></h1>
+  <p>The sweep came back empty. <span class="path" id="path"></span> doesn't exist, or it moved. The portfolio itself is fine.</p>
+  <a class="btn" href="https://hassannmurtada.github.io/portfolio/">Back to the portfolio →</a>
+</main>
+<script>
+(function(){
+  var path = location.pathname;
+  document.getElementById('path').textContent = path;
+  (function go(n){
+    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path: '404:' + path, title: 'Broken link' + (document.referrer ? ' from ' + document.referrer : ''), event: true });
+    else if (n < 20) setTimeout(function(){ go(n + 1); }, 500);
+  })(0);
+})();
+</script>
+</body>
+</html>

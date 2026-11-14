@@ -8,7 +8,28 @@
 <meta property="og:title" content="Hassan Murtada · Robotics Software" />
 <meta property="og:description" content="I write the code between a robot's sensors and its wheels: perception, ROS 2, and embedded firmware." />
 <meta property="og:type" content="website" />
-<meta name="theme-color" content="#0A1322" />
+<meta property="og:site_name" content="Hassan Murtada" />
+<meta property="og:url" content="https://hassannmurtada.github.io/portfolio/" />
+<meta property="og:image" content="https://hassannmurtada.github.io/portfolio/media/og-card.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Hassan Murtada. Robotics software, sensor to wheel. 50 km driven autonomously, 2 ABU Robocon campaigns." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Hassan Murtada · Robotics Software" />
+<meta name="twitter:description" content="I write the code between a robot's sensors and its wheels: perception, ROS 2, and embedded firmware." />
+<meta name="twitter:image" content="https://hassannmurtada.github.io/portfolio/media/og-card.png" />
+<link rel="canonical" href="https://hassannmurtada.github.io/portfolio/" />
+<meta name="theme-color" content="#F3F5F8" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0A1322" media="(prefers-color-scheme: dark)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Hassan Murtada","url":"https://hassannmurtada.github.io/portfolio/",
+ "jobTitle":"Robotics Software Engineer","description":"Robotics software engineer working on perception, ROS 2 and embedded firmware, most recently an Autoware stack on full-size vehicles.",
+ "image":"https://hassannmurtada.github.io/portfolio/media/og-card.png",
+ "alumniOf":{"@type":"CollegeOrUniversity","name":"Universiti Teknologi Malaysia"},
+ "address":{"@type":"PostalAddress","addressLocality":"Johor Bahru","addressCountry":"MY"},
+ "knowsAbout":["Robotics","Autonomous vehicles","Autoware","ROS 2","Camera-LiDAR fusion","Sensor calibration","Computer vision","Embedded firmware"],
+ "sameAs":["https://github.com/hassannmurtada","https://www.linkedin.com/in/hassan-murtada-b68139266/"]}
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E1A2C'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23F2B23A' stroke-width='1.5' opacity='.5'/%3E%3Crect x='11' y='13' width='10' height='6' rx='1' fill='%23F2B23A'/%3E%3C/svg%3E" />
 <!-- Privacy-friendly visit stats (no cookies). Dashboard: hassannmurtada.goatcounter.com, private.
      Visit the site with #toggle-goatcounter once to stop counting your own visits in that browser. -->
@@ -395,6 +416,7 @@ svg .lbl{font-family:"IBM Plex Sans",sans-serif;font-size:11.5px}
 .clinks .cl{display:block;font-size:12.5px;color:#7A899C}
 .clinks .cv{display:block;font-size:16px;font-weight:600;word-break:break-word;color:#fff}
 .clinks .go{color:#F2B23A;font-size:13px;white-space:nowrap}
+@media (max-width:420px){ .clinks a,.clinks button{padding:14px} .clinks .cv{font-size:14.5px} }
 
 footer{padding:30px 0 44px}
 .foot-in{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;font-size:13.5px;color:var(--ink-3)}
@@ -403,6 +425,72 @@ footer{padding:30px 0 44px}
 
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:var(--ink);color:var(--paper);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;z-index:90;transition:opacity .2s,transform .2s;pointer-events:none}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+.foot-in button{font:inherit;color:inherit;background:none;border:none;padding:0;cursor:pointer}
+.foot-in button:hover{color:var(--ink)}
+.foot-links{display:flex;gap:18px}
+.mail-alt{position:relative;font-size:14px;color:#9AA8B9;margin:14px 0 0}
+.mail-alt a{color:#E5EBF2}
+.print-only{display:none}
+
+/* print: a clean, text-first version (recruiters do print portfolios) */
+@media print{
+  :root,:root[data-theme="dark"],:root:not([data-theme="light"]){
+    --paper:#fff; --surface:#fff; --surface-2:#f1f3f6; --ink:#111; --ink-2:#333; --ink-3:#555;
+    --rule:#cfd5dc; --rule-strong:#9aa5b1; --accent:#8a4f00; --accent-bright:#b86a00; --accent-wash:#fbf3e4;
+    --ok:#1F7A55; --warn:#B23A48; --shadow:none;
+  }
+  @page{margin:14mm 13mm}
+  html{scroll-padding-top:0}
+  body{font-size:10.5pt;line-height:1.5;background:#fff}
+  .topbar,.progress,.skip,.toast,.btns,.scan,.field,.play,.presets,.photo,.links,.status .dot,.shots,.field-note,
+  .clinks .go,footer,.mail-alt,.no-print,#lessons details.deep,dialog,.contact-box::before,details.deep summary .pm,details.deep summary .rt{display:none !important}
+  .print-only{display:block}
+  .js .reveal{opacity:1 !important;transform:none !important}
+  .frame{max-width:none;padding-left:0;padding-right:0}
+  .hero{padding:0 0 10px}
+  .hero-grid,.two,.case-split{display:block}
+  .hero h1{font-size:40pt;margin-bottom:12px}
+  .hero .sub{font-size:11.5pt;max-width:none;margin-bottom:6px}
+  .print-contact{font-size:10pt;color:var(--ink-2);margin:0}
+  .readout{margin-top:14px;grid-template-columns:repeat(4,1fr)}
+  .readout .n{font-size:20pt}
+  .band{padding-top:22px;padding-bottom:0}
+  h2.sec{font-size:17pt;margin-bottom:8px;max-width:none}
+  .sec-intro{font-size:10.5pt;margin-bottom:12px;max-width:none}
+  .eyebrow{margin-bottom:4px;break-after:avoid}
+  .tldr,.grid-work,.fails{grid-template-columns:repeat(3,1fr);gap:8px}
+  .tcard,.wcard,.fail{box-shadow:none;break-inside:avoid;padding:12px}
+  .case{box-shadow:none;padding:12px}
+  .cpr,.pipe,.rules li,.case-top{break-inside:avoid}
+  .case-top,h3,h2.sec,.sec-intro,.eyebrow,.pipe-t,details.deep summary,#lessons h3 + p{break-after:avoid}
+  #lessons h3{margin-top:14px !important}
+  p{orphans:3;widows:3}
+  .tcard .ic{display:none}
+  .case{margin-bottom:12px}
+  .case-no{font-size:26pt}
+  .case h3.ct{font-size:14pt}
+  .cpr,.cpr[style]{grid-template-columns:repeat(3,1fr) !important}
+  .cpr > div{padding:10px}
+  .cpr .big{font-size:16pt}
+  .pipeline{grid-template-columns:repeat(6,1fr);gap:0}
+  .stage{padding:6px 7px;margin-right:-1px;border-radius:0 !important}
+  .stage .st{font-size:9pt} .stage .sd{font-size:8pt}
+  details.deep{border-top:none;margin-top:8px}
+  details.deep summary{padding:4px 0;font-size:10.5pt}
+  .deep-body{max-width:none}
+  .fig svg{min-width:0 !important}
+  .layer{grid-template-columns:110px 1fr;padding:7px 0;break-inside:avoid}
+  .chips li{font-size:8.5pt;padding:1px 7px}
+  .tl-row{break-inside:avoid;padding-bottom:12px}
+  .contact-box{background:none;color:var(--ink);padding:14px;border:1px solid var(--rule-strong);border-radius:10px;break-inside:avoid}
+  .contact-box h2.sec{color:var(--ink);font-size:17pt}
+  .contact-box p{color:var(--ink-2);font-size:10.5pt;margin-bottom:10px}
+  .contact-box .eyebrow{color:var(--accent)}
+  .clinks{grid-template-columns:repeat(2,1fr);gap:6px}
+  .clinks a,.clinks button{background:none;border:1px solid var(--rule);padding:8px 10px}
+  .clinks .cl{color:var(--ink-3)} .clinks .cv{color:var(--ink);font-size:10.5pt}
+  a{text-decoration:none}
+}
 </style>
 </head>
 <body>
@@ -413,12 +501,12 @@ footer{padding:30px 0 44px}
   <div class="frame topbar-in">
     <a href="#top" class="wordmark"><i aria-hidden="true"></i>Hassan Murtada</a>
     <nav class="topnav" id="nav" aria-label="Sections">
-      <a href="#projects">Projects</a>
-      <a href="#lessons">Lessons</a>
-      <a href="#work">Earlier work</a>
-      <a href="#skills">Skills</a>
-      <a href="#journey">Journey</a>
-      <a href="#contact">Contact</a>
+      <a href="#projects" data-goatcounter-click="nav-projects" data-goatcounter-title="Menu: Projects">Projects</a>
+      <a href="#lessons" data-goatcounter-click="nav-lessons" data-goatcounter-title="Menu: Lessons">Lessons</a>
+      <a href="#work" data-goatcounter-click="nav-work" data-goatcounter-title="Menu: Earlier work">Earlier work</a>
+      <a href="#skills" data-goatcounter-click="nav-skills" data-goatcounter-title="Menu: Skills">Skills</a>
+      <a href="#journey" data-goatcounter-click="nav-journey" data-goatcounter-title="Menu: Journey">Journey</a>
+      <a href="#contact" data-goatcounter-click="nav-contact" data-goatcounter-title="Menu: Contact">Contact</a>
     </nav>
     <div class="tb-right">
       <button class="iconbtn" id="tt" type="button" aria-label="Switch colour theme" title="Switch theme">
@@ -439,8 +527,9 @@ footer{padding:30px 0 44px}
       <p class="hello">Hi, I'm <b>Hassan</b>. I write robot software.</p>
       <h1><span>Robotics</span><span>software,</span><span class="thin">sensor to wheel.</span></h1>
       <p class="sub">I write the code that sits between a robot's sensors and its motors: <b>perception</b>, <b>ROS&nbsp;2</b>, and the <b>embedded firmware</b> underneath. Most recently I worked on an Autoware stack that drove <b>full-size vehicles on real roads</b>.</p>
+      <p class="print-only print-contact">hassann.abdallawork@gmail.com · +60 12-352 6362 · hassannmurtada.github.io/portfolio · Johor Bahru, Malaysia · Open to robotics and autonomy roles, graduating Feb 2027</p>
       <div class="btns">
-        <a class="btn primary" href="#projects">See my work <span class="arr">↓</span></a>
+        <a class="btn primary" href="#projects" data-goatcounter-click="click-hero-see-work" data-goatcounter-title="Hero: See my work">See my work <span class="arr">↓</span></a>
         <a class="btn" href="mailto:hassann.abdallawork@gmail.com" data-goatcounter-click="click-hero-email" data-goatcounter-title="Hero: Email me">Email me</a>
         <a class="btn" href="https://github.com/hassannmurtada" target="_blank" rel="noopener" data-goatcounter-click="click-hero-github" data-goatcounter-title="Hero: GitHub">GitHub ↗</a>
       </div>
@@ -485,7 +574,7 @@ footer{padding:30px 0 44px}
 <section class="frame band" id="projects" aria-labelledby="proj-h">
   <p class="eyebrow reveal">01 / Projects</p>
   <h2 class="sec reveal" id="proj-h">Two projects I'm proud of</h2>
-  <p class="sec-intro reveal">Each one in the same format: the challenge, what I built, and what came out of it. Open "the full story" if you want the details.</p>
+  <p class="sec-intro reveal">Each one in the same format: the challenge, what I built, and what came out of it. <span class="no-print">Open "the full story" if you want the details.</span></p>
 
   <article class="case reveal" id="autoware">
     <div class="case-top">
@@ -602,7 +691,7 @@ footer{padding:30px 0 44px}
 <section class="frame band" id="lessons" aria-labelledby="les-h">
   <p class="eyebrow reveal">02 / Lessons</p>
   <h2 class="sec reveal" id="les-h">Tiny errors, big consequences</h2>
-  <p class="sec-intro reveal">A LiDAR knows <b>where</b> things are but not <b>what</b> they are. A camera knows <b>what</b> but not <b>where</b>. Fusion glues them together, and the glue is a handful of calibration numbers. Try it: mount the camera slightly crooked and watch what happens to a pedestrian.</p>
+  <p class="sec-intro reveal">A LiDAR knows <b>where</b> things are but not <b>what</b> they are. A camera knows <b>what</b> but not <b>where</b>. Fusion glues them together, and the glue is a handful of calibration numbers. <span class="no-print">Try it: mount the camera slightly crooked and watch what happens to a pedestrian.</span></p>
 
   <div class="play reveal">
     <div class="play-vis">
@@ -799,6 +888,7 @@ footer{padding:30px 0 44px}
       <a href="https://www.linkedin.com/in/hassan-murtada-b68139266/" target="_blank" rel="noopener" data-goatcounter-click="click-contact-linkedin" data-goatcounter-title="Contact: LinkedIn"><span><span class="cl">LinkedIn</span><span class="cv">hassan-murtada</span></span><span class="go">↗</span></a>
       <a href="https://github.com/hassannmurtada" target="_blank" rel="noopener" data-goatcounter-click="click-contact-github" data-goatcounter-title="Contact: GitHub"><span><span class="cl">GitHub</span><span class="cv">hassannmurtada</span></span><span class="go">↗</span></a>
     </div>
+    <p class="mail-alt">Prefer your mail app? <a href="mailto:hassann.abdallawork@gmail.com?subject=Hello%20from%20your%20portfolio" data-goatcounter-click="click-contact-email-open" data-goatcounter-title="Contact: Opened mail app">Open a new email ↗</a></p>
   </div>
 </section>
 </main>
@@ -807,9 +897,10 @@ footer{padding:30px 0 44px}
   <div class="frame foot-in">
     <span>© <span id="yr">2026</span> Hassan Murtada</span>
     <span>Hand-built. No frameworks, no cookies, one fake LiDAR.</span>
-    <a href="#top">Back to top ↑</a>
+    <span class="foot-links"><button type="button" id="printbtn">Print / save as PDF</button><a href="#top">Back to top ↑</a></span>
   </div>
 </footer>
+<noscript><img src="https://hassannmurtada.goatcounter.com/count?p=/portfolio/&amp;t=Visit%20without%20JavaScript" alt="" width="1" height="1"></noscript>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <dialog class="lb" id="lb" aria-label="Image viewer">
   <figure class="lb-fig">
@@ -827,7 +918,7 @@ footer{padding:30px 0 44px}
 (function(){
   var root = document.documentElement;
   /* GoatCounter events: each fires at most once per page view so the numbers mean "visitors who did X" */
-  var sent = {};
+  var sent = {}, printing = false;
   function track(name, title){
     if (sent[name]) return; sent[name] = true;
     (function go(n){
@@ -836,12 +927,40 @@ footer{padding:30px 0 44px}
     })(0);
   }
   document.querySelectorAll('details[data-ev]').forEach(function(d){
-    d.addEventListener('toggle', function(){ if (d.open) track(d.getAttribute('data-ev'), 'Opened: ' + d.getAttribute('data-ev').replace(/^open-/, '').replace(/-/g, ' ')); });
+    d.addEventListener('toggle', function(){ if (d.open && !printing) track(d.getAttribute('data-ev'), 'Opened: ' + d.getAttribute('data-ev').replace(/^open-/, '').replace(/-/g, ' ')); });
   });
+  /* scroll funnel: fires when a section's top edge enters the upper 70% of the screen.
+     (A share-of-section threshold never triggers for sections taller than the screen, which is every phone.) */
   if ('IntersectionObserver' in window){
-    var seen = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ track('reached-' + e.target.id, 'Scrolled to: ' + e.target.id); seen.unobserve(e.target); } }); }, { threshold: 0.25 });
-    ['projects','lessons','contact'].forEach(function(id){ var el = document.getElementById(id); if (el) seen.observe(el); });
+    var seen = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ track('reached-' + e.target.id, 'Scrolled to: ' + e.target.id); seen.unobserve(e.target); } }); }, { rootMargin: '0px 0px -30% 0px', threshold: 0 });
+    ['projects','lessons','work','skills','journey','contact'].forEach(function(id){ var el = document.getElementById(id); if (el) seen.observe(el); });
   }
+  /* engagement: seconds the tab was actually visible, reported at 30 s, 1 min and 3 min */
+  (function(){
+    var secs = 0, marks = [[30, 'engaged-30s', 'Stayed 30 seconds'], [60, 'engaged-1min', 'Stayed 1 minute'], [180, 'engaged-3min', 'Stayed 3 minutes']];
+    var iv = setInterval(function(){
+      if (document.visibilityState && document.visibilityState !== 'visible') return;
+      secs++;
+      while (marks.length && secs >= marks[0][0]){ var m = marks.shift(); track(m[1], m[2]); }
+      if (!marks.length) clearInterval(iv);
+    }, 1000);
+  })();
+  /* any external link that has no explicit event name still gets counted */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest ? e.target.closest('a[href^="http"]') : null;
+    if (!a || a.hasAttribute('data-goatcounter-click') || a.hostname === location.hostname) return;
+    track('click-out-' + a.hostname.replace(/^www\./, '') + a.pathname.replace(/\/$/, ''), 'Outbound: ' + a.href);
+  });
+  /* printing: open every "full story" so the paper version is complete, then restore */
+  (function(){
+    var opened = [];
+    window.addEventListener('beforeprint', function(){
+      printing = true; track('printed-page', 'Printed or saved as PDF');
+      document.querySelectorAll('details').forEach(function(d){ if (!d.open){ d.open = true; opened.push(d); } });
+    });
+    window.addEventListener('afterprint', function(){ opened.forEach(function(d){ d.open = false; }); opened = []; setTimeout(function(){ printing = false; }, 0); });
+    var pb = document.getElementById('printbtn'); if (pb) pb.addEventListener('click', function(){ window.print(); });
+  })();
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -907,7 +1026,10 @@ footer{padding:30px 0 44px}
     var userPaused = reduce;
     function sync(){ t.textContent = v.paused ? '▶ Play' : '❚❚ Pause'; fig.classList.toggle('paused', v.paused); }
     v.addEventListener('play', sync); v.addEventListener('pause', sync); sync();
-    v.addEventListener('timeupdate', function(){ if (v.currentTime > 8) track('watched-onroad-video', 'Watched on-road video (8s+)'); });
+    v.addEventListener('timeupdate', function(){
+      if (v.currentTime > 8) track('watched-onroad-video', 'Watched on-road video (8s+)');
+      if (v.duration && v.currentTime > v.duration - 1.5) track('finished-onroad-video', 'Watched on-road video to the end');
+    });
     t.addEventListener('click', function(){ if (v.paused){ userPaused = false; v.play().catch(function(){}); } else { userPaused = true; v.pause(); } });
     if ('IntersectionObserver' in window){
       new IntersectionObserver(function(es){ es.forEach(function(e){
